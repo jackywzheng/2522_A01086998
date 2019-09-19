@@ -7,14 +7,14 @@ public class Hare {
 
     public int move() {
         Random rand = new Random();
-        int rand_int = rand.nextInt(10);
-        if (rand_int < 2) {
+        int randInt = rand.nextInt(10);
+        if (randInt < 2) {
             return position;
-        } else if (rand_int == 2) {
+        } else if (randInt == 2) {
             position += 9;
-        } else if (rand_int == 3) {
+        } else if (randInt == 3) {
             position -= 12;
-        } else if (rand_int < 7){
+        } else if (randInt < 7) {
             position += 1;
         } else {
             position -= 2;
@@ -30,12 +30,13 @@ public class Hare {
         position = newPosition;
     }
 
-    @Override
-    public String toString() {
-        return "Hare{}";
-    }
-
-    public Hare () {
+    public Hare() {
         position = 0;
     }
+
+    @Override
+    public String toString() {
+        return "Hare{" + "position=" + position + '}';
+    }
+
 }

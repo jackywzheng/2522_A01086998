@@ -7,10 +7,10 @@ public class Tortoise {
 
     public int move() {
         Random rand = new Random();
-        int rand_int = rand.nextInt(10);
-        if (rand_int < 5) {
+        int randInt = rand.nextInt(10);
+        if (randInt < 5) {
             position += 3;
-        } else if (rand_int < 7) {
+        } else if (randInt < 7) {
             position -=  6;
         } else {
             position += 1;
@@ -26,12 +26,12 @@ public class Tortoise {
         position = newPosition;
     }
 
-    @Override
-    public String toString() {
-        return "Tortoise{}";
-    }
-
     public Tortoise() {
         position = 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Tortoise{" + "position=" + position + '}';
     }
 }
