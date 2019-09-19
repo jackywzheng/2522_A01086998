@@ -3,7 +3,7 @@ package ca.bcit.comp2522.labs.lab02;
 import java.util.Random;
 
 public class Tortoise {
-    private static int position = 0;
+    private int position;
 
     public int move() {
         Random rand = new Random();
@@ -18,12 +18,12 @@ public class Tortoise {
         return position;
     }
 
-    public static int getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public static void setPosition(int newPosition) {
-        Tortoise.position = newPosition;
+    public void setPosition(int newPosition) {
+        position = newPosition;
     }
 
     @Override
@@ -32,6 +32,6 @@ public class Tortoise {
     }
 
     public Tortoise() {
-
+        position = 0;
     }
 }

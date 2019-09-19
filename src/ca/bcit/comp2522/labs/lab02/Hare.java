@@ -3,7 +3,7 @@ package ca.bcit.comp2522.labs.lab02;
 import java.util.Random;
 
 public class Hare {
-    private static int position = 0;
+    private static int position;
 
     public int move() {
         Random rand = new Random();
@@ -22,11 +22,11 @@ public class Hare {
         return position;
     }
 
-    public static int getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public static void setPosition(int newPosition) {
+    public void setPosition(int newPosition) {
         position = newPosition;
     }
 
@@ -36,6 +36,6 @@ public class Hare {
     }
 
     public Hare () {
-
+        position = 0;
     }
 }
