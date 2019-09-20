@@ -20,6 +20,14 @@ public class Race {
         tortoise.setPosition(0);
     }
 
+    public int getHarePosition() {
+        return hare.getPosition();
+    }
+
+    public int getTortoisePosition() {
+        return tortoise.getPosition();
+    }
+
     public Object simulateRace() {
         reset();
         return race();
@@ -37,26 +45,21 @@ public class Race {
             int randInt = rand.nextInt(2);
             if (randInt == 0) {
                 tortoise.move();
-                if (tortoise.getPosition() >= length) {
-                    winner = tortoise;
-                    }
-                hare.move();
-                if (hare.getPosition() >= length) {
-                    winner = hare;
-                    }
+                if (tortoise.getPosition() < length) {
+                    hare.move();
+                }
             } else {
                 hare.move();
-                if (hare.getPosition() >= length) {
-                    winner = hare;
-                }
-                tortoise.move();
-                if (tortoise.getPosition() >= length) {
-                    winner = tortoise;
+                if (hare.getPosition() < length) {
+                    tortoise.move();
                 }
             }
         } while (hare.getPosition() < length
                 && tortoise.getPosition() < length);
-        return winner;
+        if (hare.getPosition() >= length) {
+            return hare;
+        } else {
+            return tortoise;
+        }
     }
-
 }
