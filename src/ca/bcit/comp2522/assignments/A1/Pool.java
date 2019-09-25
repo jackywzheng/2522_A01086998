@@ -74,5 +74,56 @@ public class Pool {
         identificationNumber = ++identificationNumber;
     }
 
+    // Getters
+    public String getName() {
+        return name;
+    }
+
+    public double getVolumeLitres() {
+        return volumeLitres;
+    }
+
+    public double getTemperatureCelsius() {
+        return temperatureCelsius;
+    }
+
+    public double getpH() {
+        return pH;
+    }
+
+    public double getNutrientCoefficient() {
+        return nutrientCoefficient;
+    }
+
+    public int getIdentificationNumber() {
+        return identificationNumber;
+    }
+
+    // Setters
+    public void setVolumeLitres(double volumeLitres) {
+        if (volumeLitres >= MINIMUM_POOL_TEMP_CELSIUS) {
+            this.volumeLitres = volumeLitres;
+        }
+    }
+
+    public void setTemperatureCelsius(double temperatureCelsius) {
+        if (temperatureCelsius >= MINIMUM_POOL_TEMP_CELSIUS
+                && temperatureCelsius <= MAXIMUM_POOL_TEMP_CELSIUS) {
+            this.temperatureCelsius = temperatureCelsius;
+        }
+    }
+
+    public void setpH(double pH) {
+        if (pH >= (NEUTRAL_PH - NEUTRAL_PH) && pH <= (NEUTRAL_PH + NEUTRAL_PH)){
+            this.pH = pH;
+        }
+    }
+
+    public void setNutrientCoefficient(double nutrientCoefficient) {
+        if (nutrientCoefficient >= MINIMUM_NUTRIENT_COEFFICIENT
+                && nutrientCoefficient <= MAXIMUM_NUTRIENT_COEFFICIENT) {
+            this.nutrientCoefficient = nutrientCoefficient;
+        }
+    }
 
 }
