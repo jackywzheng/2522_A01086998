@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.assignments.A1;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class Pool {
@@ -72,6 +73,8 @@ public class Pool {
         randomNumberGenerator = new Random();
 
         identificationNumber = ++identificationNumber;
+
+        numberOfPools++;
     }
 
     // Getters
@@ -99,31 +102,150 @@ public class Pool {
         return identificationNumber;
     }
 
+    public static int getNumberCreated() {
+        return numberOfPools;
+    }
+
+    public int getPopulation() {
+        return guppiesInPool.size();
+    }
     // Setters
-    public void setVolumeLitres(double volumeLitres) {
-        if (volumeLitres >= MINIMUM_POOL_TEMP_CELSIUS) {
-            this.volumeLitres = volumeLitres;
+    public void setVolumeLitres(double newVolumeLitres) {
+        if (newVolumeLitres >= MINIMUM_POOL_TEMP_CELSIUS) {
+            volumeLitres = newVolumeLitres;
         }
     }
 
-    public void setTemperatureCelsius(double temperatureCelsius) {
-        if (temperatureCelsius >= MINIMUM_POOL_TEMP_CELSIUS
-                && temperatureCelsius <= MAXIMUM_POOL_TEMP_CELSIUS) {
-            this.temperatureCelsius = temperatureCelsius;
+    public void setTemperatureCelsius(double newTemperatureCelsius) {
+        if (newTemperatureCelsius >= MINIMUM_POOL_TEMP_CELSIUS
+                && newTemperatureCelsius <= MAXIMUM_POOL_TEMP_CELSIUS) {
+            temperatureCelsius = newTemperatureCelsius;
         }
     }
 
-    public void setpH(double pH) {
-        if (pH >= (NEUTRAL_PH - NEUTRAL_PH) && pH <= (NEUTRAL_PH + NEUTRAL_PH)){
-            this.pH = pH;
+    public void setpH(double newpH) {
+        if (newpH >= (NEUTRAL_PH - NEUTRAL_PH)
+                && newpH <= (NEUTRAL_PH + NEUTRAL_PH)){
+            pH = newpH;
         }
     }
 
-    public void setNutrientCoefficient(double nutrientCoefficient) {
-        if (nutrientCoefficient >= MINIMUM_NUTRIENT_COEFFICIENT
-                && nutrientCoefficient <= MAXIMUM_NUTRIENT_COEFFICIENT) {
-            this.nutrientCoefficient = nutrientCoefficient;
+    public void setNutrientCoefficient(double newNutrientCoefficient) {
+        if (newNutrientCoefficient >= MINIMUM_NUTRIENT_COEFFICIENT
+                && newNutrientCoefficient <= MAXIMUM_NUTRIENT_COEFFICIENT) {
+            nutrientCoefficient = newNutrientCoefficient;
         }
     }
+
+    public void changeNutrientCoefficient(double delta) {
+        double newNutrientCoefficient = this.nutrientCoefficient + delta;
+        if (newNutrientCoefficient < MINIMUM_NUTRIENT_COEFFICIENT) {
+            setNutrientCoefficient(MINIMUM_NUTRIENT_COEFFICIENT);
+        } else if (newNutrientCoefficient > MAXIMUM_NUTRIENT_COEFFICIENT) {
+            setNutrientCoefficient(MAXIMUM_NUTRIENT_COEFFICIENT);
+        } else {
+            setNutrientCoefficient(newNutrientCoefficient);
+        }
+    }
+
+    public void changeTemperature(double delta) {
+        double newTemperature = this.temperatureCelsius + delta;
+        if (newTemperature < MINIMUM_POOL_TEMP_CELSIUS) {
+            setTemperatureCelsius(MINIMUM_POOL_TEMP_CELSIUS);
+        } else if (newTemperature > MAXIMUM_POOL_TEMP_CELSIUS) {
+            setTemperatureCelsius(MAXIMUM_POOL_TEMP_CELSIUS);
+        } else {
+            setTemperatureCelsius(newTemperature);
+        }
+    }
+
+    public boolean addGuppy(Guppy guppy) {
+        if (guppy != null) {
+            guppiesInPool.add(guppy);
+        }
+        return false;
+    }
+
+    public int applyNutrientCoefficient() {
+        int numberOfGuppyDeaths = 0;
+        Iterator<Guppy> it = guppiesInPool.iterator();
+        while (it.hasNext()) {
+            if (randomNumberGenerator.nextDouble()
+                    > nutrientCoefficient) {
+                Guppy guppy = it.next();
+                guppy.setIsAlive(false);
+                numberOfGuppyDeaths++;
+            }
+        }
+        return numberOfGuppyDeaths;
+    }
+
+    public int removeDeadGuppies() {
+        int numberOfDeadGuppiesRemoved = 0;
+        Iterator<Guppy> it = guppiesInPool.iterator();
+        while (it.hasNext()) {
+            Guppy guppy = it.next();
+            if (!guppy.getIsAlive())
+                guppiesInPool.remove(guppy);
+            numberOfDeadGuppiesRemoved++;
+            }
+        return numberOfDeadGuppiesRemoved;
+        }
+
+    public double getGuppyVolumeRequirementInLitres() {
+        double volumeRequiredInMilliLitres = 0.0;
+        int MilliLitresToLitresConversion = 1000;
+        Iterator<Guppy> it = guppiesInPool.iterator();
+        while (it.hasNext()) {
+            Guppy guppy = it.next();
+            volumeRequiredInMilliLitres += guppy.getVolumeNeeded();
+        }
+        return volumeRequiredInMilliLitres * MilliLitresToLitresConversion;
+    }
+
+    public double getAverageAgeInWeeks() {
+        int sumOfGuppyAges = 0;
+        int numberOfLivingGuppies = 0;
+        Iterator<Guppy> it = guppiesInPool.iterator();
+        while (it.hasNext()) {
+            Guppy guppy = it.next();
+            if (guppy.getIsAlive()) {
+                sumOfGuppyAges += guppy.getAgeInWeeks();
+                numberOfLivingGuppies++;
+            }
+        }
+        return (double)sumOfGuppyAges / (double)numberOfLivingGuppies;
+    }
+
+    public double getAverageHealthCoefficient() {
+        double sumOfGuppyHealthCoefficients = 0;
+        int numberOfLivingGuppies = 0;
+        Iterator<Guppy> it = guppiesInPool.iterator();
+        while (it.hasNext()) {
+            Guppy guppy = it.next();
+            if (guppy.getIsAlive()) {
+                sumOfGuppyHealthCoefficients += guppy.getHealthCoefficient();
+                numberOfLivingGuppies++;
+            }
+        }
+        return sumOfGuppyHealthCoefficients / (double)numberOfLivingGuppies;
+    }
+
+    public double getFemalePercentage() {
+        int numberOfFemales = 0;
+        int numberOfLivingGuppies = 0;
+        Iterator<Guppy> it = guppiesInPool.iterator();
+        while (it.hasNext()) {
+            Guppy guppy = it.next();
+            if (guppy.getIsAlive()) {
+                numberOfLivingGuppies++;
+            }
+            if (guppy.getIsFemale()) {
+                numberOfFemales++;
+            }
+        }
+        return (double)numberOfFemales / (double)numberOfLivingGuppies;
+    }
+
 
 }
