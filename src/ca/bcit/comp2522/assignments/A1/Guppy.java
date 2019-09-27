@@ -60,7 +60,7 @@ public class Guppy {
     /**
      * The number of guppies born.
      */
-    private static int numberOfGuppiesBorn = 0;
+    private static int numberOfGuppiesBorn;
 
     /**
      * Genus of this guppy.
@@ -137,8 +137,8 @@ public class Guppy {
             this.genus = DEFAULT_GENUS;
         } else {
             newGenus = newGenus.trim();
-            this.genus = newGenus.substring(0,1).toUpperCase() +
-                    newGenus.substring(1).toLowerCase();
+            this.genus = newGenus.substring(0, 1).toUpperCase()
+                    + newGenus.substring(1).toLowerCase();
         }
 
         if (newSpecies == null || newSpecies.trim().isEmpty()) {
@@ -180,7 +180,7 @@ public class Guppy {
      * Increments the guppy's age in weeks by 1, and sets isAlive to false if
      * age in weeks exceeds the maximum age in weeks.
      */
-    public void incrementAge () {
+    public void incrementAge() {
         this.ageInWeeks += 1;
         if (this.ageInWeeks > MAXIMUM_AGE_IN_WEEKS) {
             this.isAlive = false;
@@ -277,8 +277,8 @@ public class Guppy {
         if (this.ageInWeeks < 10) {
             return MINIMUM_WATER_VOLUME_ML;
         } else if (this.ageInWeeks <= 30) {
-            return MINIMUM_WATER_VOLUME_ML * ageInWeeks /
-                    YOUNG_FISH_AGE_IN_WEEKS;
+            return MINIMUM_WATER_VOLUME_ML * ageInWeeks
+                    / YOUNG_FISH_AGE_IN_WEEKS;
         } else if (this.ageInWeeks <= 50) {
             return MINIMUM_WATER_VOLUME_ML * 1.5;
         } else {
@@ -312,8 +312,8 @@ public class Guppy {
      * @param healthCoefficient a double representing the health coefficient
      */
     public void setHealthCoefficient(double healthCoefficient) {
-        if (healthCoefficient >= MINIMUM_HEALTH_COEFFICIENT &&
-                healthCoefficient <= MAXIMUM_HEALTH_COEFFICIENT) {
+        if (healthCoefficient >= MINIMUM_HEALTH_COEFFICIENT
+                && healthCoefficient <= MAXIMUM_HEALTH_COEFFICIENT) {
             this.healthCoefficient = healthCoefficient;
         }
     }
@@ -374,16 +374,16 @@ public class Guppy {
      */
     @Override
     public String toString() {
-        return "Guppy{" +
-                "genus='" + genus + '\'' +
-                ", species='" + species + '\'' +
-                ", ageInWeeks=" + ageInWeeks +
-                ", isFemale=" + isFemale +
-                ", generationNumber=" + generationNumber +
-                ", isAlive=" + isAlive +
-                ", healthCoefficient=" + healthCoefficient +
-                ", identificationNumber=" + identificationNumber +
-                '}';
+        return "Guppy{"
+                + "genus='" + genus + '\''
+                + ", species='" + species + '\''
+                + ", ageInWeeks=" + ageInWeeks
+                + ", isFemale=" + isFemale
+                + ", generationNumber=" + generationNumber
+                + ", isAlive=" + isAlive
+                + ", healthCoefficient=" + healthCoefficient
+                + ", identificationNumber=" + identificationNumber
+                + '}';
     }
 
     /**
@@ -394,19 +394,21 @@ public class Guppy {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Guppy)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Guppy)) {
+            return false;
+        }
         Guppy guppy = (Guppy) o;
-        return ageInWeeks == guppy.ageInWeeks &&
-                isFemale == guppy.isFemale &&
-                generationNumber == guppy.generationNumber &&
-                isAlive == guppy.isAlive &&
-                Double.compare(
-                        guppy.healthCoefficient, healthCoefficient) == 0 &&
-                identificationNumber == guppy.identificationNumber &&
-                genus.equals(guppy.genus) &&
-                species.equals(guppy.species);
+        return ageInWeeks == guppy.ageInWeeks
+                && isFemale == guppy.isFemale
+                && generationNumber == guppy.generationNumber
+                && isAlive == guppy.isAlive
+                && Double.compare(
+                        guppy.healthCoefficient, healthCoefficient) == 0
+                && identificationNumber == guppy.identificationNumber
+                && genus.equals(guppy.genus)
+                && species.equals(guppy.species);
     }
-
-
 }

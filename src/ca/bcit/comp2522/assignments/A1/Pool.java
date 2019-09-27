@@ -14,7 +14,7 @@ public class Pool {
     public static final double MINIMUM_NUTRIENT_COEFFICIENT = 0.0;
     public static final double MAXIMUM_NUTRIENT_COEFFICIENT = 1.0;
 
-    private static int numberOfPools = 0;
+    private static int numberOfPools;
 
     private String name;
     private double volumeLitres;
@@ -26,7 +26,9 @@ public class Pool {
     private Random randomNumberGenerator;
 
     public Pool() {
-
+        this(DEFAULT_POOL_NAME, MINIMUM_NUTRIENT_COEFFICIENT,
+                DEFAULT_POOL_TEMP_CELSIUS, NEUTRAL_PH,
+                DEFAULT_NUTRIENT_COEFFICIENT);
     }
 
     public Pool(String newName, final double newVolumeLitres,
@@ -125,7 +127,7 @@ public class Pool {
 
     public void setpH(double newpH) {
         if (newpH >= (NEUTRAL_PH - NEUTRAL_PH)
-                && newpH <= (NEUTRAL_PH + NEUTRAL_PH)){
+                && newpH <= (NEUTRAL_PH + NEUTRAL_PH)) {
             pH = newpH;
         }
     }
@@ -185,8 +187,9 @@ public class Pool {
         Iterator<Guppy> it = guppiesInPool.iterator();
         while (it.hasNext()) {
             Guppy guppy = it.next();
-            if (!guppy.getIsAlive())
+            if (!guppy.getIsAlive()) {
                 guppiesInPool.remove(guppy);
+            }
             numberOfDeadGuppiesRemoved++;
             }
         return numberOfDeadGuppiesRemoved;
@@ -194,13 +197,13 @@ public class Pool {
 
     public double getGuppyVolumeRequirementInLitres() {
         double volumeRequiredInMilliLitres = 0.0;
-        int MilliLitresToLitresConversion = 1000;
+        int milliLitresToLitresConversion = 1000;
         Iterator<Guppy> it = guppiesInPool.iterator();
         while (it.hasNext()) {
             Guppy guppy = it.next();
             volumeRequiredInMilliLitres += guppy.getVolumeNeeded();
         }
-        return volumeRequiredInMilliLitres * MilliLitresToLitresConversion;
+        return volumeRequiredInMilliLitres / milliLitresToLitresConversion;
     }
 
     public double getAverageAgeInWeeks() {
@@ -214,7 +217,7 @@ public class Pool {
                 numberOfLivingGuppies++;
             }
         }
-        return (double)sumOfGuppyAges / (double)numberOfLivingGuppies;
+        return (double) sumOfGuppyAges / (double) numberOfLivingGuppies;
     }
 
     public double getAverageHealthCoefficient() {
@@ -228,7 +231,7 @@ public class Pool {
                 numberOfLivingGuppies++;
             }
         }
-        return sumOfGuppyHealthCoefficients / (double)numberOfLivingGuppies;
+        return sumOfGuppyHealthCoefficients / (double) numberOfLivingGuppies;
     }
 
     public double getFemalePercentage() {
@@ -244,7 +247,7 @@ public class Pool {
                 numberOfFemales++;
             }
         }
-        return (double)numberOfFemales / (double)numberOfLivingGuppies;
+        return (double) numberOfFemales / (double) numberOfLivingGuppies;
     }
 
 
