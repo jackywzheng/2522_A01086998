@@ -6,8 +6,9 @@ public class Driver {
         for (int i = 0; i < 10; i++) {
             lotuslandLumber.seed();
         }
+        lotuslandLumber.tabulate();
         System.out.println(lotuslandLumber.size() + " trees planted.");
         System.out.println(lotuslandLumber.harvest(
-                80).size() + " trees harvested");
+                80).size() + " trees harvested.");
     }
 }

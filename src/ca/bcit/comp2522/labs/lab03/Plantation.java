@@ -54,4 +54,28 @@ public class Plantation {
         }
         return harvestedTrees;
     }
+
+    public ArrayList<Tree> tabulate() {
+        ArrayList<Tree> sortedTrees = new ArrayList<>();
+        Iterator<Tree> it = trees.iterator();
+        int tracker = 0;
+        while (it.hasNext()) {
+            Tree tree = it.next();
+            if (tree.getType() == Tree.Species.MAPLE) {
+                sortedTrees.add(0, tree);
+                tracker++;
+            } else if (tree.getType() == Tree.Species.ARBUTUS) {
+                sortedTrees.add(tracker, tree);
+            } else {
+                sortedTrees.add(tree);
+            }
+        }
+        // Test
+        Iterator<Tree> it2 = sortedTrees.iterator();
+        while (it2.hasNext()) {
+            Tree tree = it2.next();
+            System.out.println(tree.getType());
+        }
+        return sortedTrees;
+    }
 }
