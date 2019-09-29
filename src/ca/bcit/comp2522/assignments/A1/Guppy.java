@@ -335,17 +335,29 @@ public class Guppy {
         }
     }
 
+    /**
+     * Spawns a school of fry.
+     *
+     * Only females 8 weeks or older can have babies.
+     * There is a 50% chance of spawning between 0 and 100 fry. Each fry
+     * inherits the genus and species of its mother and has a 50%
+     * chance of being female. The fry's health coefficient is determined by
+     * (1.0 + mother's health quotient) / 2.0. The generation number is 1
+     * higher than the mother's generation number.
+     *
+     * @return babyGuppies an ArrayList of Guppy's if they spawned, else null
+     */
     public ArrayList<Guppy> spawn() {
         if (this.isFemale && this.ageInWeeks >= 8) {
             ArrayList<Guppy> babyGuppies = new ArrayList<>();
             Random rand = new Random();
-            int haveBabiesChance = rand.nextInt(2);
-            if (haveBabiesChance == 1) {
+            double haveBabiesChance = rand.nextDouble();
+            if (haveBabiesChance < 0.25) {
                 int numberOfBabies = rand.nextInt(101);
                 boolean isAFemale;
                 for (int i = 0; i < numberOfBabies; i++) {
-                    int isFemaleChance = rand.nextInt(2);
-                    if (isFemaleChance == 1) {
+                    double isFemaleChance = rand.nextDouble();
+                    if (isFemaleChance < 0.50) {
                         isAFemale = true;
                     } else {
                         isAFemale = false;
@@ -358,7 +370,7 @@ public class Guppy {
                                     + this.generationNumber,
                             (MAXIMUM_HEALTH_COEFFICIENT
                                     + this.healthCoefficient)
-                                    / (BABY_HEALTH_COEFFICIENT_DIVISOR));
+                                    / BABY_HEALTH_COEFFICIENT_DIVISOR);
                     babyGuppies.add(baby);
                 }
             }
