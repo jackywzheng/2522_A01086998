@@ -274,12 +274,12 @@ public class Guppy {
      * @return water volume needed in mL as a double.
      */
     public double getVolumeNeeded() {
-        if (this.ageInWeeks < 10) {
+        if (this.ageInWeeks < YOUNG_FISH_AGE_IN_WEEKS) {
             return MINIMUM_WATER_VOLUME_ML;
-        } else if (this.ageInWeeks <= 30) {
+        } else if (this.ageInWeeks <= MATURE_FISH_AGE_IN_WEEKS) {
             return MINIMUM_WATER_VOLUME_ML * ageInWeeks
                     / YOUNG_FISH_AGE_IN_WEEKS;
-        } else if (this.ageInWeeks <= 50) {
+        } else if (this.ageInWeeks <= MAXIMUM_AGE_IN_WEEKS) {
             return MINIMUM_WATER_VOLUME_ML * 1.5;
         } else {
             return 0.0;
@@ -335,8 +335,8 @@ public class Guppy {
     }
 
     public ArrayList<Guppy> spawn() {
-        ArrayList<Guppy> babyGuppies = new ArrayList<>();
         if (this.isFemale && this.ageInWeeks >= 8) {
+            ArrayList<Guppy> babyGuppies = new ArrayList<>();
             Random rand = new Random();
             int haveBabiesChance = rand.nextInt(2);
             if (haveBabiesChance == 1) {
@@ -361,10 +361,10 @@ public class Guppy {
                     babyGuppies.add(baby);
                 }
             }
+            return babyGuppies;
         } else {
             return null;
         }
-        return babyGuppies;
     }
 
     /**
