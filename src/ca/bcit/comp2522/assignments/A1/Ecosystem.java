@@ -3,23 +3,45 @@ package ca.bcit.comp2522.assignments.A1;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Ecosystem.
+ *
+ * @author Jacky Zheng
+ * @version 1.0
+ */
 public class Ecosystem {
     private ArrayList<Pool> pools;
 
+    /**
+     * Zero-parameter constructor for objects of class Ecosystem.
+     */
     public Ecosystem() {
         pools = new ArrayList<Pool>();
     }
 
+    /**
+     * Adds an object of Pool class to Ecosystem.
+     *
+     * @param newPool a Pool object
+     */
     public void addPool(Pool newPool) {
         if (newPool != null) {
             pools.add(newPool);
         }
     }
 
+    /**
+     * Resets the Ecosystem.
+     */
     public void reset() {
         pools.clear();
     }
 
+    /**
+     * Returns the total Guppy population in all of the Pools in the Ecosystem.
+     *
+     * @return guppyPopulation as an int
+     */
     public int getGuppyPopulation() {
         int guppyPopulation = 0;
         for (Pool pool: pools) {
@@ -28,14 +50,23 @@ public class Ecosystem {
         return guppyPopulation;
     }
 
+    /**
+     * Calls the Pool adjustForCrowding method on each Pool and returns the
+     * number of Guppies that died of overcrowding.
+     *
+     * @return numberOfGuppiesDiedOfCrowding as an int
+     */
     public int adjustForCrowding() {
-        int guppiesRemoved = 0;
+        int numberOfGuppiesDiedOfCrowding = 0;
         for (Pool pool: pools) {
-            guppiesRemoved += pool.adjustForCrowding();
+            numberOfGuppiesDiedOfCrowding += pool.adjustForCrowding();
         }
-        return guppiesRemoved;
+        return numberOfGuppiesDiedOfCrowding;
     }
 
+    /**
+     * Sets up the Ecosystem with predetermined values.
+     */
     public void setupSimulation() {
         Pool Skookumchuk = new Pool(
                 "Skookumcuk",
@@ -108,13 +139,24 @@ public class Ecosystem {
         addPool(Semiahmoo);
     }
 
+    /**
+     * Calls simulateOneWeek() method for however many weeks. Ignores negative
+     * values.
+     *
+     * @param numberOfWeeks the number of weeks to simulate as an int
+     */
     public void simulate(int numberOfWeeks) {
-        for (int i = 0; i < numberOfWeeks; i++) {
-            System.out.println("It is week: " + i);
-            simulateOneWeek();
+        if (numberOfWeeks > 0) {
+            for (int i = 1; i <= numberOfWeeks; i++) {
+                System.out.println("It is week: " + i);
+                simulateOneWeek();
+            }
         }
     }
 
+    /**
+     * Simulates one week.
+     */
     public void simulateOneWeek() {
         int diedOfOldAge = 0;
         int numberRemoved = 0;
@@ -129,15 +171,22 @@ public class Ecosystem {
             newFry += pool.spawn();
             crowdedOut += pool.adjustForCrowding();
             numberRemoved += pool.removeDeadGuppies();
+            if ((diedOfOldAge + starvedToDeath + crowdedOut) != numberRemoved) {
+                System.out.println("Logic error!");
+            }
         }
         System.out.println(diedOfOldAge + " guppies died to old age.");
         System.out.println(starvedToDeath + " guppies died to starvation.");
         System.out.println(crowdedOut + " guppies died to overcrowding.");
         System.out.println(newFry + " new fry were born.");
-        System.out.println(pools.get(0).getName() + "'s current population is: " + pools.get(0).getPopulation());
-        System.out.println(pools.get(1).getName() + "'s current population is: " + pools.get(1).getPopulation());
-        System.out.println(pools.get(2).getName() + "'s current population is: " + pools.get(2).getPopulation());
-        System.out.println("The total population of the ecosystem is: " + getGuppyPopulation());
+        System.out.println(pools.get(0).getName() + "'s current population is: "
+                + pools.get(0).getPopulation());
+        System.out.println(pools.get(1).getName() + "'s current population is: "
+                + pools.get(1).getPopulation());
+        System.out.println(pools.get(2).getName() + "'s current population is: "
+                + pools.get(2).getPopulation());
+        System.out.println("The total population of the ecosystem is: "
+                + getGuppyPopulation());
         System.out.println("=================================================");
     }
 }
