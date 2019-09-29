@@ -172,8 +172,9 @@ public class Guppy {
 
         this.isAlive = true;
 
-        numberOfGuppiesBorn += 1;
         this.identificationNumber = numberOfGuppiesBorn;
+
+        numberOfGuppiesBorn++;
     }
 
     /**
