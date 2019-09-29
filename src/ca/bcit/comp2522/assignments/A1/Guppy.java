@@ -341,7 +341,7 @@ public class Guppy {
             Random rand = new Random();
             int haveBabiesChance = rand.nextInt(2);
             if (haveBabiesChance == 1) {
-                int numberOfBabies = rand.nextInt(100);
+                int numberOfBabies = rand.nextInt(101);
                 boolean isAFemale;
                 for (int i = 0; i < numberOfBabies; i++) {
                     int isFemaleChance = rand.nextInt(2);

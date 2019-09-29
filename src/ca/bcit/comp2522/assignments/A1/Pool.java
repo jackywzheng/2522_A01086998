@@ -174,9 +174,9 @@ public class Pool {
         int numberOfGuppyDeaths = 0;
         Iterator<Guppy> it = guppiesInPool.iterator();
         while (it.hasNext()) {
+            Guppy guppy = it.next();
             if (randomNumberGenerator.nextDouble()
                     > nutrientCoefficient) {
-                Guppy guppy = it.next();
                 guppy.setIsAlive(false);
                 numberOfGuppyDeaths++;
             }
@@ -190,7 +190,7 @@ public class Pool {
         while (it.hasNext()) {
             Guppy guppy = it.next();
             if (!guppy.getIsAlive()) {
-                guppiesInPool.remove(guppy);
+                it.remove();
                 numberOfDeadGuppiesRemoved++;
             }
             }
@@ -312,17 +312,19 @@ public class Pool {
 
     public int spawn() {
         int guppiesAdded = 0;
+        ArrayList<Guppy> newBabies = new ArrayList<>();
         Iterator<Guppy> it = guppiesInPool.iterator();
         while (it.hasNext()) {
             Guppy guppy = it.next();
             if (guppy.getIsAlive()) {
-                ArrayList<Guppy> newBabies = guppy.spawn();
-                if (newBabies != null) {
-                    guppiesAdded += newBabies.size();
-                    guppiesInPool.addAll(newBabies);
+                ArrayList<Guppy> newFry = guppy.spawn();
+                if (newFry != null) {
+                    guppiesAdded += newFry.size();
+                    newBabies.addAll(newFry);
                 }
             }
         }
+        guppiesInPool.addAll(newBabies);
         return guppiesAdded;
     }
 
@@ -342,15 +344,16 @@ public class Pool {
 
     public int adjustForCrowding() {
         int numberOfGuppiesDiedOfCrowding = 0;
-        while (getGuppyVolumeRequirementInLitres() > volumeLitres) {
+        double guppyVolumeRequirement = getGuppyVolumeRequirementInLitres();
+        while (guppyVolumeRequirement > volumeLitres) {
             Iterator<Guppy> it = guppiesInPool.iterator();
             Guppy weakestGuppy = null;
             double lowestHealthCoefficient = 1.0;
             while (it.hasNext()) {
                 Guppy guppy = it.next();
                 if (guppy.getIsAlive() &&
-                        guppy.getHealthCoefficient() <
-                                lowestHealthCoefficient) {
+                        (guppy.getHealthCoefficient() <
+                                lowestHealthCoefficient)) {
                     weakestGuppy = guppy;
                     lowestHealthCoefficient = guppy.getHealthCoefficient();
                 }
@@ -359,6 +362,7 @@ public class Pool {
                 weakestGuppy.setIsAlive(false);
                 numberOfGuppiesDiedOfCrowding++;
             }
+            guppyVolumeRequirement = getGuppyVolumeRequirementInLitres();
         }
         return numberOfGuppiesDiedOfCrowding;
     }

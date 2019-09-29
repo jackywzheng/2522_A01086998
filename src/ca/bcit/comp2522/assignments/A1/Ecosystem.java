@@ -103,9 +103,9 @@ public class Ecosystem {
                     isFemale, generationNumber, healthCoefficient);
             Semiahmoo.addGuppy(guppy);
         }
-        pools.add(Skookumchuk);
-        pools.add(Squamish);
-        pools.add(Semiahmoo);
+        addPool(Skookumchuk);
+        addPool(Squamish);
+        addPool(Semiahmoo);
     }
 
     public void simulate(int numberOfWeeks) {
@@ -129,17 +129,15 @@ public class Ecosystem {
             newFry += pool.spawn();
             crowdedOut += pool.adjustForCrowding();
             numberRemoved += pool.removeDeadGuppies();
-            if (diedOfOldAge + starvedToDeath + crowdedOut == numberRemoved) {
-                System.out.println("Logic is correct");
-            }
         }
         System.out.println(diedOfOldAge + " guppies died to old age.");
         System.out.println(starvedToDeath + " guppies died to starvation.");
-        System.out.println(diedOfOldAge + " guppies died to overcrowding.");
+        System.out.println(crowdedOut + " guppies died to overcrowding.");
         System.out.println(newFry + " new fry were born.");
         System.out.println(pools.get(0).getName() + "'s current population is: " + pools.get(0).getPopulation());
         System.out.println(pools.get(1).getName() + "'s current population is: " + pools.get(1).getPopulation());
         System.out.println(pools.get(2).getName() + "'s current population is: " + pools.get(2).getPopulation());
-        System.out.println("The total population of the ecosystem is: " + pools.get(0).getPopulation() + pools.get(1).getPopulation() + pools.get(2).getPopulation());
+        System.out.println("The total population of the ecosystem is: " + getGuppyPopulation());
+        System.out.println("=================================================");
     }
 }
