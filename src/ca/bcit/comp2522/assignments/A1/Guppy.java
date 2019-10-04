@@ -26,7 +26,7 @@ public class Guppy {
      */
     public static final int MAXIMUM_AGE_IN_WEEKS = 50;
     /**
-     * Baby guppy generation is 1 + mother's generation number
+     * Baby guppy generation is 1 + mother's generation number.
      */
     public static final int BABY_GUPPY_GENERATION = 1;
     /**
@@ -54,7 +54,7 @@ public class Guppy {
      */
     public static final double MAXIMUM_HEALTH_COEFFICIENT = 1.0;
     /**
-     * A baby guppy's health coefficient must be divided by 2.0
+     * A baby guppy's health coefficient must be divided by 2.0.
      */
     public static final double BABY_HEALTH_COEFFICIENT_DIVISOR = 2.0;
     /**
@@ -102,6 +102,10 @@ public class Guppy {
      */
     private int identificationNumber;
 
+    /**
+     * Random object.
+     */
+    private Random random = new Random();
 
     /**
      * Constructs a guppy object using the following default values.
@@ -172,9 +176,7 @@ public class Guppy {
 
         this.isAlive = true;
 
-        this.identificationNumber = numberOfGuppiesBorn;
-
-        numberOfGuppiesBorn++;
+        this.identificationNumber = ++numberOfGuppiesBorn;
     }
 
     /**
@@ -350,13 +352,12 @@ public class Guppy {
     public ArrayList<Guppy> spawn() {
         if (this.isFemale && this.ageInWeeks >= 8) {
             ArrayList<Guppy> babyGuppies = new ArrayList<>();
-            Random rand = new Random();
-            double haveBabiesChance = rand.nextDouble();
+            double haveBabiesChance = random.nextDouble();
             if (haveBabiesChance < 0.25) {
-                int numberOfBabies = rand.nextInt(101);
+                int numberOfBabies = random.nextInt(101);
                 boolean isAFemale;
                 for (int i = 0; i < numberOfBabies; i++) {
-                    double isFemaleChance = rand.nextDouble();
+                    double isFemaleChance = random.nextDouble();
                     if (isFemaleChance < 0.50) {
                         isAFemale = true;
                     } else {
@@ -378,6 +379,15 @@ public class Guppy {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Sets the Random object's seed, for testing purposes.
+     *
+     * @param seed a positive int
+     */
+    public void setRandomSeed(int seed) {
+        random.setSeed(seed);
     }
 
     /**

@@ -1,12 +1,15 @@
 package ca.bcit.comp2522.assignments.A1;
 
-import ca.bcit.comp2522.labs.lab01.Guppy;
+import ca.bcit.comp2522.assignments.A1.Guppy;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.Random;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class GuppyTest {
@@ -377,4 +380,29 @@ public class GuppyTest {
         testGuppy.changeHealthCoefficient(-1.5);
         assertFalse(testGuppy.getIsAlive());
     }
+
+    @Test
+    public void spawnTestMatureFemale() {
+        testGuppy = new Guppy("Poecilia",
+                "elegans",
+                10,
+                true,
+                3,
+                0.75);
+        testGuppy.setRandomSeed(11111);
+        assertEquals(63.0, testGuppy.spawn().size(), 0.0);
+    }
+
+    @Test
+    public void spawnTestImmatureFemale() {
+        testGuppy = new Guppy("Poecilia",
+                "elegans",
+                4,
+                true,
+                3,
+                0.75);
+        testGuppy.setRandomSeed(1);
+        assertNull(testGuppy.spawn());
+    }
+
 }

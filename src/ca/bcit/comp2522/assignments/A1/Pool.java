@@ -166,7 +166,7 @@ public class Pool {
      *
      * @return pH as a double
      */
-    public double getpH() {
+    public double getPH() {
         return pH;
     }
 
