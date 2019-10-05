@@ -189,4 +189,11 @@ public class Ecosystem {
                 + getGuppyPopulation());
         System.out.println("=================================================");
     }
+
+    @Override
+    public String toString() {
+        return "Ecosystem{"
+                + "pools=" + pools
+                + '}';
+    }
 }

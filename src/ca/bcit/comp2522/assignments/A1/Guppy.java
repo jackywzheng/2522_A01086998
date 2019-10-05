@@ -58,6 +58,10 @@ public class Guppy {
      */
     public static final double BABY_HEALTH_COEFFICIENT_DIVISOR = 2.0;
     /**
+     * Constant to calculate water required for Guppies.
+     */
+    public static final double VOLUME_REQUIRED_MATURE_GUPPIES_CONSTANT = 1.5;
+    /**
      * The number of guppies born.
      */
     private static int numberOfGuppiesBorn;
@@ -283,7 +287,8 @@ public class Guppy {
             return MINIMUM_WATER_VOLUME_ML * ageInWeeks
                     / YOUNG_FISH_AGE_IN_WEEKS;
         } else if (this.ageInWeeks <= MAXIMUM_AGE_IN_WEEKS) {
-            return MINIMUM_WATER_VOLUME_ML * 1.5;
+            return MINIMUM_WATER_VOLUME_ML
+                    * VOLUME_REQUIRED_MATURE_GUPPIES_CONSTANT;
         } else {
             return 0.0;
         }

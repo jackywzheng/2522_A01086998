@@ -1,16 +1,10 @@
 package ca.bcit.comp2522.assignments.A1;
 
-import ca.bcit.comp2522.assignments.A1.Guppy;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.util.Random;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class GuppyTest {
 
@@ -404,5 +398,4 @@ public class GuppyTest {
         testGuppy.setRandomSeed(1);
         assertNull(testGuppy.spawn());
     }
-
 }
