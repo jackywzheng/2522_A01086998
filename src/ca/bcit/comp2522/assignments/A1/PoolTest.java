@@ -342,7 +342,7 @@ public class PoolTest {
         Guppy deadGuppy = new Guppy();
         deadGuppy.setIsAlive(false);
         assertTrue(testPool.addGuppy(deadGuppy));
-        assertEquals(0, testPool.getPopulation());
+        assertEquals(1, testPool.getPopulation());
         assertEquals(1, testPool.removeDeadGuppies());
         assertEquals(0, testPool.getPopulation());
     }
@@ -442,5 +442,71 @@ public class PoolTest {
             testPool.addGuppy(newGuppy);
         }
         assertEquals((double) females / count, testPool.getFemalePercentage(), 0.05);
+    }
+
+    @Test
+    public void emptyPoolHasNoMedianAge() {
+        assertEquals(0.0, testPool.getMedianAge(), 0.0);
+    }
+
+    @Test
+    public void calculatesMedianAgeCorrectly() {
+        int count = 100;
+        Random random = new Random();
+        random.setSeed(111);
+        for (int i = 0; i < count; ++i) {
+            int randomAge = random.nextInt(51);
+            Guppy newGuppy = new Guppy(  "Poecilia",
+                    "elegans",
+                    randomAge,
+                    true,
+                    3,
+                    0.75);
+            testPool.addGuppy(newGuppy);
+        }
+        assertEquals(21.0, testPool.getMedianAge(), 0.0);
+    }
+
+    @Test
+    public void emptyPoolIncrementAge() {
+        assertEquals(0, testPool.incrementAges());
+    }
+
+    @Test
+    public void incrementAgesOfMaximumAgeGuppies() {
+        int count = 100;
+        for (int i = 0; i < count; ++i) {
+            Guppy newGuppy = new Guppy(  "Poecilia",
+                    "elegans",
+                    50,
+                    true,
+                    3,
+                    0.75);
+            testPool.addGuppy(newGuppy);
+        }
+        assertEquals(100, testPool.incrementAges());
+    }
+
+    @Test
+    public void emptyPoolCantAdjustForCrowding() {
+        assertEquals(0, testPool.adjustForCrowding());
+    }
+
+    @Test
+    public void overcrowdedPoolAdjustForCrowding() {
+        int count = 2000;
+        Random random = new Random();
+        random.setSeed(111);
+        for (int i = 0; i < count; ++i) {
+            Guppy newGuppy = new Guppy(  "Poecilia",
+                    "elegans",
+                    30,
+                    true,
+                    3,
+                    0.75);
+            testPool.addGuppy(newGuppy);
+        }
+        assertEquals(667, testPool.adjustForCrowding());
+        assertTrue(testPool.getGuppyVolumeRequirementInLitres() < testPool.getVolumeLitres());
     }
 }

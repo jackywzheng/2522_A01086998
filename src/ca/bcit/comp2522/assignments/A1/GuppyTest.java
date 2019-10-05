@@ -376,7 +376,7 @@ public class GuppyTest {
     }
 
     @Test
-    public void spawnTestMatureFemale() {
+    public void spawnMatureFemale() {
         testGuppy = new Guppy("Poecilia",
                 "elegans",
                 10,
@@ -388,7 +388,7 @@ public class GuppyTest {
     }
 
     @Test
-    public void spawnTestImmatureFemale() {
+    public void spawnImmatureFemale() {
         testGuppy = new Guppy("Poecilia",
                 "elegans",
                 4,
@@ -396,6 +396,18 @@ public class GuppyTest {
                 3,
                 0.75);
         testGuppy.setRandomSeed(1);
+        assertNull(testGuppy.spawn());
+    }
+
+    @Test
+    public void spawnDeadFemale() {
+        testGuppy = new Guppy("Poecilia",
+                "elegans",
+                10,
+                true,
+                3,
+                0.75);
+        testGuppy.setIsAlive(false);
         assertNull(testGuppy.spawn());
     }
 }

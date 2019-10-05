@@ -52,6 +52,11 @@ public class Pool {
      */
     public static final double MAXIMUM_NUTRIENT_COEFFICIENT = 1.0;
 
+    /**
+     * Conversion between millilitre and litre.
+     */
+    public static final int MILLILITRE_TO_LITRE_CONVERSION = 1000;
+
     // Tracks number of Pools created during program lifetime.
     private static int numberOfPools;
 
@@ -129,9 +134,7 @@ public class Pool {
 
         randomNumberGenerator = new Random();
 
-        identificationNumber = ++identificationNumber;
-
-        numberOfPools++;
+        identificationNumber = ++numberOfPools;
     }
 
     /**
@@ -349,7 +352,6 @@ public class Pool {
      */
     public double getGuppyVolumeRequirementInLitres() {
         double volumeRequiredInMilliLitres = 0.0;
-        int milliLitresToLitresConversion = 1000;
         Iterator<Guppy> it = guppiesInPool.iterator();
         while (it.hasNext()) {
             Guppy guppy = it.next();
@@ -357,7 +359,8 @@ public class Pool {
                 volumeRequiredInMilliLitres += guppy.getVolumeNeeded();
             }
         }
-        return volumeRequiredInMilliLitres / (double)milliLitresToLitresConversion;
+        return volumeRequiredInMilliLitres
+                / (double) MILLILITRE_TO_LITRE_CONVERSION;
     }
 
     /**
@@ -375,6 +378,9 @@ public class Pool {
                 sumOfGuppyAges += guppy.getAgeInWeeks();
                 numberOfLivingGuppies++;
             }
+        }
+        if (numberOfLivingGuppies == 0) {
+            return 0;
         }
         return (double) sumOfGuppyAges / (double) numberOfLivingGuppies;
     }
@@ -394,6 +400,9 @@ public class Pool {
                 sumOfGuppyHealthCoefficients += guppy.getHealthCoefficient();
                 numberOfLivingGuppies++;
             }
+        }
+        if (numberOfLivingGuppies == 0) {
+            return 0;
         }
         return sumOfGuppyHealthCoefficients / (double) numberOfLivingGuppies;
     }
@@ -415,6 +424,9 @@ public class Pool {
             if (guppy.getIsFemale()) {
                 numberOfFemales++;
             }
+        }
+        if (numberOfLivingGuppies == 0) {
+            return 0;
         }
         return (double) numberOfFemales / (double) numberOfLivingGuppies;
     }
@@ -446,6 +458,9 @@ public class Pool {
         while (it.hasNext()) {
             it.next();
             numberOfLivingGuppies++;
+        }
+        if (numberOfLivingGuppies == 0) {
+            return 0;
         }
         // Reset the iterator, create an array the same size as the
         // number of living guppies, and populate it with their ages
@@ -548,9 +563,9 @@ public class Pool {
             double lowestHealthCoefficient = 1.0;
             while (it.hasNext()) {
                 Guppy guppy = it.next();
-                if (guppy.getIsAlive() &&
-                        (guppy.getHealthCoefficient() <
-                                lowestHealthCoefficient)) {
+                if (guppy.getIsAlive()
+                        && (guppy.getHealthCoefficient()
+                        < lowestHealthCoefficient)) {
                     weakestGuppy = guppy;
                     lowestHealthCoefficient = guppy.getHealthCoefficient();
                 }
@@ -563,5 +578,4 @@ public class Pool {
         }
         return numberOfGuppiesDiedOfCrowding;
     }
-
 }

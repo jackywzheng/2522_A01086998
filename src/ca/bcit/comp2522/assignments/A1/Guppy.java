@@ -122,8 +122,7 @@ public class Guppy {
         this.isFemale = true;
         this.isAlive = true;
         this.healthCoefficient = DEFAULT_HEALTH_COEFFICIENT;
-        numberOfGuppiesBorn += 1;
-        this.identificationNumber = numberOfGuppiesBorn;
+        this.identificationNumber = ++numberOfGuppiesBorn;
     }
 
     /**
@@ -355,7 +354,7 @@ public class Guppy {
      * @return babyGuppies an ArrayList of Guppy's if they spawned, else null
      */
     public ArrayList<Guppy> spawn() {
-        if (this.isFemale && this.ageInWeeks >= 8) {
+        if (this.isFemale && this.ageInWeeks >= 8 && this.isAlive) {
             ArrayList<Guppy> babyGuppies = new ArrayList<>();
             double haveBabiesChance = random.nextDouble();
             if (haveBabiesChance < 0.25) {
