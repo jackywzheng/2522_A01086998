@@ -186,7 +186,7 @@ public class Ecosystem {
 
         for (int i = 0; i < 200; i++) {
             // Ages between 35 and 49 weeks inclusive
-            int ageInWeeks = random.nextInt(35) + 15;
+            int ageInWeeks = random.nextInt(15) + 35;
             // 35% chance of being female
             if (random.nextDouble() < 0.35) {
                 isFemale = true;
