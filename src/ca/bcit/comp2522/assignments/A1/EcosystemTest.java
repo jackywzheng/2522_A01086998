@@ -5,21 +5,25 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.w3c.dom.ls.LSOutput;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class EcosystemTest {
 
     private Ecosystem defaultEcosystem;
-    private Ecosystem testEcosystem;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @org.junit.Before
     public void setUp() throws Exception {
-
         defaultEcosystem = new Ecosystem();
-        testEcosystem = new Ecosystem();
+    }
+
+    @Test
+    public void ecosystemContainsAnEmptyArrayListOnInstantiation() {
+        assertEquals(defaultEcosystem.getNumberOfPools(), 0);
     }
 
     @Test
@@ -38,8 +42,14 @@ public class EcosystemTest {
     }
 
     @Test
-    public void setupSimulation() {
-
+    public void setupSimulationAddsThreePools() {
+        defaultEcosystem.setupSimulation();
+        assertEquals(3, defaultEcosystem.getNumberOfPools());
     }
 
+    @Test
+    public void sixHundredGuppiesTotalAtStartOfSimulation() {
+        defaultEcosystem.setupSimulation();
+        assertEquals(600, defaultEcosystem.getGuppyPopulation());
+    }
 }

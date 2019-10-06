@@ -262,7 +262,7 @@ public class Pool {
      * Changes the nutrient coefficient by the specified delta. The nutrient
      * coefficient cannot exceed the bounds [0.0, 1.0].
      *
-     * @param delta
+     * @param delta a double
      */
     public void changeNutrientCoefficient(double delta) {
         double newNutrientCoefficient = this.nutrientCoefficient + delta;
@@ -492,15 +492,14 @@ public class Pool {
      */
     @Override
     public String toString() {
-        return "Pool{" +
-                "name='" + name + '\'' +
-                ", volumeLitres=" + volumeLitres +
-                ", temperatureCelsius=" + temperatureCelsius +
-                ", pH=" + pH +
-                ", nutrientCoefficient=" + nutrientCoefficient +
-                ", identificationNumber=" + identificationNumber +
-                ", guppiesInPool=" + guppiesInPool +
-                '}';
+        return "Pool{"
+                + "name='" + name + '\''
+                + ", volumeLitres=" + volumeLitres
+                + ", temperatureCelsius=" + temperatureCelsius
+                + ", pH=" + pH
+                + ", nutrientCoefficient=" + nutrientCoefficient
+                + ", identificationNumber=" + identificationNumber
+                + ", guppiesInPool=" + guppiesInPool + '}';
     }
 
     /**

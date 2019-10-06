@@ -10,13 +10,64 @@ import java.util.Random;
  * @version 1.0
  */
 public class Ecosystem {
+    /**
+     * Default volume in litres for Pool Skookumchuk.
+     */
+    public static final int SKOOKUMCHUK_VOLUME_IN_LITRES = 3000;
+    /**
+     * Default temperature in Celsius for Pool Skookumchuk.
+     */
+    public static final int SKOOKUMCHUK_TEMPERATURE_IN_CELSIUS = 42;
+    /**
+     * Default pH for Pool Skookumchuk.
+     */
+    public static final double SKOOKUMCHUK_PH = 7.9;
+    /**
+     * Default nutrient coefficient for Pool Skookumchuk.
+     */
+    public static final double SKOOKUMCHUK_NUTRIENT_COEFFICIENT = 0.9;
+
+    /**
+     * Default volume in litres for Pool Squamish.
+     */
+    public static final int SQUAMISH_VOLUME_IN_LITRES = 15000;
+    /**
+     * Default temperature in Celsius for Pool Squamish.
+     */
+    public static final int SQUAMISH_TEMPERATURE_IN_CELSIUS = 39;
+    /**
+     * Default pH for Pool Squamish.
+     */
+    public static final double SQUAMISH_PH = 7.7;
+    /**
+     * Default nutrient coefficient for Pool Squamish.
+     */
+    public static final double SQUAMISH_NUTRIENT_COEFFICIENT = 0.85;
+
+    /**
+     * Default volume in litres for Pool Semiahmoo.
+     */
+    public static final int SEMIAHMOO_VOLUME_IN_LITRES = 8500;
+    /**
+     * Default temperature in Celsius for Pool Semiahmoo.
+     */
+    public static final int SEMIAHMOO_TEMPERATURE_IN_CELSIUS = 37;
+    /**
+     * Default pH for Pool Semiahmoo.
+     */
+    public static final double SEMIAHMOO_PH = 7.5;
+    /**
+     * Default nutrient coefficient for Pool Semiahmoo.
+     */
+    public static final double SEMIAHMOO_NUTRIENT_COEFFICIENT = 1.0;
+
     private ArrayList<Pool> pools;
 
     /**
      * Zero-parameter constructor for objects of class Ecosystem.
      */
     public Ecosystem() {
-        pools = new ArrayList<Pool>();
+        pools = new ArrayList<>();
     }
 
     /**
@@ -28,6 +79,15 @@ public class Ecosystem {
         if (newPool != null) {
             pools.add(newPool);
         }
+    }
+
+    /**
+     * Returns the number of pools.
+     *
+     * @return number of pools as an int
+     */
+    public int getNumberOfPools() {
+        return pools.size();
     }
 
     /**
@@ -68,75 +128,81 @@ public class Ecosystem {
      * Sets up the Ecosystem with predetermined values.
      */
     public void setupSimulation() {
-        Pool Skookumchuk = new Pool(
-                "Skookumcuk",
-                3000,
-                42,
-                7.9,
-                0.9);
-        Pool Squamish = new Pool("Squamish",
-                15000,
-                39,
-                7.7,
-                0.85);
-        Pool Semiahmoo = new Pool(
-                "Semiahmoo",
-                8500,
-                37,
-                7.5,
-                1.0);
+        Pool poolSkookumchuk = new Pool(
+                "Skookumchuk",
+                SKOOKUMCHUK_VOLUME_IN_LITRES,
+                SKOOKUMCHUK_TEMPERATURE_IN_CELSIUS,
+                SKOOKUMCHUK_PH,
+                SKOOKUMCHUK_NUTRIENT_COEFFICIENT);
+        Pool poolSquamish = new Pool("Squamish",
+                SQUAMISH_VOLUME_IN_LITRES,
+                SQUAMISH_TEMPERATURE_IN_CELSIUS,
+                SQUAMISH_PH,
+                SQUAMISH_NUTRIENT_COEFFICIENT);
+        Pool poolSemiahmoo = new Pool("Semiahmoo",
+                SEMIAHMOO_VOLUME_IN_LITRES,
+                SEMIAHMOO_TEMPERATURE_IN_CELSIUS,
+                SEMIAHMOO_PH,
+                SEMIAHMOO_NUTRIENT_COEFFICIENT);
 
         String genus = "Poecilia";
         String species = "reticulata";
+        boolean isFemale;
         Random random = new Random();
 
         for (int i = 0; i < 300; i++) {
+            // Ages between 10 and 25 inclusive
             int ageInWeeks = random.nextInt(16) + 10;
-            boolean isFemale;
+            // 75% chance of being female
             if (random.nextDouble() < 0.75) {
                 isFemale = true;
             } else {
                 isFemale = false;
             }
             int generationNumber = 0;
+            // Health coefficient between 0.5 and 0.8 inclusive
             double healthCoefficient = 0.5 + (0.8 - 0.5) * random.nextDouble();
             Guppy guppy = new Guppy(genus, species, ageInWeeks,
                     isFemale, generationNumber, healthCoefficient);
-            Skookumchuk.addGuppy(guppy);
+            poolSkookumchuk.addGuppy(guppy);
         }
 
         for (int i = 0; i < 100; i++) {
+            // Ages between 10 and 15 weeks inclusive
             int ageInWeeks = random.nextInt(6) + 10;
-            boolean isFemale;
+            // 75% chance of being female
             if (random.nextDouble() < 0.75) {
                 isFemale = true;
             } else {
                 isFemale = false;
             }
             int generationNumber = 0;
+            // Health coefficient between 0.8 and 1.0 inclusive
             double healthCoefficient = 0.8 + (1.0 - 0.8) * random.nextDouble();
             Guppy guppy = new Guppy(genus, species, ageInWeeks,
                     isFemale, generationNumber, healthCoefficient);
-            Squamish.addGuppy(guppy);
+            poolSquamish.addGuppy(guppy);
         }
 
         for (int i = 0; i < 200; i++) {
+            // Ages between 35 and 49 weeks inclusive
             int ageInWeeks = random.nextInt(35) + 15;
-            boolean isFemale;
+            // 35% chance of being female
             if (random.nextDouble() < 0.35) {
                 isFemale = true;
             } else {
                 isFemale = false;
             }
             int generationNumber = 0;
+            // Health coefficient between 0.0 and 1.0 inclusive
             double healthCoefficient = random.nextDouble();
             Guppy guppy = new Guppy(genus, species, ageInWeeks,
                     isFemale, generationNumber, healthCoefficient);
-            Semiahmoo.addGuppy(guppy);
+            poolSemiahmoo.addGuppy(guppy);
         }
-        addPool(Skookumchuk);
-        addPool(Squamish);
-        addPool(Semiahmoo);
+        addPool(poolSkookumchuk);
+        addPool(poolSquamish);
+        addPool(poolSemiahmoo);
     }
 
     /**
@@ -156,6 +222,9 @@ public class Ecosystem {
 
     /**
      * Simulates one week.
+     * Every week, incrementAges(), applyNutrientCoefficient(), spawn(), and
+     * adjustForCrowding() are called. removeDeadGuppies() is also called
+     * after each call. Prints a summary of the pools at the end of a week.
      */
     public void simulateOneWeek() {
         int diedOfOldAge = 0;
@@ -171,10 +240,12 @@ public class Ecosystem {
             newFry += pool.spawn();
             crowdedOut += pool.adjustForCrowding();
             numberRemoved += pool.removeDeadGuppies();
+            // Check if values add up correctly
             if ((diedOfOldAge + starvedToDeath + crowdedOut) != numberRemoved) {
                 System.out.println("Logic error!");
             }
         }
+        // Summary of the week
         System.out.println(diedOfOldAge + " guppies died to old age.");
         System.out.println(starvedToDeath + " guppies died to starvation.");
         System.out.println(crowdedOut + " guppies died to overcrowding.");
@@ -190,6 +261,11 @@ public class Ecosystem {
         System.out.println("=================================================");
     }
 
+    /**
+     * Returns a String representation of this Pool.
+     *
+     * @return toString a String representation
+     */
     @Override
     public String toString() {
         return "Ecosystem{"

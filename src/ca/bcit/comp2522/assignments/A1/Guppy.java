@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.assignments.A1;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -25,6 +26,10 @@ public class Guppy {
      * A guppy's maximum age is 50 weeks old.
      */
     public static final int MAXIMUM_AGE_IN_WEEKS = 50;
+    /**
+     * A guppy's minimum age to spawn fry.
+     */
+    public static final int MINIMUM_AGE_TO_SPAWN_IN_WEEKS = 8;
     /**
      * Baby guppy generation is 1 + mother's generation number.
      */
@@ -61,6 +66,18 @@ public class Guppy {
      * Constant to calculate water required for Guppies.
      */
     public static final double VOLUME_REQUIRED_MATURE_GUPPIES_CONSTANT = 1.5;
+    /**
+     * The chance to spawn fry.
+     */
+    public static final double CHANCE_TO_SPAWN_FRY = 0.25;
+    /**
+     * The chance to spawn a female fry.
+     */
+    public static final double CHANCE_TO_SPAWN_FEMALE = 0.5;
+    /**
+     * Each spawn can have up to 100 fry.
+     */
+    public static final int HUNDRED_FRY = 100;
     /**
      * The number of guppies born.
      */
@@ -354,15 +371,16 @@ public class Guppy {
      * @return babyGuppies an ArrayList of Guppy's if they spawned, else null
      */
     public ArrayList<Guppy> spawn() {
-        if (this.isFemale && this.ageInWeeks >= 8 && this.isAlive) {
+        if (this.isFemale && this.ageInWeeks >= MINIMUM_AGE_TO_SPAWN_IN_WEEKS
+                && this.isAlive) {
             ArrayList<Guppy> babyGuppies = new ArrayList<>();
             double haveBabiesChance = random.nextDouble();
-            if (haveBabiesChance < 0.25) {
-                int numberOfBabies = random.nextInt(101);
+            if (haveBabiesChance < CHANCE_TO_SPAWN_FRY) {
+                int numberOfBabies = random.nextInt(HUNDRED_FRY + 1);
                 boolean isAFemale;
                 for (int i = 0; i < numberOfBabies; i++) {
                     double isFemaleChance = random.nextDouble();
-                    if (isFemaleChance < 0.50) {
+                    if (isFemaleChance < CHANCE_TO_SPAWN_FEMALE) {
                         isAFemale = true;
                     } else {
                         isAFemale = false;
@@ -419,6 +437,7 @@ public class Guppy {
      * @param o an object representing a guppy
      * @return a boolean representing if two guppy objects are equal
      */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
