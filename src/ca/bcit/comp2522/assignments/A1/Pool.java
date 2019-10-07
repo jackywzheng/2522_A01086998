@@ -210,6 +210,15 @@ public class Pool {
     }
 
     /**
+     * Sets the Random seed.
+     *
+     * @param seed an int
+     */
+    protected void setRandomSeed(int seed) {
+        randomNumberGenerator.setSeed(seed);
+    }
+
+    /**
      * Sets the volume. Ignores values < MINIMUM_POOL_TEMP_CELSIUS(0).
      *
      * @param newVolumeLitres a double

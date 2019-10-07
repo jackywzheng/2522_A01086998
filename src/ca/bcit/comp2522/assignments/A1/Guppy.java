@@ -408,7 +408,7 @@ public class Guppy {
      *
      * @param seed a positive int
      */
-    public void setRandomSeed(int seed) {
+    protected void setRandomSeed(int seed) {
         random.setSeed(seed);
     }
 

@@ -509,4 +509,25 @@ public class PoolTest {
         assertEquals(667, testPool.adjustForCrowding());
         assertTrue(testPool.getGuppyVolumeRequirementInLitres() < testPool.getVolumeLitres());
     }
+
+    @Test
+    public void malesCantSpawn() {
+        int count = 100;
+        for (int i = 0; i < count; ++i) {
+            Guppy newGuppy = new Guppy(  "Poecilia",
+                    "elegans",
+                    50,
+                    false,
+                    3,
+                    0.75);
+            testPool.addGuppy(newGuppy);
+        }
+        assertEquals(0, testPool.spawn());
+    }
+
+    @Test
+    public void emptyPoolCantSpawn() {
+        assertEquals(0, testPool.spawn());
+    }
+
 }
