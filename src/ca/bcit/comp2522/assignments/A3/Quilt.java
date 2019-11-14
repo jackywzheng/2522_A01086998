@@ -7,8 +7,4 @@ public abstract class Quilt {
     private int numberOfColumns;
     private int blockSizeInCentimetres;
     private ArrayList<Block> blocks;
-
-    public static void main(String[] args) {
-
-    }
 }
