@@ -1,4 +1,4 @@
-package ca.bcit.comp2522.assignments.A3;
-
-public class RandomRecSquare extends Block {
-}
+//package ca.bcit.comp2522.assignments.A3;
+//
+//public class RandomRecSquare extends Block {
+//}

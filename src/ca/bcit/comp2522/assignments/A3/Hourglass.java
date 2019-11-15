@@ -1,5 +1,5 @@
-package ca.bcit.comp2522.assignments.A3;
-
-public class Hourglass extends Block {
-
-}
+//package ca.bcit.comp2522.assignments.A3;
+//
+//public class Hourglass extends Block {
+//
+//}

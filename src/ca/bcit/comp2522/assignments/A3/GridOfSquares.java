@@ -1,5 +1,5 @@
-package ca.bcit.comp2522.assignments.A3;
-
-public class GridOfSquares extends Block {
-
-}
+//package ca.bcit.comp2522.assignments.A3;
+//
+//public class GridOfSquares extends Block {
+//
+//}
