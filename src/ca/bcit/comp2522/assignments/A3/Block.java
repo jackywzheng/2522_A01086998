@@ -1,8 +1,12 @@
 package ca.bcit.comp2522.assignments.A3;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Group;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
 
 /**
  * Block.
@@ -17,21 +21,15 @@ public abstract class Block {
     public static final int QUARTER_CLOCKWISE_ROTATION = 90;
     public static final int FULL_ROTATION = 360;
     private static double sizeInCm;
-    private ColorPicker colorPicker1 = new ColorPicker(Color.RED);
-    private ColorPicker colorPicker2 = new ColorPicker(Color.WHITE);
-    private ColorPicker colorPicker3 = new ColorPicker(Color.ORANGE);
+
+    private ArrayList<SimpleObjectProperty<Color>> COLORS;
 
     Block(double newSizeInCm) {
         sizeInCm = newSizeInCm;
-        colorPicker1.setOnAction(e -> {
-            colorPicker1.getValue();
-        });
-        colorPicker2.setOnAction(e -> {
-            colorPicker2.getValue();
-        });
-        colorPicker3.setOnAction(e -> {
-            colorPicker3.getValue();
-        });
+        COLORS = new ArrayList<>();
+        COLORS.add(new SimpleObjectProperty<>(Color.RED));
+        COLORS.add(new SimpleObjectProperty<>(Color.WHITE));
+        COLORS.add(new SimpleObjectProperty<>(Color.ORANGE));
     }
 
     public static double getSizeInCm() {
@@ -42,15 +40,7 @@ public abstract class Block {
         sizeInCm = newSizeInCm;
     }
 
-    public ColorPicker getColorPicker1() {
-        return colorPicker1;
-    }
-
-    public ColorPicker getColorPicker2() {
-        return colorPicker2;
-    }
-
-    public ColorPicker getColorPicker3() {
-        return colorPicker3;
+    public SimpleObjectProperty<Color> getColorProperty(int i) {
+        return COLORS.get(i);
     }
 }

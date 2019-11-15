@@ -1,7 +1,7 @@
 package ca.bcit.comp2522.assignments.A3;
 
+
 import javafx.scene.Group;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
@@ -43,9 +43,8 @@ public class Pinwheel extends Block {
         triangle2.getPoints().addAll(triangle.getPoints());
         triangle2.setRotate(QUARTER_CLOCKWISE_ROTATION * 2);
 
-        triangle.fillProperty().bind(super.getColorPicker1().valueProperty());
-        triangle2.fillProperty().bind(super.getColorPicker2().valueProperty());
-
+        triangle.fillProperty().bind(getColorProperty(0));
+        triangle2.fillProperty().bind(getColorProperty(1));
         triangle.setStroke(Color.GRAY);
         triangle2.setStroke(Color.GRAY);
         return new Group(triangle, triangle2);
