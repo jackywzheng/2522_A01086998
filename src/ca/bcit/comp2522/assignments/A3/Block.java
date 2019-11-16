@@ -33,6 +33,7 @@ public class Block {
         COLORS.add(new SimpleObjectProperty<>(Color.RED));
         COLORS.add(new SimpleObjectProperty<>(Color.WHITE));
         COLORS.add(new SimpleObjectProperty<>(Color.ORANGE));
+        COLORS.add(new SimpleObjectProperty<>(Color.GOLD));
     }
 
     public Group getBlock() {
