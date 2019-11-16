@@ -47,28 +47,20 @@ public class QuiltProgram extends Application {
         // Separator
         Separator separator = new Separator();
 
+        // Types of blocks
+        Pinwheel pinwheel = new Pinwheel(150);
+
         // Left vertical column
-        VBox userControls = new VBox(columnsLabel, numberOfColumnsText, rowsLabel, numberOfRowsText, blockSizeLabel, blockSizeText, blockTypeLabel, separator);
+        VBox userControls = new VBox(columnsLabel, numberOfColumnsText, rowsLabel, numberOfRowsText, blockSizeLabel, blockSizeText, blockTypeLabel, pinwheel.getBlock(), separator);
         userControls.setStyle("-fx-padding: 20px 20px;" + "-fx-background-color: skyblue");
         userControls.setSpacing(10);
         userControls.setPrefWidth(200);
 
         // Right vertical column
         VBox colorControls = new VBox();
-        Pinwheel pinwheel = new Pinwheel(200);
-        Pinwheel pinwheel2 = new Pinwheel(200);
-
-        HBox pickers = new HBox(pinwheel.getColorPicker1(), pinwheel.getColorPicker2());
-        HBox pickers2 = new HBox(pinwheel2.getColorPicker1(), pinwheel2.getColorPicker2());
 
         colorControls.setStyle("-fx-padding: 30px 30px;" + "-fx-background-color: skyblue");
         userControls.setSpacing(10);
-        colorControls.getChildren().addAll(
-                pickers,
-                pinwheel.getBlock(),
-                pickers2,
-                pinwheel2.getBlock()
-        );
 
         GridPane gridPane = new GridPane();
         gridPane.setMaxSize(1, 1);
