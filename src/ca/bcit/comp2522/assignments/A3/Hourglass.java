@@ -23,9 +23,9 @@ public class Hourglass extends Block {
     Group hourglass() {
         Group outerBlock = hourglassComponent();
         Group innerBlock = hourglassComponent();
-        innerBlock.setScaleX(1/(Math.pow(2, 0.5)));
-        innerBlock.setScaleY(1/(Math.pow(2, 0.5)));
-        innerBlock.setRotate(45);
+        innerBlock.setScaleX(1 / (Math.pow(2, (double) 1 / 2)));
+        innerBlock.setScaleY(1 / (Math.pow(2, (double) 1 / 2)));
+        innerBlock.setRotate((double) QUARTER_CLOCKWISE_ROTATION / 2);
         return new Group(outerBlock, innerBlock);
     }
 
@@ -34,13 +34,13 @@ public class Hourglass extends Block {
         tl.setRotate(QUARTER_CLOCKWISE_ROTATION);
         Group br = quadrant(Color.RED, Color.RED);
         br.setRotate(QUARTER_CLOCKWISE_ROTATION);
-        br.setTranslateX(100);
-        br.setTranslateY(100);
+        br.setTranslateX((double) getSizeInCm() / 2);
+        br.setTranslateY((double) getSizeInCm() / 2);
 
         Group tr = quadrant(Color.WHITE, Color.ORANGE);
-        tr.setTranslateX(100);
+        tr.setTranslateX((double) getSizeInCm() / 2);
         Group bl = quadrant(Color.WHITE, Color.ORANGE);
-        bl.setTranslateY(100);
+        bl.setTranslateY((double) getSizeInCm() / 2);
         bl.setRotate(QUARTER_CLOCKWISE_ROTATION * 2);
 
         return new Group(tr, tl, br, bl);

@@ -31,7 +31,7 @@ public class Driver extends Application {
 
         Pinwheel pinwheel = new Pinwheel(200);
         Pinwheel pinwheel2 = new Pinwheel(200);
-        Hourglass hourglass = new Hourglass(200);
+        Hourglass hourglass = new Hourglass(100);
         pinwheel.getColorProperty(0).bind(colorPicker1.valueProperty());
         pinwheel.getColorProperty(1).bind(colorPicker2.valueProperty());
         HBox pickers = new HBox(colorPicker1, colorPicker2);
