@@ -8,18 +8,18 @@ import javafx.scene.shape.Rectangle;
 
 public class Pinwheel extends Block {
 
-//    private Group block;
+    private Group block;
 
     public Pinwheel(double sizeInCm) {
-        super(sizeInCm, pinwheel());
-//        this.block = pinwheel();
+        super(sizeInCm);
+        this.block = pinwheel();
     }
 
-//    public Group getBlock() {
-//        return block;
-//    }
+    public Group getBlock() {
+        return block;
+    }
 
-    private static Group pinwheel() {
+    private Group pinwheel() {
         Group theBlock = new Group();
         for (int i = 0; i * QUARTER_CLOCKWISE_ROTATION < FULL_ROTATION; i++) {
             Group tile = tileInBox();
@@ -29,13 +29,13 @@ public class Pinwheel extends Block {
         return theBlock;
     }
 
-    private static Group tileInBox() {
+    private Group tileInBox() {
         Rectangle square = new Rectangle(0, 0, getSizeInCm(), getSizeInCm());
         square.setFill(Color.TRANSPARENT);
         return new Group(square, tile());
     }
 
-    private static Group tile() {
+    private Group tile() {
         Polygon triangle = new Polygon(0, 0,
                                         0, getSizeInCm() / 2,
                                         getSizeInCm() / 2, getSizeInCm() / 2);

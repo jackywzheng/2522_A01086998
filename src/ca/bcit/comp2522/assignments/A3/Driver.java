@@ -41,7 +41,6 @@ public class Driver extends Application {
         root.getChildren().addAll(
                 pickers,
                 pinwheel.getBlock(),
-
                 pinwheel2.getBlock()
         );
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

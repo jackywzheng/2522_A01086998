@@ -20,28 +20,16 @@ public class Block {
 
     public static final int QUARTER_CLOCKWISE_ROTATION = 90;
     public static final int FULL_ROTATION = 360;
-
-    private Group block;
-
     private static double sizeInCm;
 
-    private static ArrayList<SimpleObjectProperty<Color>> COLORS;
+    private ArrayList<SimpleObjectProperty<Color>> COLORS;
 
-    static {
+    public Block(double newSizeInCm) {
+        sizeInCm = newSizeInCm;
         COLORS = new ArrayList<>();
         COLORS.add(new SimpleObjectProperty<>(Color.RED));
         COLORS.add(new SimpleObjectProperty<>(Color.WHITE));
         COLORS.add(new SimpleObjectProperty<>(Color.ORANGE));
-    }
-
-    public Block(double newSizeInCm, Group newBlock) {
-        sizeInCm = newSizeInCm;
-        this.block = newBlock;
-
-    }
-
-    public Group getBlock() {
-        return block;
     }
 
     public static double getSizeInCm() {
@@ -52,8 +40,7 @@ public class Block {
         sizeInCm = newSizeInCm;
     }
 
-
-    public static SimpleObjectProperty<Color> getColorProperty(int i) {
+    public SimpleObjectProperty<Color> getColorProperty(int i) {
         return COLORS.get(i);
     }
 }
