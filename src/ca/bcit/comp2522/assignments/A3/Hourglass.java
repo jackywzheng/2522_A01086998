@@ -57,9 +57,6 @@ public class Hourglass extends Block {
 
         triangle.setFill(color1);
         triangle2.setFill(color2);
-
-        triangle.setStroke(Color.GRAY);
-        triangle2.setStroke(Color.GRAY);
         return new Group(triangle, triangle2);
     }
 }

@@ -47,8 +47,7 @@ public class Pinwheel extends Block {
 
         triangle.fillProperty().bind(getColorProperty(0));
         triangle2.fillProperty().bind(getColorProperty(1));
-        triangle.setStroke(Color.GRAY);
-        triangle2.setStroke(Color.GRAY);
+
         return new Group(triangle, triangle2);
     }
 }

@@ -3,7 +3,6 @@ package ca.bcit.comp2522.assignments.A3;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
@@ -37,33 +36,42 @@ public class TwistedFourStar extends Block {
         return new Group(square, tfs());
     }
 
-    Group tfs() {
-        Polygon triangle = new Polygon(0,0,0,100,100,100);
+    private Group tfs() {
+        Polygon triangle = new Polygon(0, 0,
+                (double) getSizeInCm() / 2, (double) getSizeInCm() / 2,
+                0, (double) getSizeInCm() / 2);
         Polygon triangle2 = new Polygon();
         triangle2.getPoints().addAll(triangle.getPoints());
-        triangle2.setRotate(180);
+        triangle2.setRotate(QUARTER_CLOCKWISE_ROTATION * 2);
         triangle.fillProperty().bind(getColorProperty(0));
         triangle2.fillProperty().bind(getColorProperty(0));
-        triangle.setStroke(Color.GRAY);
-        triangle2.setStroke(Color.GRAY);
         Group quarter = new Group(triangle, triangle2);
 
-        Polygon smallTri = new Polygon(50, 50, 100, 50, 100, 100);
+        Polygon smallTri = new Polygon(
+                (double) getSizeInCm() / (2 * 2),
+                (double) getSizeInCm() / (2 * 2),
+                (double) getSizeInCm() / 2, (double) getSizeInCm() / (2 * 2),
+                (double) getSizeInCm() / 2, (double) getSizeInCm() / 2);
         smallTri.fillProperty().bind(getColorProperty(1));
-        smallTri.setStroke(Color.GREY);
 
-        Line line = new Line(50, 0, 100, 50);
-        line.setStroke(Color.GREY);
-
-        Polygon firstColorPolygon = new Polygon(0, 0, 50, 0, 100, 50, 50, 50);
+        Polygon firstColorPolygon = new Polygon(0, 0,
+                (double) getSizeInCm() / (2 * 2), 0,
+                (double) getSizeInCm() / 2, (double) getSizeInCm() / (2 * 2),
+                (double) getSizeInCm() / (2 * 2),
+                (double) getSizeInCm() / (2 * 2));
         firstColorPolygon.fillProperty().bind(getColorProperty(2));
-        firstColorPolygon.setStroke(Color.GREY);
 
-        Polygon secondColorPolygon = new Polygon(0, 50, 50, 50, 100, 100, 50, 100);
-        secondColorPolygon.fillProperty().bind(getColorProperty(3));
-        secondColorPolygon.setStroke(Color.GREY);
+        Polygon secondColorPolygon = new Polygon(
+                0, (double) getSizeInCm() / (2 * 2),
+                (double) getSizeInCm() / (2 * 2),
+                (double) getSizeInCm() / 2,
+                (double) getSizeInCm() / 2, (double) getSizeInCm() / 2,
+                (double) getSizeInCm() / (2 * 2),
+                (double) getSizeInCm() / (2 * 2));
+        secondColorPolygon.fillProperty().bind(getColorProperty(2 + 1));
 
-        return new Group(quarter, smallTri, line, firstColorPolygon, secondColorPolygon);
+        return new Group(quarter, smallTri,
+                firstColorPolygon, secondColorPolygon);
     }
 }
 
