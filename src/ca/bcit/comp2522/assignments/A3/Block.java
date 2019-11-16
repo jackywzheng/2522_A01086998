@@ -16,20 +16,32 @@ import java.util.ArrayList;
  * @version 1.0
  */
 
-public abstract class Block {
+public class Block {
 
     public static final int QUARTER_CLOCKWISE_ROTATION = 90;
     public static final int FULL_ROTATION = 360;
+
+    private Group block;
+
     private static double sizeInCm;
 
-    private ArrayList<SimpleObjectProperty<Color>> COLORS;
+    private static ArrayList<SimpleObjectProperty<Color>> COLORS;
 
-    Block(double newSizeInCm) {
-        sizeInCm = newSizeInCm;
+    static {
         COLORS = new ArrayList<>();
         COLORS.add(new SimpleObjectProperty<>(Color.RED));
         COLORS.add(new SimpleObjectProperty<>(Color.WHITE));
         COLORS.add(new SimpleObjectProperty<>(Color.ORANGE));
+    }
+
+    public Block(double newSizeInCm, Group newBlock) {
+        sizeInCm = newSizeInCm;
+        this.block = newBlock;
+
+    }
+
+    public Group getBlock() {
+        return block;
     }
 
     public static double getSizeInCm() {
@@ -40,7 +52,8 @@ public abstract class Block {
         sizeInCm = newSizeInCm;
     }
 
-    public SimpleObjectProperty<Color> getColorProperty(int i) {
+
+    public static SimpleObjectProperty<Color> getColorProperty(int i) {
         return COLORS.get(i);
     }
 }

@@ -4,9 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -25,10 +23,15 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 
 public class QuiltProgram extends Application {
+
+    // Numerical spinner
+    private Spinner<Integer> colSpinner;
+    private Spinner<Integer> rowSpinner;
+
     private int roW = 0;
     private int coL = 0;
-    private Label rows;
-    private Label columns;
+
+
     @Override
     public void start(Stage stage) throws Exception {
         // Border Pane setup
@@ -40,18 +43,25 @@ public class QuiltProgram extends Application {
         Label blockTypeLabel = new Label("Select Block Type:");
 
         // TextFields to input number of columns and rows
-        TextField numberOfColumnsText = new TextField("Columns");
+        final int maxSpinnerValue = 10;
+        final int initialSpinnerValue = 5;
+        SpinnerValueFactory.IntegerSpinnerValueFactory colSvf =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(
+                        1, maxSpinnerValue, initialSpinnerValue);
+        colSpinner = new Spinner<Integer>(colSvf);
+        SpinnerValueFactory.IntegerSpinnerValueFactory rowSvf =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(
+                        1, maxSpinnerValue, initialSpinnerValue);
+        rowSpinner = new Spinner<Integer>(rowSvf);
+
         TextField numberOfRowsText = new TextField("Rows");
         TextField blockSizeText = new TextField("Block Size");
-
-        // Separator
-        Separator separator = new Separator();
 
         // Types of blocks
         Pinwheel pinwheel = new Pinwheel(150);
 
         // Left vertical column
-        VBox userControls = new VBox(columnsLabel, numberOfColumnsText, rowsLabel, numberOfRowsText, blockSizeLabel, blockSizeText, blockTypeLabel, pinwheel.getBlock(), separator);
+        VBox userControls = new VBox(columnsLabel, colSpinner, rowsLabel, rowSpinner, blockSizeLabel, blockSizeText, blockTypeLabel, pinwheel.getBlock());
         userControls.setStyle("-fx-padding: 20px 20px;" + "-fx-background-color: skyblue");
         userControls.setSpacing(10);
         userControls.setPrefWidth(200);
@@ -189,49 +199,6 @@ public class QuiltProgram extends Application {
         triangle.setStroke(Color.GRAY);
         triangle2.setStroke(Color.GRAY);
         return new Group(triangle, triangle2);
-    }
-
-    Group hourglass(Color color1, Color color2, Color color3) {
-        Group outerBlock = hourglassComponent(color1, color2, color3);
-
-        Group innerBlock = hourglassComponent(color1, color2, color3);
-
-        innerBlock.setScaleX(1/(Math.pow(2, 0.5)));
-        innerBlock.setScaleY(1/(Math.pow(2, 0.5)));
-        innerBlock.setRotate(45);
-        return new Group(outerBlock, innerBlock);
-    }
-
-    Group hourglassComponent(Color color1, Color color2, Color color3) {
-        Group tl = tile(color1, color1);
-        tl.setRotate(90);
-        Group br = tile(color1, color1);
-        br.setRotate(90);
-        br.setTranslateX(100);
-        br.setTranslateY(100);
-
-        Group tr = tile(color2, color3);
-        tr.setTranslateX(100);
-        Group bl = tile(color2, color3);
-        bl.setTranslateY(100);
-        bl.setRotate(180);
-
-        return new Group(tr, tl, br, bl);
-    }
-
-    Group tfs(Color color1, Color color2, Color color3) {
-        Group quarter = tile(color1, color1);
-        Polygon smallTri = new Polygon(50, 50, 100, 50, 100, 100);
-        smallTri.setFill(color3);
-        smallTri.setStroke(Color.GREY);
-        Line line = new Line(50, 0, 100, 50);
-        line.setStroke(Color.GREY);
-
-        Polygon secondColorPolygon = new Polygon(0, 50, 50, 50, 100, 100, 50, 100);
-        secondColorPolygon.setFill(color2);
-        secondColorPolygon.setStroke(Color.GREY);
-
-        return new Group(quarter, smallTri, line, secondColorPolygon);
     }
 
     /**
