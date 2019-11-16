@@ -1,6 +1,7 @@
 package ca.bcit.comp2522.assignments.A3;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -9,7 +10,6 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -27,8 +27,12 @@ import java.util.ArrayList;
 public class QuiltProgram extends Application {
     private int roW = 0;
     private int coL = 0;
-    private Label rows;
-    private Label columns;
+    private int numberOfColumns;
+    private int numberOfRows;
+    private int blockSize;
+    private TextField numberOfColumnsText;
+    private TextField numberOfRowsText;
+    private TextField blockSizeText;
     @Override
     public void start(Stage stage) throws Exception {
         // Border Pane setup
@@ -36,13 +40,18 @@ public class QuiltProgram extends Application {
         // Labels
         Label columnsLabel = new Label("Enter number of columns:");
         Label rowsLabel = new Label("Enter number of rows:");
-        Label blockSizeLabel = new Label("Enter Block Size:");
+        Label blockSizeLabel = new Label("Enter Block Size in cm:");
         Label blockTypeLabel = new Label("Select Block Type:");
 
         // TextFields to input number of columns and rows
-        TextField numberOfColumnsText = new TextField("Columns");
-        TextField numberOfRowsText = new TextField("Rows");
-        TextField blockSizeText = new TextField("Block Size");
+        numberOfColumnsText = new TextField("Columns");
+        numberOfRowsText = new TextField("Rows");
+        blockSizeText = new TextField("Block Size");
+
+        // Variables to store values inputted
+        numberOfColumnsText.setOnAction(this::processReturn);
+        numberOfRowsText.setOnAction(this::processReturn);
+        blockSizeText.setOnAction(this::processReturn);
 
         // Separator
         Separator separator = new Separator();
@@ -51,14 +60,15 @@ public class QuiltProgram extends Application {
         Pinwheel pinwheel = new Pinwheel(150);
 
         // Left vertical column
-        VBox userControls = new VBox(columnsLabel, numberOfColumnsText, rowsLabel, numberOfRowsText, blockSizeLabel, blockSizeText, blockTypeLabel, pinwheel.getBlock(), separator);
+        VBox userControls = new VBox(columnsLabel, numberOfColumnsText,
+                rowsLabel, numberOfRowsText, blockSizeLabel,
+                blockSizeText, separator, blockTypeLabel, pinwheel.getBlock());
         userControls.setStyle("-fx-padding: 20px 20px;" + "-fx-background-color: skyblue");
         userControls.setSpacing(10);
         userControls.setPrefWidth(200);
 
         // Right vertical column
         VBox colorControls = new VBox();
-
         colorControls.setStyle("-fx-padding: 30px 30px;" + "-fx-background-color: skyblue");
         userControls.setSpacing(10);
 
@@ -233,6 +243,26 @@ public class QuiltProgram extends Application {
 
         return new Group(quarter, smallTri, line, secondColorPolygon);
     }
+
+
+
+    /**
+     * Computes and displays the converted temperature when the user presses the
+     * return key while in the text field.
+     *
+     * @param event invokes this method
+     */
+    public void processReturn(ActionEvent event) {
+        // We acquire the value of the text field...
+        numberOfColumns = Integer.parseInt(numberOfColumnsText.getText());
+        numberOfRows = Integer.parseInt(numberOfRowsText.getText());
+        blockSize = Integer.parseInt(blockSizeText.getText());
+        // ...and then we change the value of the next field.
+        numberOfColumnsText.setText(numberOfColumns + "");
+        numberOfRowsText.setText(numberOfRows + "");
+        blockSizeText.setText(blockSize + "");
+    }
+
 
     /**
      * Launches the JavaFX application.
