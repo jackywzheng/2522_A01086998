@@ -10,11 +10,12 @@ public class Pinwheel extends Block {
 
     private Group block;
 
-    public Pinwheel(double sizeInCm) {
+    public Pinwheel(int sizeInCm) {
         super(sizeInCm);
         this.block = pinwheel();
     }
 
+    @Override
     public Group getBlock() {
         return block;
     }
@@ -37,8 +38,9 @@ public class Pinwheel extends Block {
 
     private Group tile() {
         Polygon triangle = new Polygon(0, 0,
-                                        0, getSizeInCm() / 2,
-                                        getSizeInCm() / 2, getSizeInCm() / 2);
+                                        0, (double) getSizeInCm() / 2,
+                                        (double) getSizeInCm() / 2,
+                                        (double) getSizeInCm() / 2);
         Polygon triangle2 = new Polygon();
         triangle2.getPoints().addAll(triangle.getPoints());
         triangle2.setRotate(QUARTER_CLOCKWISE_ROTATION * 2);

@@ -84,7 +84,8 @@ public class QuiltProgram extends Application {
         for (int i = 0; i < 3; i++) {
             ArrayList<Group> row = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
-                row.add(pinwheel(Color.RED, Color.WHITE));
+                Pinwheel p = new Pinwheel(100);
+                row.add(p.getBlock());
             }
             designs.add(row);
         }
@@ -93,12 +94,6 @@ public class QuiltProgram extends Application {
             int y = designs.indexOf(row);
             for (Group design : row) {
                 int x = row.indexOf(design);
-                // Add takes 5 parameters:
-                // 1. What we're adding
-                // 2. Column index x
-                // 3. Row index y
-                // 4. Column span
-                // 5. Row span
                 gridPane.add(design, x, y, 1, 1);
             }
         }
@@ -106,19 +101,21 @@ public class QuiltProgram extends Application {
         gridPane.setOnMouseClicked(e -> {
             double posX = e.getX();
             double posY = e.getY();
-            int col = (int) (posX / 200);
-            int row = (int) (posY / 200);
+            int col = (int) (posX / 100);
+            int row = (int) (posY / 100);
             System.out.println(row);
             System.out.println(col);
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     designs.get(i).get(j).setOpacity(1);
+                    designs.get(i).get(j).setScaleX(1);
+                    designs.get(i).get(j).setScaleY(1);
                 }
             }
-            designs.get(row).get(col).setOpacity(0.8);
             roW = row;
             coL = col;
-
+            designs.get(roW).get(coL).setScaleX(0.9);
+            designs.get(roW).get(coL).setScaleY(0.9);
         });
 
         for (Node node : gridPane.getChildren()) {
@@ -137,69 +134,9 @@ public class QuiltProgram extends Application {
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Scene scene = new Scene(borderPane, screenSize.width - 50, screenSize.height - 50, Color.BLACK);
-        scene.setOnKeyPressed(event -> {
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    designs.get(i).get(j).setOpacity(1);
-                    designs.get(i).get(j).setScaleX(1);
-                    designs.get(i).get(j).setScaleY(1);
-
-                }
-            }
-            switch (event.getCode()) {
-                case UP:
-                    designs.get(--roW).get(coL).setOpacity(1);
-                    break;
-                case DOWN:
-                    designs.get(++roW).get(coL).setOpacity(1);
-                    break;
-                case RIGHT:
-                    designs.get(roW).get(++coL).setOpacity(1);
-                    break;
-                case LEFT:
-                    designs.get(roW).get(--coL).setOpacity(1);
-                    break;
-                default:
-                    break; // Does nothing if it's not an arrow key
-            }
-            designs.get(roW).get(coL).setScaleX(0.9);
-            designs.get(roW).get(coL).setScaleY(0.9);
-            designs.get(roW).get(coL).toFront();
-        });
         stage.setTitle("Quilt Maker 9000");
         stage.setScene(scene);
         stage.show();
-    }
-
-
-    Group pinwheel(Color color1, Color color2) {
-        Group theBlock = new Group();
-        for (int i = 0; i < 4; i++) {
-            Group tile = tileInBox(color1, color2);
-            tile.setRotate(90 * i);
-            theBlock.getChildren().add(tile);
-        }
-        return theBlock;
-    }
-
-    Group tileInBox(Color color1, Color color2) {
-        Rectangle square = new Rectangle(0, 0, 200, 200);
-        square.setFill(Color.rgb(255,255,255,0.0));
-        return new Group(square, tile(color1, color2));
-    }
-
-    Group tile(Color color1, Color color2) {
-        Polygon triangle = new Polygon(0,0,0,100,100,100);
-        Polygon triangle2 = new Polygon();
-        triangle2.getPoints().addAll(triangle.getPoints());
-        triangle2.setRotate(180);
-
-        triangle.setFill(color1);
-        triangle2.setFill(color2);
-
-        triangle.setStroke(Color.GRAY);
-        triangle2.setStroke(Color.GRAY);
-        return new Group(triangle, triangle2);
     }
 
 //    /**
