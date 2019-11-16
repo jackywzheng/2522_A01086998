@@ -1,13 +1,13 @@
 package ca.bcit.comp2522.assignments.A3;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -30,7 +30,9 @@ public class QuiltProgram extends Application {
 
     private int roW = 0;
     private int coL = 0;
-
+    private int numberOfColumns;
+    private int numberOfRows;
+    private int blockSize;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -39,7 +41,7 @@ public class QuiltProgram extends Application {
         // Labels
         Label columnsLabel = new Label("Enter number of columns:");
         Label rowsLabel = new Label("Enter number of rows:");
-        Label blockSizeLabel = new Label("Enter Block Size:");
+        Label blockSizeLabel = new Label("Enter Block Size in cm:");
         Label blockTypeLabel = new Label("Select Block Type:");
 
         // TextFields to input number of columns and rows
@@ -68,7 +70,6 @@ public class QuiltProgram extends Application {
 
         // Right vertical column
         VBox colorControls = new VBox();
-
         colorControls.setStyle("-fx-padding: 30px 30px;" + "-fx-background-color: skyblue");
         userControls.setSpacing(10);
 
@@ -200,6 +201,23 @@ public class QuiltProgram extends Application {
         triangle2.setStroke(Color.GRAY);
         return new Group(triangle, triangle2);
     }
+
+//    /**
+//     * Computes and displays the converted temperature when the user presses the
+//     * return key while in the text field.
+//     *
+//     * @param event invokes this method
+//     */
+//    public void processReturn(ActionEvent event) {
+//        // We acquire the value of the text field...
+//        numberOfColumns = Integer.parseInt(numberOfColumnsText.getText());
+//        numberOfRows = Integer.parseInt(numberOfRowsText.getText());
+//        blockSize = Integer.parseInt(blockSizeText.getText());
+//        // ...and then we change the value of the next field.
+//        numberOfColumnsText.setText(numberOfColumns + "");
+//        numberOfRowsText.setText(numberOfRows + "");
+//        blockSizeText.setText(blockSize + "");
+//    }
 
     /**
      * Launches the JavaFX application.
