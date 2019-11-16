@@ -16,9 +16,10 @@ public class Driver extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        ColorPicker colorPicker1 = new ColorPicker(Color.RED);
-        ColorPicker colorPicker2 = new ColorPicker(Color.WHITE);
-        ColorPicker colorPicker3 = new ColorPicker(Color.ORANGE);
+        ColorPicker colorPicker1 = new ColorPicker(Color.WHITE);
+        ColorPicker colorPicker2 = new ColorPicker(Color.BLACK);
+        ColorPicker colorPicker3 = new ColorPicker(Color.LIGHTGRAY);
+        ColorPicker colorPicker4 = new ColorPicker(Color.DARKGRAY);
         colorPicker1.setOnAction(e -> {
             colorPicker1.getValue();
         });
@@ -28,15 +29,18 @@ public class Driver extends Application {
         colorPicker3.setOnAction(e -> {
             colorPicker3.getValue();
         });
+        colorPicker4.setOnAction(e -> {
+            colorPicker4.getValue();
+        });
 
         Pinwheel pinwheel = new Pinwheel(200);
         Pinwheel pinwheel2 = new Pinwheel(200);
         Hourglass hourglass = new Hourglass(200);
+
         TwistedFourStar twistedFourStar = new TwistedFourStar(100);
         pinwheel.getColorProperty(0).bind(colorPicker1.valueProperty());
         pinwheel.getColorProperty(1).bind(colorPicker2.valueProperty());
         HBox pickers = new HBox(colorPicker1, colorPicker2);
-
 
         VBox root = new VBox();
         root.setStyle("-fx-background-color: #0C0C32");

@@ -30,10 +30,10 @@ public class Block {
     public Block(int newSizeInCm) {
         sizeInCm = newSizeInCm;
         COLORS = new ArrayList<>();
-        COLORS.add(new SimpleObjectProperty<>(Color.RED));
         COLORS.add(new SimpleObjectProperty<>(Color.WHITE));
-        COLORS.add(new SimpleObjectProperty<>(Color.ORANGE));
-        COLORS.add(new SimpleObjectProperty<>(Color.GOLD));
+        COLORS.add(new SimpleObjectProperty<>(Color.BLACK));
+        COLORS.add(new SimpleObjectProperty<>(Color.DARKGRAY));
+        COLORS.add(new SimpleObjectProperty<>(Color.LIGHTGRAY));
     }
 
     public Group getBlock() {

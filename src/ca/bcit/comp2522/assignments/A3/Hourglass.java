@@ -1,6 +1,5 @@
 package ca.bcit.comp2522.assignments.A3;
 
-
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -18,7 +17,6 @@ public class Hourglass extends Block {
     public Group getBlock() {
         return block;
     }
-
 
     Group hourglass() {
         Group outerBlock = hourglassComponent();
