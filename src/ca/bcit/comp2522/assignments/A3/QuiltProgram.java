@@ -1,10 +1,16 @@
 package ca.bcit.comp2522.assignments.A3;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -33,6 +39,8 @@ public class QuiltProgram extends Application {
     private int numberOfColumns;
     private int numberOfRows;
     private int blockSize;
+    private Group selected;
+    private ComboBox blockTypesDropdown;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -60,10 +68,26 @@ public class QuiltProgram extends Application {
         TextField blockSizeText = new TextField("Block Size");
 
         // Types of blocks
-        Pinwheel pinwheel = new Pinwheel(150);
+        String[] blockTypes = {"Pinwheel", "Hourglass", "Twisted four-star", "n x n grid", "Random"};
+        blockTypesDropdown = new ComboBox(FXCollections.observableArrayList(blockTypes));
+        blockTypesDropdown.getSelectionModel().selectFirst();
+        selected = new Pinwheel(100).getBlock();
+        // Create action event
+        EventHandler<ActionEvent> event1 = e -> {
+            selected.getChildren().clear();
+            if (blockTypesDropdown.getValue().equals("Pinwheel")) {
+                selected.getChildren().add(new Pinwheel(100).getBlock());
+            } else if (blockTypesDropdown.getValue().equals("Hourglass")) {
+                selected.getChildren().add(new Pinwheel(70).getBlock());
+            }
+        };
+
+        blockTypesDropdown.setOnAction(event1);
+
+
 
         // Left vertical column
-        VBox userControls = new VBox(columnsLabel, colSpinner, rowsLabel, rowSpinner, blockSizeLabel, blockSizeText, blockTypeLabel, pinwheel.getBlock());
+        VBox userControls = new VBox(columnsLabel, colSpinner, rowsLabel, rowSpinner, blockSizeLabel, blockSizeText, blockTypeLabel, blockTypesDropdown, selected);
         userControls.setStyle("-fx-padding: 20px 20px;" + "-fx-background-color: skyblue");
         userControls.setSpacing(10);
         userControls.setPrefWidth(200);
@@ -155,6 +179,11 @@ public class QuiltProgram extends Application {
 //        numberOfRowsText.setText(numberOfRows + "");
 //        blockSizeText.setText(blockSize + "");
 //    }
+
+
+
+    // Set on action
+
 
     /**
      * Launches the JavaFX application.
