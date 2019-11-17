@@ -1,7 +1,9 @@
 package ca.bcit.comp2522.assignments.A3;
 
 import javafx.application.Application;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -68,8 +70,9 @@ public class QuiltProgram extends Application {
         TextField blockSizeText = new TextField("Block Size");
 
         // Types of blocks
-        String[] blockTypes = {"Pinwheel", "Hourglass", "Twisted four-star", "n x n grid", "Random"};
-        blockTypesDropdown = new ComboBox(FXCollections.observableArrayList(blockTypes));
+        ObservableList<String> blockTypes = FXCollections.observableArrayList(
+                "Pinwheel", "Hourglass", "Twisted four-star", "n x n grid", "Random");
+        blockTypesDropdown = new ComboBox<>(blockTypes);
         blockTypesDropdown.getSelectionModel().selectFirst();
         selected = new Pinwheel(100).getBlock();
         // Create action event
@@ -78,24 +81,50 @@ public class QuiltProgram extends Application {
             if (blockTypesDropdown.getValue().equals("Pinwheel")) {
                 selected.getChildren().add(new Pinwheel(100).getBlock());
             } else if (blockTypesDropdown.getValue().equals("Hourglass")) {
-                selected.getChildren().add(new Pinwheel(70).getBlock());
+                selected.getChildren().add(new Hourglass(200).getBlock());
+            } else if (blockTypesDropdown.getValue().equals("Twisted four-star")) {
+                selected.getChildren().add(new TwistedFourStar(200).getBlock());
+            } else if (blockTypesDropdown.getValue().equals("n x n grid")) {
+                selected.getChildren().add(new Pinwheel(30).getBlock());
+            } else {
+                selected.getChildren().add(new Pinwheel(10).getBlock());
             }
         };
 
         blockTypesDropdown.setOnAction(event1);
 
+        // Color pickers
+        ColorPicker colorPicker1 = new ColorPicker(Color.WHITE);
+        ColorPicker colorPicker2 = new ColorPicker(Color.BLACK);
+        ColorPicker colorPicker3 = new ColorPicker(Color.LIGHTGRAY);
+        ColorPicker colorPicker4 = new ColorPicker(Color.DARKGRAY);
+        colorPicker1.setOnAction(e -> {
+            colorPicker1.getValue();
+        });
+        colorPicker2.setOnAction(e -> {
+            colorPicker2.getValue();
+        });
+        colorPicker3.setOnAction(e -> {
+            colorPicker3.getValue();
+        });
+        colorPicker4.setOnAction(e -> {
+            colorPicker4.getValue();
+        });
 
+        // Update Button
+        Button update = new Button("Update");
+
+        // Separators
+        Separator separatorOne = new Separator();
+        Separator separatorTwo = new Separator();
 
         // Left vertical column
-        VBox userControls = new VBox(columnsLabel, colSpinner, rowsLabel, rowSpinner, blockSizeLabel, blockSizeText, blockTypeLabel, blockTypesDropdown, selected);
+        VBox userControls = new VBox(columnsLabel, colSpinner, rowsLabel, rowSpinner,
+                blockSizeLabel, blockSizeText, separatorOne, blockTypeLabel, blockTypesDropdown, selected,
+                colorPicker1, colorPicker2, colorPicker3, colorPicker4, separatorTwo, update);
         userControls.setStyle("-fx-padding: 20px 20px;" + "-fx-background-color: skyblue");
         userControls.setSpacing(10);
         userControls.setPrefWidth(200);
-
-        // Right vertical column
-        VBox colorControls = new VBox();
-        colorControls.setStyle("-fx-padding: 30px 30px;" + "-fx-background-color: skyblue");
-        userControls.setSpacing(10);
 
         GridPane gridPane = new GridPane();
         gridPane.setMaxSize(1, 1);
@@ -153,8 +182,6 @@ public class QuiltProgram extends Application {
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(userControls);
         borderPane.setCenter(pane);
-        borderPane.setRight(colorControls);
-
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Scene scene = new Scene(borderPane, screenSize.width - 50, screenSize.height - 50, Color.BLACK);
