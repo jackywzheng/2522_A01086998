@@ -17,8 +17,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -117,7 +115,7 @@ public class QuiltProgram extends Application {
         VBox userControls = new VBox(columnsLabel, colSpinner, rowsLabel, rowSpinner,
                 blockSizeLabel, blockSizeSpinner, separatorOne, blockTypeLabel, blockTypesDropdown, selected,
                 colorPicker1, colorPicker2, colorPicker3, colorPicker4, separatorTwo, update);
-        userControls.setStyle("-fx-padding: 20px 20px;" + "-fx-background-color: skyblue");
+        userControls.setStyle("-fx-padding: 20px 20px;" + "-fx-background-color: #F2F2F2");
         userControls.setSpacing(10);
         userControls.setPrefWidth(200);
 
@@ -177,7 +175,8 @@ public class QuiltProgram extends Application {
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(userControls);
         borderPane.setCenter(pane);
-        borderPane.setRight(colorControls);
+        borderPane.setStyle("-fx-background-color: #E5E5E5");
+//        borderPane.setRight(colorControls);
 
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
