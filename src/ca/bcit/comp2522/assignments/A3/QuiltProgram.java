@@ -24,6 +24,8 @@ import java.util.ArrayList;
 
 public class QuiltProgram extends Application {
 
+    private static ArrayList<ColorPicker> colorPickers;
+
     // Numerical spinner
     private Spinner<Integer> colSpinner;
     private Spinner<Integer> rowSpinner;
@@ -33,6 +35,32 @@ public class QuiltProgram extends Application {
     private int coL = 0;
     private Group selected;
     private ComboBox blockTypesDropdown;
+
+    static {
+        // Color pickers
+        colorPickers = new ArrayList<>();
+        ColorPicker colorPicker1 = new ColorPicker(Color.WHITE);
+        colorPickers.add(colorPicker1);
+        ColorPicker colorPicker2 = new ColorPicker(Color.BLACK);
+        colorPickers.add(colorPicker2);
+        ColorPicker colorPicker3 = new ColorPicker(Color.LIGHTGRAY);
+        colorPickers.add(colorPicker3);
+        ColorPicker colorPicker4 = new ColorPicker(Color.DARKGRAY);
+        colorPickers.add(colorPicker4);
+
+        colorPicker1.setOnAction(e -> {
+            colorPicker1.getValue();
+        });
+        colorPicker2.setOnAction(e -> {
+            colorPicker2.getValue();
+        });
+        colorPicker3.setOnAction(e -> {
+            colorPicker3.getValue();
+        });
+        colorPicker4.setOnAction(e -> {
+            colorPicker4.getValue();
+        });
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -88,24 +116,6 @@ public class QuiltProgram extends Application {
 
         blockTypesDropdown.setOnAction(event1);
 
-        // Color pickers
-        ColorPicker colorPicker1 = new ColorPicker(Color.WHITE);
-        ColorPicker colorPicker2 = new ColorPicker(Color.BLACK);
-        ColorPicker colorPicker3 = new ColorPicker(Color.LIGHTGRAY);
-        ColorPicker colorPicker4 = new ColorPicker(Color.DARKGRAY);
-        colorPicker1.setOnAction(e -> {
-            colorPicker1.getValue();
-        });
-        colorPicker2.setOnAction(e -> {
-            colorPicker2.getValue();
-        });
-        colorPicker3.setOnAction(e -> {
-            colorPicker3.getValue();
-        });
-        colorPicker4.setOnAction(e -> {
-            colorPicker4.getValue();
-        });
-
         // Update Button
         Button update = new Button("Update");
 
@@ -116,7 +126,7 @@ public class QuiltProgram extends Application {
         // Left vertical column
         VBox userControls = new VBox(columnsLabel, colSpinner, rowsLabel, rowSpinner,
                 blockSizeLabel, blockSizeSpinner, separatorOne, blockTypeLabel, blockTypesDropdown, selected,
-                colorPicker1, colorPicker2, colorPicker3, colorPicker4, separatorTwo, update);
+                colorPickers.get(0), colorPickers.get(1), colorPickers.get(2), colorPickers.get(3), separatorTwo, update);
         userControls.setStyle("-fx-padding: 20px 20px;" + "-fx-background-color: #F2F2F2");
         userControls.setSpacing(10);
         userControls.setPrefWidth(200);
