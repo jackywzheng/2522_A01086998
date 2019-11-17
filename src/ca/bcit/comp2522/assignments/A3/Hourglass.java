@@ -3,20 +3,43 @@ package ca.bcit.comp2522.assignments.A3;
 import javafx.scene.Group;
 import javafx.scene.shape.Polygon;
 
-public class Hourglass extends Block {
+/**
+ * Hourglass Block.
+ *
+ * @author Jacky Zheng
+ * @author Trung Bui
+ * @version 1.0
+ */
 
+public class Hourglass extends Block {
+    /**
+     * The block as a group.
+     */
     private Group block;
 
+    /**
+     * Constructs an hourglass object.
+     */
     public Hourglass() {
         super();
         this.block = hourglass();
     }
 
+    /**
+     * Returns block as a Group.
+     *
+     * @return block, a Group
+     */
     @Override
     public Group getBlock() {
         return block;
     }
 
+    /**
+     * ???
+     *
+     * @return
+     */
     private Group hourglass() {
         Group outerBlock = hourglassComponent();
         Group innerBlock = hourglassComponent();
@@ -26,6 +49,11 @@ public class Hourglass extends Block {
         return new Group(outerBlock, innerBlock);
     }
 
+    /**
+     * ???
+     *
+     * @return
+     */
     private Group hourglassComponent() {
         Group tl = quadrant1();
         tl.setRotate(QUARTER_CLOCKWISE_ROTATION);
@@ -41,6 +69,11 @@ public class Hourglass extends Block {
         return new Group(tr, tl, br, bl);
     }
 
+    /**
+     * ???
+     *
+     * @return
+     */
     private Group quadrant1() {
         Polygon triangle = triangle();
         Polygon triangle2 = new Polygon();
@@ -52,6 +85,11 @@ public class Hourglass extends Block {
         return new Group(triangle, triangle2);
     }
 
+    /**
+     * ???
+     *
+     * @return
+     */
     private Group quadrant2() {
         Polygon triangle = triangle();
         Polygon triangle2 = new Polygon();
@@ -63,6 +101,11 @@ public class Hourglass extends Block {
         return new Group(triangle, triangle2);
     }
 
+    /**
+     * ???
+     *
+     * @return
+     */
     private Polygon triangle() {
         return new Polygon(0, (double) getSizeInCm() / 2,
                 (double) getSizeInCm() / 2,

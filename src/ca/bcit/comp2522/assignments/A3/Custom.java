@@ -6,20 +6,43 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
-public class Custom extends Block {
 
+/**
+ * Custom block design that Trung and Jacky made.
+ *
+ * @author Jacky Zheng
+ * @author Trung Bui
+ * @version 1.0
+ */
+
+public class Custom extends Block {
+    /**
+     * The block as a group.
+     */
     private Group block;
 
+    /**
+     * Constructs a custom object.
+     */
     public Custom() {
         super();
         this.block = custom();
     }
 
+    /**
+     * Returns block as a Group.
+     *
+     * @return block, a Group
+     */
     @Override
     public Group getBlock() {
         return block;
     }
 
+    /**
+     * ???
+     * @return
+     */
     Group custom() {
         Group outerBlock = customComponent();
         Group innerBlock = customComponent();
@@ -32,6 +55,10 @@ public class Custom extends Block {
         return last;
     }
 
+    /**
+     * ???
+     * @return
+     */
     Group customComponent() {
         Rectangle background = new Rectangle((double) getSizeInCm() * 1.5,
                 (double) getSizeInCm() * 1.5);
@@ -49,6 +76,11 @@ public class Custom extends Block {
         bl.setRotate(QUARTER_CLOCKWISE_ROTATION * 2);
         return new Group(background, tr, tl, br, bl);
     }
+
+    /**
+     * ???
+     * @return
+     */
     private Group quadrant1() {
         Polygon triangle = triangle();
         Polygon triangle2 = new Polygon();
@@ -59,6 +91,11 @@ public class Custom extends Block {
         return new Group(triangle, triangle2);
     }
 
+    /**
+     * ???
+     *
+     * @return
+     */
     private Group quadrant2() {
         Polygon triangle = triangle();
         Polygon triangle2 = new Polygon();
@@ -69,6 +106,11 @@ public class Custom extends Block {
         return new Group(triangle, triangle2);
     }
 
+    /**
+     * ???
+     *
+     * @return
+     */
     private Polygon triangle() {
         return new Polygon(0, (double) getSizeInCm() / 2,
                 (double) getSizeInCm() / 2,
