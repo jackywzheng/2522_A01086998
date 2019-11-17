@@ -9,8 +9,8 @@ public class TwistedFourStar extends Block {
 
     private Group block;
 
-    public TwistedFourStar(int sizeInCm) {
-        super(sizeInCm);
+    public TwistedFourStar() {
+        super();
         this.block = twistedFourStar();
     }
 
