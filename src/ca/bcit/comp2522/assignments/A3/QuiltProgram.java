@@ -9,7 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -17,13 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -83,8 +76,6 @@ public class QuiltProgram extends Application {
         };
 
         blockTypesDropdown.setOnAction(event1);
-
-
 
         // Left vertical column
         VBox userControls = new VBox(columnsLabel, colSpinner, rowsLabel, rowSpinner, blockSizeLabel, blockSizeText, blockTypeLabel, blockTypesDropdown, selected);
@@ -155,35 +146,12 @@ public class QuiltProgram extends Application {
         borderPane.setCenter(pane);
         borderPane.setRight(colorControls);
 
-
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         Scene scene = new Scene(borderPane, screenSize.width - 50, screenSize.height - 50, Color.BLACK);
         stage.setTitle("Quilt Maker 9000");
         stage.setScene(scene);
         stage.show();
     }
-
-//    /**
-//     * Computes and displays the converted temperature when the user presses the
-//     * return key while in the text field.
-//     *
-//     * @param event invokes this method
-//     */
-//    public void processReturn(ActionEvent event) {
-//        // We acquire the value of the text field...
-//        numberOfColumns = Integer.parseInt(numberOfColumnsText.getText());
-//        numberOfRows = Integer.parseInt(numberOfRowsText.getText());
-//        blockSize = Integer.parseInt(blockSizeText.getText());
-//        // ...and then we change the value of the next field.
-//        numberOfColumnsText.setText(numberOfColumns + "");
-//        numberOfRowsText.setText(numberOfRows + "");
-//        blockSizeText.setText(blockSize + "");
-//    }
-
-
-
-    // Set on action
-
 
     /**
      * Launches the JavaFX application.
