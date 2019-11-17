@@ -110,7 +110,7 @@ public class QuiltProgram extends Application {
             } else if (blockTypesDropdown.getValue().equals("n x n grid")) {
                 selected.getChildren().add(new Pinwheel().getBlock());
             } else {
-                selected.getChildren().add(new Pinwheel().getBlock());
+                selected.getChildren().add(new Custom().getBlock());
             }
         };
 
