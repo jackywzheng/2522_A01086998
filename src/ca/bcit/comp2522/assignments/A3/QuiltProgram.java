@@ -1,7 +1,6 @@
 package ca.bcit.comp2522.assignments.A3;
 
 import javafx.application.Application;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,9 +18,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -35,12 +31,10 @@ public class QuiltProgram extends Application {
     // Numerical spinner
     private Spinner<Integer> colSpinner;
     private Spinner<Integer> rowSpinner;
+    private Spinner<Integer> blockSizeSpinner;
 
     private int roW = 0;
     private int coL = 0;
-    private int numberOfColumns;
-    private int numberOfRows;
-    private int blockSize;
     private Group selected;
     private ComboBox blockTypesDropdown;
 
@@ -54,19 +48,22 @@ public class QuiltProgram extends Application {
         Label blockSizeLabel = new Label("Enter Block Size in cm:");
         Label blockTypeLabel = new Label("Select Block Type:");
 
-        // TextFields to input number of columns and rows
+        // TextFields to input number of columns and rows, and block size
         final int maxSpinnerValue = 10;
         final int initialSpinnerValue = 5;
         SpinnerValueFactory.IntegerSpinnerValueFactory colSvf =
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(
                         1, maxSpinnerValue, initialSpinnerValue);
-        colSpinner = new Spinner<Integer>(colSvf);
+        colSpinner = new Spinner<>(colSvf);
         SpinnerValueFactory.IntegerSpinnerValueFactory rowSvf =
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(
                         1, maxSpinnerValue, initialSpinnerValue);
-        rowSpinner = new Spinner<Integer>(rowSvf);
+        rowSpinner = new Spinner<>(rowSvf);
+        SpinnerValueFactory.IntegerSpinnerValueFactory blockSizeSvf =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(
+                        1, maxSpinnerValue, initialSpinnerValue);
+        blockSizeSpinner = new Spinner<>(blockSizeSvf);
 
-        TextField numberOfRowsText = new TextField("Rows");
         TextField blockSizeText = new TextField("Block Size");
 
         // Types of blocks
@@ -120,7 +117,7 @@ public class QuiltProgram extends Application {
 
         // Left vertical column
         VBox userControls = new VBox(columnsLabel, colSpinner, rowsLabel, rowSpinner,
-                blockSizeLabel, blockSizeText, separatorOne, blockTypeLabel, blockTypesDropdown, selected,
+                blockSizeLabel, blockSizeSpinner, separatorOne, blockTypeLabel, blockTypesDropdown, selected,
                 colorPicker1, colorPicker2, colorPicker3, colorPicker4, separatorTwo, update);
         userControls.setStyle("-fx-padding: 20px 20px;" + "-fx-background-color: skyblue");
         userControls.setSpacing(10);
