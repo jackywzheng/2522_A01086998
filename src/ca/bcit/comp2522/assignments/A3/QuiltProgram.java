@@ -3,26 +3,28 @@ package ca.bcit.comp2522.assignments.A3;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.event.Event;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
 public class QuiltProgram extends Application {
+
+    private static final int MAX_SPINNER_VALUE = 100;
+    private static final int INITIAL_SPINNER_VALUE = 5;
+    public static final int DEFAULT_GRID_SIZE = 5;
+    public static final int DEFAULT_BLOCK_SIZE_IN_CM = 2;
+    private static final int USER_CONTROL_SPACING = 10;
+    private static final int USER_CONTROL_WIDTH = 200;
 
     private static ArrayList<ColorPicker> colorPickers;
 
@@ -30,11 +32,23 @@ public class QuiltProgram extends Application {
     private Spinner<Integer> colSpinner;
     private Spinner<Integer> rowSpinner;
     private Spinner<Integer> blockSizeSpinner;
+    private int numberOfRows = 0;
+    private int numberOfColumns = 0;
 
-    private int roW = 0;
-    private int coL = 0;
     private Group selected;
-    private ComboBox blockTypesDropdown;
+    private GridPane gridPane = new GridPane();
+
+    private Label columnsLabel = new Label("Choose number of columns:");
+    private Label rowsLabel = new Label("Choose number of rows:");
+    private Label blockSizeLabel = new Label("Enter Block Size in Cm:");
+    private Label blockTypeLabel = new Label("Select Block Type:");
+
+    private ObservableList<String> blockTypes = FXCollections.observableArrayList(
+            "Pinwheel", "Hourglass", "Twisted four-star",
+            "n x n grid", "Random");
+    private ComboBox blockTypesDropdown = new ComboBox<>(blockTypes);
+    private Button updateBlock = new Button("Update Selected");
+    private Button updateAll = new Button("Update All");
 
     static {
         // Color pickers
@@ -47,7 +61,6 @@ public class QuiltProgram extends Application {
         colorPickers.add(colorPicker3);
         ColorPicker colorPicker4 = new ColorPicker(Color.DARKGRAY);
         colorPickers.add(colorPicker4);
-
         colorPicker1.setOnAction(e -> {
             colorPicker1.getValue();
         });
@@ -64,139 +77,114 @@ public class QuiltProgram extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // Border Pane setup
+        Quilt.getQuilt();
 
-        Block.setSizeInCm(100);
+        // Instantiating components
+        transferGroupsToGridPane();
+        gridPane.setGridLinesVisible(true);
+        gridPane.setOnMouseClicked(this::processButtonPress);
 
-        // Labels
-        Label columnsLabel = new Label("Enter number of columns:");
-        Label rowsLabel = new Label("Enter number of rows:");
-        Label blockSizeLabel = new Label("Enter Block Size in cm:");
-        Label blockTypeLabel = new Label("Select Block Type:");
+        // Instantiating the scene
+        final double appWidth = 900;
+        final double appHeight = Toolkit.getDefaultToolkit()
+                .getScreenSize().getWidth() / 2;
+        Scene scene = new Scene(getControls(),
+                appWidth, appHeight, Color.BLACK);
+        stage.setTitle("Quilt Maker 9000");
+        stage.setScene(scene);
+        stage.show();
+    }
 
-        // TextFields to input number of columns and rows, and block size
-        final int maxSpinnerValue = 10;
-        final int initialSpinnerValue = 5;
+    private void spinnerFactory() {
         SpinnerValueFactory.IntegerSpinnerValueFactory colSvf =
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(
-                        1, maxSpinnerValue, initialSpinnerValue);
+                        1, MAX_SPINNER_VALUE, INITIAL_SPINNER_VALUE);
         colSpinner = new Spinner<>(colSvf);
+        colSpinner.setOnMouseClicked(this::processButtonPress);
         SpinnerValueFactory.IntegerSpinnerValueFactory rowSvf =
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(
-                        1, maxSpinnerValue, initialSpinnerValue);
+                        1, MAX_SPINNER_VALUE, INITIAL_SPINNER_VALUE);
         rowSpinner = new Spinner<>(rowSvf);
         SpinnerValueFactory.IntegerSpinnerValueFactory blockSizeSvf =
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(
-                        1, maxSpinnerValue, initialSpinnerValue);
+                        1, MAX_SPINNER_VALUE, DEFAULT_BLOCK_SIZE_IN_CM);
         blockSizeSpinner = new Spinner<>(blockSizeSvf);
+    }
 
-        TextField blockSizeText = new TextField("Block Size");
-
+    private BorderPane getControls() {
+        ScrollPane scrollPane = new ScrollPane(gridPane);
+        spinnerFactory();
         // Types of blocks
-        ObservableList<String> blockTypes = FXCollections.observableArrayList(
-                "Pinwheel", "Hourglass", "Twisted four-star", "n x n grid", "Random");
-        blockTypesDropdown = new ComboBox<>(blockTypes);
         blockTypesDropdown.getSelectionModel().selectFirst();
+        blockTypesDropdown.setOnAction(this::processDropDownSelection);
         selected = new Pinwheel().getBlock();
-        // Create action event
-        EventHandler<ActionEvent> event1 = e -> {
-            selected.getChildren().clear();
-            if (blockTypesDropdown.getValue().equals("Pinwheel")) {
-                selected.getChildren().add(new Pinwheel().getBlock());
-            } else if (blockTypesDropdown.getValue().equals("Hourglass")) {
-                selected.getChildren().add(new Hourglass().getBlock());
-            } else if (blockTypesDropdown.getValue().equals("Twisted four-star")) {
-                selected.getChildren().add(new TwistedFourStar().getBlock());
-            } else if (blockTypesDropdown.getValue().equals("n x n grid")) {
-                selected.getChildren().add(new Pinwheel().getBlock());
-            } else {
-                selected.getChildren().add(new Custom().getBlock());
-            }
-        };
-
-        blockTypesDropdown.setOnAction(event1);
-
-        // Update Button
-        Button update = new Button("Update");
-
-        // Separators
-        Separator separatorOne = new Separator();
-        Separator separatorTwo = new Separator();
-
         // Left vertical column
-        VBox userControls = new VBox(columnsLabel, colSpinner, rowsLabel, rowSpinner,
-                blockSizeLabel, blockSizeSpinner, separatorOne, blockTypeLabel, blockTypesDropdown, selected,
-                colorPickers.get(0), colorPickers.get(1), colorPickers.get(2), colorPickers.get(3), separatorTwo, update);
-        userControls.setStyle("-fx-padding: 20px 20px;" + "-fx-background-color: #F2F2F2");
-        userControls.setSpacing(10);
-        userControls.setPrefWidth(200);
+        VBox userControls = new VBox(
+                columnsLabel, colSpinner, rowsLabel, rowSpinner,
+                blockSizeLabel, blockSizeSpinner, new Separator(),
+                blockTypeLabel, blockTypesDropdown, selected,
+                colorPickers.get(0), colorPickers.get(1),
+                colorPickers.get(2), colorPickers.get(2 + 1),
+                new Separator(), updateBlock, updateAll);
+        userControls.setStyle("-fx-padding: 20px 20px;"
+                + "-fx-background-color: #F2F2F2;");
+        userControls.setSpacing(USER_CONTROL_SPACING);
+        userControls.setPrefWidth(USER_CONTROL_WIDTH);
 
-        GridPane gridPane = new GridPane();
-        gridPane.setMaxSize(1, 1);
-        gridPane.setGridLinesVisible(true);
-        gridPane.setHgap(0);
-        gridPane.setVgap(0);
+        // Instantiating a BorderPane
+        BorderPane borderPane = new BorderPane();
+        borderPane.setLeft(userControls);
+        borderPane.setCenter(scrollPane);
+        borderPane.getCenter().setStyle("-fx-padding: 100 0 100 100");
+        borderPane.setStyle("-fx-background-color: #E5E5E5");
+        return borderPane;
+    }
 
-        ArrayList<ArrayList<Group>> designs = new ArrayList<>();
-
-        for (int i = 0; i < 3; i++) {
-            ArrayList<Group> row = new ArrayList<>();
-            for (int j = 0; j < 3; j++) {
-//                Pinwheel p = new Pinwheel();
-                Block b = new Block();
-                row.add(b.getBlock());
-            }
-            designs.add(row);
+    private void processDropDownSelection(Event event) {
+        selected.getChildren().clear();
+        if (blockTypesDropdown.getValue().equals("Pinwheel")) {
+            selected.getChildren().add(new Pinwheel().getBlock());
+        } else if (blockTypesDropdown.getValue().equals("Hourglass")) {
+            selected.getChildren().add(new Hourglass().getBlock());
+        } else if (blockTypesDropdown.getValue().equals("Twisted four-star")) {
+            selected.getChildren().add(new TwistedFourStar().getBlock());
+        } else if (blockTypesDropdown.getValue().equals("n x n grid")) {
+            selected.getChildren().add(new Pinwheel().getBlock());
+        } else {
+            selected.getChildren().add(new Custom().getBlock());
         }
+    }
 
-        for (ArrayList<Group> row : designs) {
-            int y = designs.indexOf(row);
+    private void processButtonPress(javafx.scene.input.MouseEvent mouseEvent) {
+        double posX = mouseEvent.getX();
+        double posY = mouseEvent.getY();
+        numberOfColumns = (int) (posX / Block.getSizeInCm());
+        numberOfRows = (int) (posY / Block.getSizeInCm());
+        System.out.println(numberOfRows);
+        System.out.println(numberOfColumns);
+        for (int i = 0; i < Quilt.getNumberOfRows(); i++) {
+            for (int j = 0; j < Quilt.getNumberOfColumns(); j++) {
+                Quilt.getDesigns().get(i).get(j).setOpacity(1);
+                Quilt.getDesigns().get(i).get(j).setScaleX(1);
+                Quilt.getDesigns().get(i).get(j).setScaleY(1);
+            }
+        }
+        final double selectionScaleFactor = 0.9;
+        Quilt.getDesigns().get(numberOfRows).get(numberOfColumns)
+                .setScaleX(selectionScaleFactor);
+        Quilt.getDesigns().get(numberOfRows).get(numberOfColumns)
+                .setScaleY(selectionScaleFactor);
+    }
+
+    private void transferGroupsToGridPane() {
+        // Transferring from ArrayList to gridPane
+        for (ArrayList<Group> row : Quilt.getDesigns()) {
+            int y = Quilt.getDesigns().indexOf(row);
             for (Group design : row) {
                 int x = row.indexOf(design);
                 gridPane.add(design, x, y, 1, 1);
             }
         }
-
-        gridPane.setOnMouseClicked(e -> {
-            double posX = e.getX();
-            double posY = e.getY();
-            int col = (int) (posX / 100);
-            int row = (int) (posY / 100);
-            System.out.println(row);
-            System.out.println(col);
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    designs.get(i).get(j).setOpacity(1);
-                    designs.get(i).get(j).setScaleX(1);
-                    designs.get(i).get(j).setScaleY(1);
-                }
-            }
-            roW = row;
-            coL = col;
-            designs.get(roW).get(coL).setScaleX(0.9);
-            designs.get(roW).get(coL).setScaleY(0.9);
-        });
-
-        for (Node node : gridPane.getChildren()) {
-            System.out.println(node.getProperties());
-        }
-
-        StackPane pane = new StackPane();
-        pane.getChildren().add(gridPane);
-
-        // Instantiating a BorderPane
-        BorderPane borderPane = new BorderPane();
-        borderPane.setLeft(userControls);
-        borderPane.setCenter(pane);
-        borderPane.setStyle("-fx-background-color: #E5E5E5");
-//        borderPane.setRight(colorControls);
-
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        Scene scene = new Scene(borderPane, screenSize.width - 50, screenSize.height - 50, Color.BLACK);
-        stage.setTitle("Quilt Maker 9000");
-        stage.setScene(scene);
-        stage.show();
     }
 
     /**
