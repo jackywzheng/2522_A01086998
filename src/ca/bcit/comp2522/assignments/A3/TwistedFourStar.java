@@ -5,20 +5,43 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
-public class TwistedFourStar extends Block {
+/**
+ * Twisted Four Star Block.
+ *
+ * @author Jacky Zheng
+ * @author Trung Bui
+ * @version 1.0
+ */
 
+public class TwistedFourStar extends Block {
+    /**
+     * The block as a group.
+     */
     private Group block;
 
+    /**
+     * Constructs an twisted four star object.
+     */
     public TwistedFourStar() {
         super();
         this.block = twistedFourStar();
     }
 
+    /**
+     * Returns block as a Group.
+     *
+     * @return block, a Group
+     */
     @Override
     public Group getBlock() {
         return block;
     }
 
+    /**
+     * ???
+     *
+     * @return
+     */
     private Group twistedFourStar() {
         Group twistedFourStar = new Group();
         for (int i = 0; i++ * QUARTER_CLOCKWISE_ROTATION < FULL_ROTATION;) {
@@ -29,12 +52,22 @@ public class TwistedFourStar extends Block {
         return twistedFourStar;
     }
 
+    /**
+     * ???
+     *
+     * @return
+     */
     private Group tileInBox() {
         Rectangle square = new Rectangle(0, 0, getSizeInCm(), getSizeInCm());
         square.setFill(Color.TRANSPARENT);
         return new Group(square, tfs());
     }
 
+    /**
+     * ???
+     *
+     * @return
+     */
     private Group tfs() {
         Polygon triangle = new Polygon(0, 0,
                 (double) getSizeInCm() / 2, (double) getSizeInCm() / 2,
