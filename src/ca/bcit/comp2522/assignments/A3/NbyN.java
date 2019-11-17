@@ -20,10 +20,16 @@ public class NbyN extends Block {
 
     private Group NbyN() {
         Group group = new Group();
-        for (int x = 0; x < getSizeInCm(); x += (getSizeInCm()/10)) {
-            for (int y = 0; y < getSizeInCm(); y += (getSizeInCm()/10)) {
-                Rectangle rectangle = new Rectangle(x, y, getSizeInCm() / 10, getSizeInCm() / 10);
-                rectangle.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+        for (int x = 0; x < getSizeInCm(); x += (getSizeInCm() / 10)) {
+            for (int y = 0; y < getSizeInCm(); y += (getSizeInCm() / 10)) {
+                // Create a rectangle
+                Rectangle rectangle = new Rectangle(x, y,
+                        (double) getSizeInCm() / 10,
+                        (double) getSizeInCm() / 10);
+                // Randomly assign a color
+                rectangle.setFill(Color.color(
+                                Math.random(), Math.random(), Math.random()));
+                // Add it to the group
                 group.getChildren().add(rectangle);
             }
         }
