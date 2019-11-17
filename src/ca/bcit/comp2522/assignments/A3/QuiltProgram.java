@@ -67,20 +67,20 @@ public class QuiltProgram extends Application {
                 "Pinwheel", "Hourglass", "Twisted four-star", "n x n grid", "Random");
         blockTypesDropdown = new ComboBox<>(blockTypes);
         blockTypesDropdown.getSelectionModel().selectFirst();
-        selected = new Pinwheel(100).getBlock();
+        selected = new Pinwheel(150).getBlock();
         // Create action event
         EventHandler<ActionEvent> event1 = e -> {
             selected.getChildren().clear();
             if (blockTypesDropdown.getValue().equals("Pinwheel")) {
-                selected.getChildren().add(new Pinwheel(100).getBlock());
+                selected.getChildren().add(new Pinwheel(150).getBlock());
             } else if (blockTypesDropdown.getValue().equals("Hourglass")) {
-                selected.getChildren().add(new Hourglass(200).getBlock());
+                selected.getChildren().add(new Hourglass(150).getBlock());
             } else if (blockTypesDropdown.getValue().equals("Twisted four-star")) {
-                selected.getChildren().add(new TwistedFourStar(200).getBlock());
+                selected.getChildren().add(new TwistedFourStar(150).getBlock());
             } else if (blockTypesDropdown.getValue().equals("n x n grid")) {
-                selected.getChildren().add(new Pinwheel(30).getBlock());
+                selected.getChildren().add(new Pinwheel(150).getBlock());
             } else {
-                selected.getChildren().add(new Pinwheel(10).getBlock());
+                selected.getChildren().add(new Custom(150).getBlock());
             }
         };
 
