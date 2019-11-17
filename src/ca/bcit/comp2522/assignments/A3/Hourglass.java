@@ -8,8 +8,8 @@ public class Hourglass extends Block {
 
     private Group block;
 
-    public Hourglass(int sizeInCm) {
-        super(sizeInCm);
+    public Hourglass() {
+        super();
         this.block = hourglass();
     }
 

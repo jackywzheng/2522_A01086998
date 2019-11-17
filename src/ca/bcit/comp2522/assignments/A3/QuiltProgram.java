@@ -38,6 +38,8 @@ public class QuiltProgram extends Application {
     public void start(Stage stage) throws Exception {
         // Border Pane setup
 
+        Block.setSizeInCm(100);
+
         // Labels
         Label columnsLabel = new Label("Enter number of columns:");
         Label rowsLabel = new Label("Enter number of rows:");
@@ -67,20 +69,20 @@ public class QuiltProgram extends Application {
                 "Pinwheel", "Hourglass", "Twisted four-star", "n x n grid", "Random");
         blockTypesDropdown = new ComboBox<>(blockTypes);
         blockTypesDropdown.getSelectionModel().selectFirst();
-        selected = new Pinwheel(100).getBlock();
+        selected = new Pinwheel().getBlock();
         // Create action event
         EventHandler<ActionEvent> event1 = e -> {
             selected.getChildren().clear();
             if (blockTypesDropdown.getValue().equals("Pinwheel")) {
-                selected.getChildren().add(new Pinwheel(100).getBlock());
+                selected.getChildren().add(new Pinwheel().getBlock());
             } else if (blockTypesDropdown.getValue().equals("Hourglass")) {
-                selected.getChildren().add(new Hourglass(200).getBlock());
+                selected.getChildren().add(new Hourglass().getBlock());
             } else if (blockTypesDropdown.getValue().equals("Twisted four-star")) {
-                selected.getChildren().add(new TwistedFourStar(200).getBlock());
+                selected.getChildren().add(new TwistedFourStar().getBlock());
             } else if (blockTypesDropdown.getValue().equals("n x n grid")) {
-                selected.getChildren().add(new Pinwheel(30).getBlock());
+                selected.getChildren().add(new Pinwheel().getBlock());
             } else {
-                selected.getChildren().add(new Pinwheel(10).getBlock());
+                selected.getChildren().add(new Pinwheel().getBlock());
             }
         };
 
@@ -130,8 +132,9 @@ public class QuiltProgram extends Application {
         for (int i = 0; i < 3; i++) {
             ArrayList<Group> row = new ArrayList<>();
             for (int j = 0; j < 3; j++) {
-                Pinwheel p = new Pinwheel(100);
-                row.add(p.getBlock());
+//                Pinwheel p = new Pinwheel();
+                Block b = new Block();
+                row.add(b.getBlock());
             }
             designs.add(row);
         }

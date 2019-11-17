@@ -10,8 +10,8 @@ public class Pinwheel extends Block {
 
     private Group block;
 
-    public Pinwheel(int sizeInCm) {
-        super(sizeInCm);
+    public Pinwheel() {
+        super();
         this.block = pinwheel();
     }
 
