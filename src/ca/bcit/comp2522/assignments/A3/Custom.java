@@ -10,8 +10,8 @@ public class Custom extends Block {
 
     private Group block;
 
-    public Custom(int sizeInCm) {
-        super(sizeInCm);
+    public Custom() {
+        super();
         this.block = custom();
     }
 
