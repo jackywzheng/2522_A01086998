@@ -12,7 +12,6 @@ import java.util.ArrayList;
  */
 public final class Quilt {
     public static final int PIXELS_IN_A_CM = 45;
-    // static variable single_instance of type Singleton
     private static Quilt quiltInstance;
 
     private static int numberOfRows;
@@ -20,18 +19,22 @@ public final class Quilt {
     private static int blockSizeInPixels;
     private static ArrayList<ArrayList<Group>> designs;
 
-    // private constructor restricted to this class itself
     private Quilt() {
         numberOfRows = QuiltProgram.DEFAULT_GRID_SIZE;
         numberOfColumns = QuiltProgram.DEFAULT_GRID_SIZE;
         setBlockSizeInCentimetres(QuiltProgram.DEFAULT_BLOCK_SIZE_IN_CM);
         designs = new ArrayList<>();
-        Block.setSizeInCm(Quilt.getBlockSizeInPixels());
         populateEmptyQuilt();
     }
 
+    public static Quilt getQuilt() {
+        if (quiltInstance == null) {
+            quiltInstance = new Quilt();
+        }
+        return quiltInstance;
+    }
+
     private static void populateEmptyQuilt() {
-        // Populating the ArrayList (Empty Quilt)
         for (int i = 0; i < Quilt.getNumberOfRows(); i++) {
             ArrayList<Group> row = new ArrayList<>();
             for (int j = 0; j < Quilt.getNumberOfColumns(); j++) {
@@ -40,14 +43,6 @@ public final class Quilt {
             }
             designs.add(row);
         }
-    }
-
-    // static method to create instance of Singleton class
-    public static Quilt getQuilt() {
-        if (quiltInstance == null) {
-            quiltInstance = new Quilt();
-        }
-        return quiltInstance;
     }
 
     public static int getNumberOfRows() {
@@ -66,20 +61,13 @@ public final class Quilt {
         Quilt.numberOfColumns = numberOfColumns;
     }
 
-    public static int getBlockSizeInCentimetres() {
-        return blockSizeInPixels / PIXELS_IN_A_CM;
-    }
-
     public static void setBlockSizeInCentimetres(int blockSizeInCentimetres) {
         Quilt.blockSizeInPixels = blockSizeInCentimetres * PIXELS_IN_A_CM;
+        Block.setSizeInPx(getBlockSizeInPixels());
     }
 
     public static int getBlockSizeInPixels() {
         return blockSizeInPixels;
-    }
-
-    public static void setBlockSizeInPixels(int blockSizeInPixels) {
-        Quilt.blockSizeInPixels = blockSizeInPixels;
     }
 
     public static ArrayList<ArrayList<Group>> getDesigns() {
@@ -97,15 +85,23 @@ public final class Quilt {
             ArrayList<Group> row = new ArrayList<>();
             for (int j = 0; j < Quilt.getNumberOfColumns(); j++) {
                 Group newDesign = new Group(design.getNewBlock());
-//                newDesign.getChildren().addAll(design.getBlock());
-//                Group b = new Pinwheel().getBlock();
                 row.add(newDesign);
             }
             designs.add(row);
         }
     }
 
-    private static Group designSwitch() {
-        return new Group();
+    public static void resizeQuilt(int newNofRows, int newNofCols) {
+        ArrayList<ArrayList<Group>> newDesigns = new ArrayList<>();
+        for (int i = 0; i < newNofRows; i++) {
+            ArrayList<Group> rowList = new ArrayList<>();
+            for (int j = 0; j < newNofCols; j++) {
+                rowList.add((i < designs.size() && j < designs.get(0).size())
+                        ? designs.get(i).get(j)
+                        : new Block().getBlock());
+            }
+            newDesigns.add(rowList);
+        }
+        designs = newDesigns;
     }
 }

@@ -23,17 +23,9 @@ public class Block {
      */
     public static final int FULL_ROTATION = 360;
 
-    /**
-     * Size in centimetres.
-     */
-    private static int sizeInCm;
-    /**
-     * ???
-     */
+
+    private static int sizeInPx;
     private ArrayList<SimpleObjectProperty<Color>> colors;
-    /**
-     * The block as a group.
-     */
     private Group block;
 
     /**
@@ -67,36 +59,36 @@ public class Block {
      * @return new Group(square)
      */
     private Group genericBlock() {
-        Rectangle square = new Rectangle(0, 0, getSizeInCm(), getSizeInCm());
+        Rectangle square = new Rectangle(0, 0, getSizeInPx(), getSizeInPx());
         square.setStroke(Color.BLACK);
-        square.setFill(Color.TRANSPARENT);
+        square.setFill(Color.WHITESMOKE);
         return new Group(square);
     }
 
     /**
-     * Returns the size in centimetres.
+     * Returns the size in pixels.
      *
      * @return sizeInCm as an int
      */
-    public static int getSizeInCm() {
-        return sizeInCm;
+    public static int getSizeInPx() {
+        return sizeInPx;
     }
 
     /**
-     * Sets the size in centimetres.
+     * Sets the size in pixels.
      *
      * @param newSizeInCm an int
      */
-    public static void setSizeInCm(int newSizeInCm) {
-        sizeInCm = newSizeInCm;
+    public static void setSizeInPx(int newSizeInPx) {
+        sizeInPx = newSizeInPx;
     }
 
     /**
      * Returns the color property.
      *
-     * @param i an int????
+     * @param i index of color property
      *
-     * @return colors.get(i),
+     * @return a color property.
      */
     public SimpleObjectProperty<Color> getColorProperty(int i) {
         return colors.get(i);

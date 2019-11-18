@@ -13,9 +13,7 @@ import javafx.scene.shape.Rectangle;
  * @version 1.0
  */
 public class Pinwheel extends Block {
-    /**
-     * The block as a group.
-     */
+
     private Group block;
 
     /**
@@ -45,9 +43,9 @@ public class Pinwheel extends Block {
     }
 
     /**
-     * ???
+     * Pinwheel design.
      *
-     * @return
+     * @return the Pinwheel design.
      */
     private Group pinwheel() {
         Group theBlock = new Group();
@@ -60,26 +58,26 @@ public class Pinwheel extends Block {
     }
 
     /**
-     * ???
+     * 1/4 of a Pinwheel, but in a transparent Square.
      *
-     * @return
+     * @return 1/4 of a Pinwheel, but in a transparent Square, as a Group.
      */
     private Group tileInBox() {
-        Rectangle square = new Rectangle(0, 0, getSizeInCm(), getSizeInCm());
+        Rectangle square = new Rectangle(0, 0, getSizeInPx(), getSizeInPx());
         square.setFill(Color.TRANSPARENT);
         return new Group(square, tile());
     }
 
     /**
-     * ???
+     * 1/4 of a Pinwheel.
      *
-     * @return
+     * @return 1/4 of a Pinwheel as a Group.
      */
     private Group tile() {
         Polygon triangle = new Polygon(0, 0,
-                                        0, (double) getSizeInCm() / 2,
-                                        (double) getSizeInCm() / 2,
-                                        (double) getSizeInCm() / 2);
+                                        0, (double) getSizeInPx() / 2,
+                                        (double) getSizeInPx() / 2,
+                                        (double) getSizeInPx() / 2);
         Polygon triangle2 = new Polygon();
         triangle2.getPoints().addAll(triangle.getPoints());
         triangle2.setRotate(QUARTER_CLOCKWISE_ROTATION * 2);

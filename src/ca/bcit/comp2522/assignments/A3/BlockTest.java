@@ -29,7 +29,7 @@ public class BlockTest {
 
     @Test
     public void setSizeAndGetSizeInCmWorks() {
-        Block.setSizeInCm(10);
-        assertEquals(10, Block.getSizeInCm());
+        Block.setSizeInPx(10);
+        assertEquals(10, Block.getSizeInPx());
     }
 }

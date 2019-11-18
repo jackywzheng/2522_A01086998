@@ -13,9 +13,7 @@ import javafx.scene.shape.Rectangle;
  * @version 1.0
  */
 public class Custom extends Block {
-    /**
-     * The block as a group.
-     */
+
     private Group block;
 
     /**
@@ -64,19 +62,19 @@ public class Custom extends Block {
      * @return
      */
     Group customComponent() {
-        Rectangle background = new Rectangle((double) getSizeInCm() * 1.5,
-                (double) getSizeInCm() * 1.5);
+        Rectangle background = new Rectangle((double) getSizeInPx() * 1.5,
+                (double) getSizeInPx() * 1.5);
         background.setFill(Color.BLUE);
         Group tl = quadrant1();
         tl.setRotate(QUARTER_CLOCKWISE_ROTATION);
         Group br = quadrant1();
         br.setRotate(QUARTER_CLOCKWISE_ROTATION);
-        br.setTranslateX(getSizeInCm());
-        br.setTranslateY(getSizeInCm());
+        br.setTranslateX(getSizeInPx());
+        br.setTranslateY(getSizeInPx());
         Group tr = quadrant2();
-        tr.setTranslateX(getSizeInCm());
+        tr.setTranslateX(getSizeInPx());
         Group bl = quadrant2();
-        bl.setTranslateY(getSizeInCm());
+        bl.setTranslateY(getSizeInPx());
         bl.setRotate(QUARTER_CLOCKWISE_ROTATION * 2);
         return new Group(background, tr, tl, br, bl);
     }
@@ -116,9 +114,9 @@ public class Custom extends Block {
      * @return
      */
     private Polygon triangle() {
-        return new Polygon(0, (double) getSizeInCm() / 2,
-                (double) getSizeInCm() / 2,
-                (double) getSizeInCm() / 2,
+        return new Polygon(0, (double) getSizeInPx() / 2,
+                (double) getSizeInPx() / 2,
+                (double) getSizeInPx() / 2,
                 0, 0);
     }
 }

@@ -11,9 +11,7 @@ import javafx.scene.shape.Polygon;
  * @version 1.0
  */
 public class Hourglass extends Block {
-    /**
-     * The block as a group.
-     */
+
     private Group block;
 
     /**
@@ -43,9 +41,9 @@ public class Hourglass extends Block {
     }
 
     /**
-     * ???
+     * The hourglass design.
      *
-     * @return
+     * @return a Group that has the hourglass design
      */
     private Group hourglass() {
         Group outerBlock = hourglassComponent();
@@ -57,29 +55,29 @@ public class Hourglass extends Block {
     }
 
     /**
-     * ???
+     * Hourglass layer.
      *
-     * @return
+     * @return hourglass layer
      */
     private Group hourglassComponent() {
         Group tl = quadrant1();
         tl.setRotate(QUARTER_CLOCKWISE_ROTATION);
         Group br = quadrant1();
         br.setRotate(QUARTER_CLOCKWISE_ROTATION);
-        br.setTranslateX((double) getSizeInCm() / 2);
-        br.setTranslateY((double) getSizeInCm() / 2);
+        br.setTranslateX((double) getSizeInPx() / 2);
+        br.setTranslateY((double) getSizeInPx() / 2);
         Group tr = quadrant2();
-        tr.setTranslateX((double) getSizeInCm() / 2);
+        tr.setTranslateX((double) getSizeInPx() / 2);
         Group bl = quadrant2();
-        bl.setTranslateY((double) getSizeInCm() / 2);
+        bl.setTranslateY((double) getSizeInPx() / 2);
         bl.setRotate(QUARTER_CLOCKWISE_ROTATION * 2);
         return new Group(tr, tl, br, bl);
     }
 
     /**
-     * ???
+     * Hourglass first quadrant.
      *
-     * @return
+     * @return Hourglass first quadrant.
      */
     private Group quadrant1() {
         Polygon triangle = triangle();
@@ -93,9 +91,9 @@ public class Hourglass extends Block {
     }
 
     /**
-     * ???
+     * Hourglass second quadrant.
      *
-     * @return
+     * @return Hourglass second quadrant.
      */
     private Group quadrant2() {
         Polygon triangle = triangle();
@@ -109,14 +107,14 @@ public class Hourglass extends Block {
     }
 
     /**
-     * ???
+     * a triangle to be used in an hourglass quadrant.
      *
-     * @return
+     * @return a triangle to be used in an hourglass quadrant
      */
     private Polygon triangle() {
-        return new Polygon(0, (double) getSizeInCm() / 2,
-                (double) getSizeInCm() / 2,
-                (double) getSizeInCm() / 2,
+        return new Polygon(0, (double) getSizeInPx() / 2,
+                (double) getSizeInPx() / 2,
+                (double) getSizeInPx() / 2,
                 0, 0);
     }
 }

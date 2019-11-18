@@ -12,6 +12,12 @@ import javafx.scene.shape.Rectangle;
  * @version 1.0
  */
 public class NbyN extends Block {
+
+    /**
+     * Square root of number of squares in a n by n block.
+     */
+    private static final int NUMBER_OF_SQUARES_PER_LINE = 10;
+
     /**
      * The block as a group.
      */
@@ -22,7 +28,7 @@ public class NbyN extends Block {
      */
     public NbyN() {
         super();
-        this.block = NbyN();
+        this.block = nByN();
     }
 
     /**
@@ -40,7 +46,7 @@ public class NbyN extends Block {
      */
     @Override
     public Group getNewBlock() {
-        return NbyN();
+        return nByN();
     }
 
     /**
@@ -49,14 +55,16 @@ public class NbyN extends Block {
      *
      * @return group, a Group
      */
-    private Group NbyN() {
+    private Group nByN() {
         Group group = new Group();
-        for (int x = 0; x < getSizeInCm(); x += (getSizeInCm() / 10)) {
-            for (int y = 0; y < getSizeInCm(); y += (getSizeInCm() / 10)) {
+        for (int x = 0; x < getSizeInPx();
+             x += (getSizeInPx() / NUMBER_OF_SQUARES_PER_LINE)) {
+            for (int y = 0; y < getSizeInPx();
+                 y += (getSizeInPx() / NUMBER_OF_SQUARES_PER_LINE)) {
                 // Create a rectangle
                 Rectangle rectangle = new Rectangle(x, y,
-                        (double) getSizeInCm() / 10,
-                        (double) getSizeInCm() / 10);
+                        (double) getSizeInPx() / NUMBER_OF_SQUARES_PER_LINE,
+                        (double) getSizeInPx() / NUMBER_OF_SQUARES_PER_LINE);
                 // Randomly assign a color
                 rectangle.setFill(assignRandomColor());
                 // Add it to the group
@@ -71,7 +79,7 @@ public class NbyN extends Block {
      *
      * @return Color.color(Math.random(), Math.random(), Math.random())
      */
-    public Color assignRandomColor() {
+    private Color assignRandomColor() {
         return Color.color(Math.random(), Math.random(), Math.random());
     }
 }
