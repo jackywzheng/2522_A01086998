@@ -59,6 +59,10 @@ public class Block {
         return block;
     }
 
+    public Group getNewBlock() {
+        return genericBlock();
+    }
+
     /**
      * Returns a transparent black rectangle.
      *

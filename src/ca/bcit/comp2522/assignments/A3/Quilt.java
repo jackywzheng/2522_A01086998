@@ -80,7 +80,26 @@ public final class Quilt {
         return designs;
     }
 
-    public static void addDesign(Group design) {
+    public static void replaceDesign(Group design, int row, int col) {
+        designs.get(row).remove(col);
+        designs.get(row).add(col, design);
+    }
 
+    public static void replaceDesign(Block design) {
+        designs.clear();
+        for (int i = 0; i < Quilt.getNumberOfRows(); i++) {
+            ArrayList<Group> row = new ArrayList<>();
+            for (int j = 0; j < Quilt.getNumberOfColumns(); j++) {
+                Group newDesign = new Group(design.getNewBlock());
+//                newDesign.getChildren().addAll(design.getBlock());
+//                Group b = new Pinwheel().getBlock();
+                row.add(newDesign);
+            }
+            designs.add(row);
+        }
+    }
+
+    private static Group designSwitch() {
+        return new Group();
     }
 }

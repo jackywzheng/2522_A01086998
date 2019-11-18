@@ -26,13 +26,21 @@ public class Hourglass extends Block {
     }
 
     /**
-     * Returns block as a Group.
-     *
-     * @return block, a Group
+     * Returns the block as a Group.
      */
     @Override
     public Group getBlock() {
         return block;
+    }
+
+    /**
+     * Returns new block as a Group.
+     *
+     * @return block, a Group
+     */
+    @Override
+    public Group getNewBlock() {
+        return hourglass();
     }
 
     /**
