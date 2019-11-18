@@ -1,23 +1,23 @@
 package ca.bcit.comp2522.assignments.A3;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
+
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 
-import java.util.ArrayList;
+
 
 /**
  * Quilt Program.
@@ -90,7 +90,54 @@ public class QuiltProgram extends Application {
         gridPane.setOnMouseClicked(this::processButtonPress);
         colSpinner.setOnMouseClicked(this::processRowColSpinnerPress);
         rowSpinner.setOnMouseClicked(this::processRowColSpinnerPress);
+        colSpinner.setOnKeyPressed(e -> processRowColSpinnerPress(null));
+        rowSpinner.setOnKeyPressed(e -> processRowColSpinnerPress(null));
         updateBlockSize.setOnAction(this::processSizeUpdatePress);
+        scrollPane.setOnKeyPressed(this::processKeyPress);
+    }
+
+    public void processKeyPress(KeyEvent event) {
+        if (!hasSelection) {
+            return;
+        }
+        resetSelectionDisplay();
+        switch (event.getCode()) {
+            case UP:
+                if (rowNumberOfSelected > 0) {
+                    --rowNumberOfSelected;
+                    System.out.println("Moved UP by 1");
+                }
+                break;
+            case DOWN:
+                if (rowNumberOfSelected < Quilt.getDesigns().size() - 1) {
+                    ++rowNumberOfSelected;
+                    System.out.println("Moved DOWN by 1");
+                }
+                break;
+            case RIGHT:
+                if (colNumberOfSelected < Quilt.getDesigns().get(0).size() - 1) {
+                    ++colNumberOfSelected;
+                    System.out.println("Moved RIGHT by 1");
+                }
+                break;
+            case LEFT:
+                if (colNumberOfSelected > 0) {
+                    --colNumberOfSelected;
+                    System.out.println("Moved LEFT by 1");
+                }
+                break;
+            case SPACE:
+                processUpdateSelected(null);
+                break;
+            case R:
+                System.out.println("Rotating");
+
+                break;
+            default:
+                selectionDisplay();
+                return;
+        }
+        selectionDisplay();
     }
 
     // Set up methods
@@ -186,7 +233,7 @@ public class QuiltProgram extends Application {
             selectedGrid.getChildren().add(currentDesign.getBlock());
         } else {
             currentDesign = new Custom();
-//            colorBinding(4);
+            colorBinding(4);
             selectedGrid.getChildren().add(currentDesign.getBlock());
         }
     }
@@ -216,8 +263,6 @@ public class QuiltProgram extends Application {
         }
         colNumberOfSelected = (int) (posX / Block.getSizeInPx());
         rowNumberOfSelected = (int) (posY / Block.getSizeInPx());
-        System.out.println(rowNumberOfSelected);
-        System.out.println(colNumberOfSelected);
         hasSelection = true;
         resetSelectionDisplay();
         selectionDisplay();
@@ -239,6 +284,8 @@ public class QuiltProgram extends Application {
                 .setScaleX(selectionScaleFactor);
         Quilt.getDesigns().get(rowNumberOfSelected).get(colNumberOfSelected)
                 .setScaleY(selectionScaleFactor);
+        // System.out.println("Row: " + rowNumberOfSelected);
+        // System.out.println("Col: " + colNumberOfSelected);
     }
 
     private void processRowColSpinnerPress(MouseEvent mouseEvent) {
@@ -273,6 +320,7 @@ public class QuiltProgram extends Application {
         colorUnbinding(colorPickers.size());
         processDropDownSelection(null);
         selectionDisplay();
+        System.out.println("Design added");
     }
 
         /**

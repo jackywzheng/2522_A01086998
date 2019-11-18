@@ -64,7 +64,7 @@ public class Custom extends Block {
     Group customComponent() {
         Rectangle background = new Rectangle((double) getSizeInPx() * 1.5,
                 (double) getSizeInPx() * 1.5);
-        background.setFill(Color.BLUE);
+        background.fillProperty().bind(getColorProperty(3));
         Group tl = quadrant1();
         tl.setRotate(QUARTER_CLOCKWISE_ROTATION);
         Group br = quadrant1();

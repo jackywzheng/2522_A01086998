@@ -76,11 +76,11 @@ public class TwistedFourStar extends Block {
      * @return a Group as 1/4 of a twisted 4-star.
      */
     private Group tfs() {
-        double triangle_side = getSizeInPx() * TRI_SCALE_FACTOR;
-        double quadrant_size = getSizeInPx() / 2;
+        double triangleSide = getSizeInPx() * TRI_SCALE_FACTOR;
+        double quadrantSize = getSizeInPx() / 2;
         Polygon triangle = new Polygon(0, 0,
-                quadrant_size, quadrant_size,
-                0, quadrant_size);
+                quadrantSize, quadrantSize,
+                0, quadrantSize);
         Polygon triangle2 = new Polygon();
         triangle2.getPoints().addAll(triangle.getPoints());
         triangle2.setRotate(QUARTER_CLOCKWISE_ROTATION * 2);
@@ -88,16 +88,16 @@ public class TwistedFourStar extends Block {
         triangle2.fillProperty().bind(getColorProperty(0));
         Group quarter = new Group(triangle, triangle2);
         Polygon smallTri = new Polygon(
-                triangle_side, triangle_side, quadrant_size,
-                triangle_side, quadrant_size, quadrant_size);
+                triangleSide, triangleSide, quadrantSize,
+                triangleSide, quadrantSize, quadrantSize);
         smallTri.fillProperty().bind(getColorProperty(1));
         Polygon firstColorPolygon = new Polygon(0, 0,
-                triangle_side, 0, quadrant_size, triangle_side,
-                triangle_side, triangle_side);
+                triangleSide, 0, quadrantSize, triangleSide,
+                triangleSide, triangleSide);
         firstColorPolygon.fillProperty().bind(getColorProperty(2));
         Polygon secondColorPolygon = new Polygon(
-                0, triangle_side, triangle_side, quadrant_size,
-                quadrant_size, quadrant_size, triangle_side, triangle_side);
+                0, triangleSide, triangleSide, quadrantSize,
+                quadrantSize, quadrantSize, triangleSide, triangleSide);
         secondColorPolygon.fillProperty().bind(getColorProperty(2 + 1));
         return new Group(quarter, smallTri,
                 firstColorPolygon, secondColorPolygon);

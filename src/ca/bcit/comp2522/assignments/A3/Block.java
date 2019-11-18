@@ -70,8 +70,8 @@ public class Block {
      *
      * @return sizeInCm as an int
      */
-    public static int getSizeInPx() {
-        return sizeInPx;
+    public static double getSizeInPx() {
+        return (double) sizeInPx;
     }
 
     /**

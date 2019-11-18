@@ -16,18 +16,17 @@ public class NbyN extends Block {
     /**
      * Square root of number of squares in a n by n block.
      */
-    private static final int NUMBER_OF_SQUARES_PER_LINE = 10;
+    private static final int DEFAULT_NUMBER_OF_SQUARES_PER_LINE = 5;
 
-    /**
-     * The block as a group.
-     */
     private Group block;
+    private int numberOfSquaresPerLine;
 
     /**
      * Constructs an n x n object.
      */
     public NbyN() {
         super();
+        this.numberOfSquaresPerLine = DEFAULT_NUMBER_OF_SQUARES_PER_LINE;
         this.block = nByN();
     }
 
@@ -49,6 +48,14 @@ public class NbyN extends Block {
         return nByN();
     }
 
+    public int getNumberOfSquaresPerLine() {
+        return numberOfSquaresPerLine;
+    }
+
+    public void setNumberOfSquaresPerLine(int numberOfSquaresPerLine) {
+        this.numberOfSquaresPerLine = numberOfSquaresPerLine;
+    }
+
     /**
      * Returns a Group that contains n x n rectangles and assigns
      * a random colour to each rectangle.
@@ -57,14 +64,16 @@ public class NbyN extends Block {
      */
     private Group nByN() {
         Group group = new Group();
-        for (int x = 0; x < getSizeInPx();
-             x += (getSizeInPx() / NUMBER_OF_SQUARES_PER_LINE)) {
-            for (int y = 0; y < getSizeInPx();
-                 y += (getSizeInPx() / NUMBER_OF_SQUARES_PER_LINE)) {
+        for (double x = 0; x < getSizeInPx();
+             x += ((double) getSizeInPx() / numberOfSquaresPerLine)) {
+            for (double y = 0; y < getSizeInPx();
+                 y += ((double) getSizeInPx() / numberOfSquaresPerLine)) {
                 // Create a rectangle
                 Rectangle rectangle = new Rectangle(x, y,
-                        (double) getSizeInPx() / NUMBER_OF_SQUARES_PER_LINE,
-                        (double) getSizeInPx() / NUMBER_OF_SQUARES_PER_LINE);
+                        (double) getSizeInPx() / numberOfSquaresPerLine,
+                        (double) getSizeInPx() / numberOfSquaresPerLine);
+                System.out.println((double) getSizeInPx()
+                        / numberOfSquaresPerLine);
                 // Randomly assign a color
                 rectangle.setFill(assignRandomColor());
                 // Add it to the group
