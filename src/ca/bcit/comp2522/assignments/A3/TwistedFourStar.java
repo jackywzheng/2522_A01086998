@@ -12,7 +12,6 @@ import javafx.scene.shape.Rectangle;
  * @author Trung Bui
  * @version 1.0
  */
-
 public class TwistedFourStar extends Block {
     /**
      * The block as a group.

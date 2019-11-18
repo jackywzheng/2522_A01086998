@@ -10,7 +10,6 @@ import javafx.scene.shape.Polygon;
  * @author Trung Bui
  * @version 1.0
  */
-
 public class Hourglass extends Block {
     /**
      * The block as a group.

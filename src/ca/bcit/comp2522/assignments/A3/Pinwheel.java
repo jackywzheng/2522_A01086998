@@ -1,6 +1,5 @@
 package ca.bcit.comp2522.assignments.A3;
 
-
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
@@ -13,7 +12,6 @@ import javafx.scene.shape.Rectangle;
  * @author Trung Bui
  * @version 1.0
  */
-
 public class Pinwheel extends Block {
     /**
      * The block as a group.

@@ -17,6 +17,13 @@ import javafx.stage.Stage;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 
+/**
+ * Quilt Program.
+ *
+ * @author Jacky Zheng
+ * @author Trung Bui
+ * @version 1.0
+ */
 public class QuiltProgram extends Application {
 
     private static final int MAX_SPINNER_VALUE = 100;
