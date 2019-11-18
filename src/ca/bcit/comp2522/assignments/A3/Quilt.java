@@ -1,9 +1,15 @@
 package ca.bcit.comp2522.assignments.A3;
 
 import javafx.scene.Group;
-
 import java.util.ArrayList;
 
+/**
+ * Quilt.
+ *
+ * @author Jacky Zheng
+ * @author Trung Bui
+ * @version 1.0
+ */
 public final class Quilt {
     public static final int PIXELS_IN_A_CM = 45;
     // static variable single_instance of type Singleton
