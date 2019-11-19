@@ -24,7 +24,7 @@ public class Block {
     public static final int FULL_ROTATION = 360;
 
 
-    private static int sizeInPx;
+    private static double sizeInPx;
     private ArrayList<SimpleObjectProperty<Color>> colors;
     private Group block;
 
@@ -71,15 +71,15 @@ public class Block {
      * @return sizeInCm as an int
      */
     public static double getSizeInPx() {
-        return (double) sizeInPx;
+        return sizeInPx;
     }
 
     /**
      * Sets the size in pixels.
      *
-     * @param newSizeInCm an int
+     * @param newSizeInPx a double
      */
-    public static void setSizeInPx(int newSizeInPx) {
+    public static void setSizeInPx(double newSizeInPx) {
         sizeInPx = newSizeInPx;
     }
 
