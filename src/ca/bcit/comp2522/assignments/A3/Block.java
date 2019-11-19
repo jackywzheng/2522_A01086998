@@ -23,9 +23,11 @@ public class Block {
      */
     public static final int FULL_ROTATION = 360;
 
-
+    // Size in pixels
     private static double sizeInPx;
+    // ArrayList of Color properties
     private ArrayList<SimpleObjectProperty<Color>> colors;
+    // Group
     private Group block;
 
     /**
@@ -43,12 +45,17 @@ public class Block {
     /**
      * Returns the block as a Group.
      *
-     * @return block, a Group
+     * @return block as a Group
      */
     public Group getBlock() {
         return block;
     }
 
+    /**
+     * Returns a new block as a Group.
+     *
+     * @return block as a Group
+     */
     public Group getNewBlock() {
         return genericBlock();
     }
@@ -77,7 +84,7 @@ public class Block {
     /**
      * Sets the size in pixels.
      *
-     * @param newSizeInPx a double
+     * @param newSizeInPx a double representing the size in pixels
      */
     public static void setSizeInPx(double newSizeInPx) {
         sizeInPx = newSizeInPx;
@@ -86,11 +93,11 @@ public class Block {
     /**
      * Returns the color property.
      *
-     * @param i index of color property
+     * @param index of color property
      *
      * @return a color property.
      */
-    public SimpleObjectProperty<Color> getColorProperty(int i) {
-        return colors.get(i);
+    public SimpleObjectProperty<Color> getColorProperty(int index) {
+        return colors.get(index);
     }
 }

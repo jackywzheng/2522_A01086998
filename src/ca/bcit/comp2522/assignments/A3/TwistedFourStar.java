@@ -13,9 +13,9 @@ import javafx.scene.shape.Rectangle;
  * @version 1.0
  */
 public class TwistedFourStar extends Block {
-
+    // Triangle scaling factor
     private static final double TRI_SCALE_FACTOR = 0.25;
-
+    // Group
     private Group block;
 
     /**
@@ -28,6 +28,8 @@ public class TwistedFourStar extends Block {
 
     /**
      * Returns the block as a Group.
+     *
+     * @return block as a Group
      */
     @Override
     public Group getBlock() {
@@ -37,7 +39,7 @@ public class TwistedFourStar extends Block {
     /**
      * Returns new block as a Group.
      *
-     * @return block, a Group
+     * @return block as a Group
      */
     @Override
     public Group getNewBlock() {
@@ -60,7 +62,8 @@ public class TwistedFourStar extends Block {
     }
 
     /**
-     * 1/4 of a Twisted 4-star but in another Group with a transparent square.
+     * Returns 1/4 of a Twisted 4-star but in another Group with a
+     * transparent square.
      *
      * @return 1/4 of a twisted 4 star as a group.
      */
@@ -71,9 +74,9 @@ public class TwistedFourStar extends Block {
     }
 
     /**
-     * 1/4 of a twisted 4-star.
+     * Returns 1/4 of a twisted 4-star.
      *
-     * @return a Group as 1/4 of a twisted 4-star.
+     * @return a Group as 1/4 of a twisted 4-star
      */
     private Group tfs() {
         double triangleSide = getSizeInPx() * TRI_SCALE_FACTOR;

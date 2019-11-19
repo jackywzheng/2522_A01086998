@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
  * @version 1.0
  */
 public class Custom extends Block {
-
+    // Group
     private Group block;
 
     /**
@@ -26,6 +26,8 @@ public class Custom extends Block {
 
     /**
      * Returns the block as a Group.
+     *
+     * @return block as a Group
      */
     @Override
     public Group getBlock() {
@@ -35,8 +37,9 @@ public class Custom extends Block {
     /**
      * Returns new block as a Group.
      *
-     * @return block, a Group
+     * @return block as a Group
      */
+
     @Override
     public Group getNewBlock() {
         return custom();

@@ -11,7 +11,7 @@ import javafx.scene.shape.Polygon;
  * @version 1.0
  */
 public class Hourglass extends Block {
-
+    // Hourglass contains a Group
     private Group block;
 
     /**
@@ -24,6 +24,8 @@ public class Hourglass extends Block {
 
     /**
      * Returns the block as a Group.
+     *
+     * @return block as a Group.
      */
     @Override
     public Group getBlock() {
@@ -33,7 +35,7 @@ public class Hourglass extends Block {
     /**
      * Returns new block as a Group.
      *
-     * @return block, a Group
+     * @return block as a Group
      */
     @Override
     public Group getNewBlock() {
@@ -41,7 +43,7 @@ public class Hourglass extends Block {
     }
 
     /**
-     * The hourglass design.
+     * Returns the hourglass design.
      *
      * @return a Group that has the hourglass design
      */
@@ -55,9 +57,9 @@ public class Hourglass extends Block {
     }
 
     /**
-     * Hourglass layer.
+     * Returns an Hourglass layer.
      *
-     * @return hourglass layer
+     * @return hourglass layer as a Group
      */
     private Group hourglassComponent() {
         Group tl = quadrant1();
@@ -75,9 +77,9 @@ public class Hourglass extends Block {
     }
 
     /**
-     * Hourglass first quadrant.
+     * Returns the hourglass first quadrant.
      *
-     * @return Hourglass first quadrant.
+     * @return Hourglass first quadrant as a Group
      */
     private Group quadrant1() {
         Polygon triangle = triangle();
@@ -91,9 +93,9 @@ public class Hourglass extends Block {
     }
 
     /**
-     * Hourglass second quadrant.
+     * Returns the hourglass second quadrant.
      *
-     * @return Hourglass second quadrant.
+     * @return Hourglass second quadrant as a Group
      */
     private Group quadrant2() {
         Polygon triangle = triangle();
@@ -107,7 +109,7 @@ public class Hourglass extends Block {
     }
 
     /**
-     * a triangle to be used in an hourglass quadrant.
+     * Returns a triangle to be used in an hourglass quadrant.
      *
      * @return a triangle to be used in an hourglass quadrant
      */

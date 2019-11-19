@@ -13,12 +13,11 @@ import javafx.scene.shape.Rectangle;
  */
 public class NbyN extends Block {
 
-    /**
-     * Square root of number of squares in a n by n block.
-     */
+    // Default number of squares per line
     private static final int DEFAULT_NUMBER_OF_SQUARES_PER_LINE = 5;
-
+    // Group
     private Group block;
+    // Number of squares per line
     private int numberOfSquaresPerLine;
 
     /**
@@ -48,10 +47,21 @@ public class NbyN extends Block {
         return nByN();
     }
 
+    /**
+     * Returns the number of square per line.
+     *
+     * @return numberOfSquaresPerLine as an int
+     */
     public int getNumberOfSquaresPerLine() {
         return numberOfSquaresPerLine;
     }
 
+    /**
+     * Sets the number of squares per line.
+     *
+     * @param numberOfSquaresPerLine an int representing
+     * the number of squares per line
+     */
     public void setNumberOfSquaresPerLine(int numberOfSquaresPerLine) {
         this.numberOfSquaresPerLine = numberOfSquaresPerLine;
     }
@@ -60,7 +70,7 @@ public class NbyN extends Block {
      * Returns a Group that contains n x n rectangles and assigns
      * a random colour to each rectangle.
      *
-     * @return group, a Group
+     * @return group as a Group
      */
     private Group nByN() {
         Group group = new Group();
