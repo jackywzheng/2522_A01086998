@@ -1,8 +1,11 @@
 package ca.bcit.comp2522.assignments.A3;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+
+import java.util.Objects;
 
 /**
  * n x n Block.
@@ -17,6 +20,7 @@ public class NbyN extends Block implements Rotatable {
     private static final int DEFAULT_NUMBER_OF_SQUARES_PER_LINE = 5;
     // Group
     private Group block;
+    private double rotation;
     // Number of squares per line
     private int numberOfSquaresPerLine;
 
@@ -44,7 +48,9 @@ public class NbyN extends Block implements Rotatable {
      */
     @Override
     public Group getNewBlock() {
-        return nByN();
+        Group newBlock = nByN();
+        newBlock.setRotate(rotation);
+        return newBlock;
     }
 
     /**
@@ -52,7 +58,7 @@ public class NbyN extends Block implements Rotatable {
      *
      * @return numberOfSquaresPerLine as an int
      */
-    public int getNumberOfSquaresPerLine() {
+    private int getNumberOfSquaresPerLine() {
         return numberOfSquaresPerLine;
     }
 
@@ -75,17 +81,17 @@ public class NbyN extends Block implements Rotatable {
     private Group nByN() {
         Group group = new Group();
         for (double x = 0; x < getSizeInPx();
-             x += ((double) getSizeInPx() / numberOfSquaresPerLine)) {
+             x += (getSizeInPx() / numberOfSquaresPerLine)) {
             for (double y = 0; y < getSizeInPx();
-                 y += ((double) getSizeInPx() / numberOfSquaresPerLine)) {
+                 y += (getSizeInPx() / numberOfSquaresPerLine)) {
                 // Create a rectangle
                 Rectangle rectangle = new Rectangle(x, y,
-                        (double) getSizeInPx() / numberOfSquaresPerLine,
-                        (double) getSizeInPx() / numberOfSquaresPerLine);
-                System.out.println((double) getSizeInPx()
+                        getSizeInPx() / numberOfSquaresPerLine,
+                        getSizeInPx() / numberOfSquaresPerLine);
+                System.out.println(getSizeInPx()
                         / numberOfSquaresPerLine);
                 // Randomly assign a color
-                rectangle.setFill(assignRandomColor());
+                rectangle.fillProperty().bind(assignRandomColor());
                 // Add it to the group
                 group.getChildren().add(rectangle);
             }
@@ -98,7 +104,45 @@ public class NbyN extends Block implements Rotatable {
      *
      * @return Color.color(Math.random(), Math.random(), Math.random())
      */
-    private Color assignRandomColor() {
-        return Color.color(Math.random(), Math.random(), Math.random());
+    private SimpleObjectProperty<Color> assignRandomColor() {
+        return getColorProperty((int) (Math.random() * (2 + 2)));
+    }
+
+    @Override
+    public void setRotation(double newRotation) {
+        this.rotation = newRotation;
+    }
+
+    @Override
+    public double getRotation() {
+        return rotation;
+    }
+
+    @Override
+    public String toString() {
+        return "NbyN{" + "block=" + block + ", rotation=" + rotation
+                + ", numberOfSquaresPerLine=" + numberOfSquaresPerLine + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        NbyN nbyN = (NbyN) o;
+        return Double.compare(nbyN.getRotation(),
+                getRotation()) == 0
+                &&
+                getNumberOfSquaresPerLine() == nbyN.getNumberOfSquaresPerLine()
+                && Objects.equals(getBlock(), nbyN.getBlock());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBlock(), getRotation(),
+                getNumberOfSquaresPerLine());
     }
 }

@@ -5,6 +5,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Objects;
+
 /**
  * Twisted Four Star Block.
  *
@@ -104,6 +106,30 @@ public class TwistedFourStar extends Block {
         secondColorPolygon.fillProperty().bind(getColorProperty(2 + 1));
         return new Group(quarter, smallTri,
                 firstColorPolygon, secondColorPolygon);
+    }
+
+    @Override
+    public String toString() {
+        return "TwistedFourStar{"
+                + "block=" + block
+                + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        TwistedFourStar that = (TwistedFourStar) o;
+        return Objects.equals(getBlock(), that.getBlock());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBlock());
     }
 }
 

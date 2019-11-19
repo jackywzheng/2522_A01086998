@@ -3,6 +3,8 @@ package ca.bcit.comp2522.assignments.A3;
 import javafx.scene.Group;
 import javafx.scene.shape.Polygon;
 
+import java.util.Objects;
+
 /**
  * Hourglass Block.
  *
@@ -13,6 +15,7 @@ import javafx.scene.shape.Polygon;
 public class Hourglass extends Block implements Rotatable {
 
     private Group block;
+    private double rotation;
 
     /**
      * Constructs an hourglass object.
@@ -39,7 +42,9 @@ public class Hourglass extends Block implements Rotatable {
      */
     @Override
     public Group getNewBlock() {
-        return hourglass();
+        Group newBlock = hourglass();
+        newBlock.setRotate(rotation);
+        return newBlock;
     }
 
     /**
@@ -66,12 +71,12 @@ public class Hourglass extends Block implements Rotatable {
         tl.setRotate(QUARTER_CLOCKWISE_ROTATION);
         Group br = quadrant1();
         br.setRotate(QUARTER_CLOCKWISE_ROTATION);
-        br.setTranslateX((double) getSizeInPx() / 2);
-        br.setTranslateY((double) getSizeInPx() / 2);
+        br.setTranslateX(getSizeInPx() / 2);
+        br.setTranslateY(getSizeInPx() / 2);
         Group tr = quadrant2();
-        tr.setTranslateX((double) getSizeInPx() / 2);
+        tr.setTranslateX(getSizeInPx() / 2);
         Group bl = quadrant2();
-        bl.setTranslateY((double) getSizeInPx() / 2);
+        bl.setTranslateY(getSizeInPx() / 2);
         bl.setRotate(QUARTER_CLOCKWISE_ROTATION * 2);
         return new Group(tr, tl, br, bl);
     }
@@ -114,19 +119,44 @@ public class Hourglass extends Block implements Rotatable {
      * @return a triangle to be used in an hourglass quadrant
      */
     private Polygon triangle() {
-        return new Polygon(0, (double) getSizeInPx() / 2,
-                (double) getSizeInPx() / 2,
-                (double) getSizeInPx() / 2,
+        return new Polygon(0, getSizeInPx() / 2,
+                getSizeInPx() / 2,
+                getSizeInPx() / 2,
                 0, 0);
     }
 
     @Override
-    public void setRotation() {
-
+    public void setRotation(double newRotation) {
+        this.rotation = newRotation;
     }
 
     @Override
     public double getRotation() {
-        return 0;
+        return this.rotation;
+    }
+
+    @Override
+    public String toString() {
+        return "Hourglass{" + "block=" + block
+                + ",rotation=" + rotation + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Hourglass hourglass = (Hourglass) o;
+        return Double.compare(hourglass.getRotation(), getRotation()) == 0
+                &&
+                Objects.equals(getBlock(), hourglass.getBlock());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBlock(), getRotation());
     }
 }

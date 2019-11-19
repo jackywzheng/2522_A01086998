@@ -77,7 +77,7 @@ public class Block {
      *
      * @return sizeInCm as an int
      */
-    public static double getSizeInPx() {
+    static double getSizeInPx() {
         return sizeInPx;
     }
 
@@ -86,7 +86,7 @@ public class Block {
      *
      * @param newSizeInPx a double representing the size in pixels
      */
-    public static void setSizeInPx(double newSizeInPx) {
+    static void setSizeInPx(double newSizeInPx) {
         sizeInPx = newSizeInPx;
     }
 
@@ -97,7 +97,7 @@ public class Block {
      *
      * @return a color property.
      */
-    public SimpleObjectProperty<Color> getColorProperty(int index) {
+    SimpleObjectProperty<Color> getColorProperty(int index) {
         return colors.get(index);
     }
 }

@@ -5,6 +5,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Objects;
+
 /**
  * Pinwheel Block.
  *
@@ -76,17 +78,37 @@ public class Pinwheel extends Block {
      * @return 1/4 of a Pinwheel as a Group.
      */
     private Group tile() {
-        Polygon triangle = new Polygon(0, 0,
-                                        0, getSizeInPx() / 2,
-                                        getSizeInPx() / 2,
-                                        getSizeInPx() / 2);
+        Polygon triangle = new Polygon(0, 0, 0, getSizeInPx() / 2,
+                                        getSizeInPx() / 2, getSizeInPx() / 2);
         Polygon triangle2 = new Polygon();
         triangle2.getPoints().addAll(triangle.getPoints());
         triangle2.setRotate(QUARTER_CLOCKWISE_ROTATION * 2);
-
         triangle.fillProperty().bind(getColorProperty(0));
         triangle2.fillProperty().bind(getColorProperty(1));
-
         return new Group(triangle, triangle2);
+    }
+
+    @Override
+    public String toString() {
+        return "Pinwheel{"
+                + "block=" + block
+                + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Pinwheel pinwheel = (Pinwheel) o;
+        return Objects.equals(getBlock(), pinwheel.getBlock());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBlock());
     }
 }

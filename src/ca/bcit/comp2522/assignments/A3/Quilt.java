@@ -57,7 +57,7 @@ public final class Quilt {
      *
      * @return quiltInstance, a Quilt
      */
-    public static Quilt getQuilt() {
+    static Quilt getQuilt() {
         if (quiltInstance == null) {
             quiltInstance = new Quilt();
         }
@@ -83,7 +83,7 @@ public final class Quilt {
      *
      * @return numberOfRows as an int
      */
-    public static int getNumberOfRows() {
+    static int getNumberOfRows() {
         return numberOfRows;
     }
 
@@ -92,7 +92,7 @@ public final class Quilt {
      *
      * @param numberOfRows an int representing the number of rows
      */
-    public static void setNumberOfRows(int numberOfRows) {
+    static void setNumberOfRows(int numberOfRows) {
         Quilt.numberOfRows = numberOfRows;
     }
 
@@ -101,7 +101,7 @@ public final class Quilt {
      *
      * @return numberOfColumns as an int
      */
-    public static int getNumberOfColumns() {
+    static int getNumberOfColumns() {
         return numberOfColumns;
     }
 
@@ -110,7 +110,7 @@ public final class Quilt {
      *
      * @param numberOfColumns an int representing the number of columns
      */
-    public static void setNumberOfColumns(int numberOfColumns) {
+    static void setNumberOfColumns(int numberOfColumns) {
         Quilt.numberOfColumns = numberOfColumns;
     }
 
@@ -119,7 +119,7 @@ public final class Quilt {
      *
      * @return the block size in centimetres as an int
      */
-    public static int getBlockSizeInCentimetres() {
+    static int getBlockSizeInCentimetres() {
         return Quilt.blockSizeInPixels / PIXELS_IN_A_CM;
     }
 
@@ -129,7 +129,7 @@ public final class Quilt {
      * @param blockSizeInCentimetres an int representing the block size
      * in centimetres.
      */
-    public static void setBlockSizeInCentimetres(int blockSizeInCentimetres) {
+    static void setBlockSizeInCentimetres(int blockSizeInCentimetres) {
         Quilt.blockSizeInPixels = blockSizeInCentimetres * PIXELS_IN_A_CM;
         Block.setSizeInPx(getBlockSizeInPixels());
     }
@@ -139,7 +139,7 @@ public final class Quilt {
      *
      * @return blockSizeInPixels as an int
      */
-    public static int getBlockSizeInPixels() {
+    static int getBlockSizeInPixels() {
         return blockSizeInPixels;
     }
 
@@ -148,7 +148,7 @@ public final class Quilt {
      *
      * @return designs as an ArrayList<ArrayList<Group>>
      */
-    public static ArrayList<ArrayList<Group>> getDesigns() {
+    static ArrayList<ArrayList<Group>> getDesigns() {
         return designs;
     }
 
@@ -159,7 +159,7 @@ public final class Quilt {
      * @param row an int representing the row
      * @param col an int representing the column
      */
-    public static void replaceDesign(Group design, int row, int col) {
+    static void replaceDesign(Group design, int row, int col) {
         designs.get(row).remove(col);
         designs.get(row).add(col, design);
     }
@@ -169,7 +169,7 @@ public final class Quilt {
      *
      * @param design a Block representing a design
      */
-    public static void replaceDesign(Block design) {
+    static void replaceDesign(Block design) {
         designs.clear();
         for (int i = 0; i < Quilt.getNumberOfRows(); i++) {
             ArrayList<Group> row = new ArrayList<>();
@@ -182,12 +182,12 @@ public final class Quilt {
     }
 
     /**
-     * Resizes the size of the Quilt.
+     * Resize_s the size of the Quilt.
      *
      * @param newNofRows an int representing the number of rows
      * @param newNofCols an int representing the number of columns
      */
-    public static void resizeQuilt(int newNofRows, int newNofCols) {
+    static void resizeQuilt(int newNofRows, int newNofCols) {
         ArrayList<ArrayList<Group>> newDesigns = new ArrayList<>();
         for (int i = 0; i < newNofRows; i++) {
             ArrayList<Group> rowList = new ArrayList<>();

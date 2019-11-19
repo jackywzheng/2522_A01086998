@@ -4,6 +4,8 @@ import javafx.scene.Group;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Objects;
+
 /**
  * Custom block design that Trung and Jacky made.
  *
@@ -14,6 +16,7 @@ import javafx.scene.shape.Rectangle;
 public class Custom extends Block implements Rotatable {
 
     private Group block;
+    private double rotation;
 
     /**
      * Constructs a custom object.
@@ -40,32 +43,36 @@ public class Custom extends Block implements Rotatable {
      */
     @Override
     public Group getNewBlock() {
-        return custom();
+        Group newBlock = custom();
+        newBlock.setRotate(rotation);
+        return newBlock;
     }
     /**
-     * ???
-     * @return
+     * The whole custom design.
+     *
+     * @return the whole custom design as a Group.
      */
-    Group custom() {
+    private Group custom() {
         Group outerBlock = customComponent();
         Group innerBlock = customComponent();
         innerBlock.setScaleX(1 / (Math.pow(2, (double) 1 / 2)));
         innerBlock.setScaleY(1 / (Math.pow(2, (double) 1 / 2)));
         innerBlock.setRotate((double) QUARTER_CLOCKWISE_ROTATION / 2);
         Group last = new Group(outerBlock, innerBlock);
-        last.setScaleX(2.0/3.0);
-        last.setScaleY(2.0/3.0);
+        last.setScaleX(2.0 / (2 + 1));
+        last.setScaleY(2.0 / (2 + 1));
         return last;
     }
 
     /**
-     * ???
-     * @return
+     * The custom component.
+     *
+     * @return custom design component as a Group.
      */
-    Group customComponent() {
-        Rectangle background = new Rectangle((double) getSizeInPx() * 1.5,
-                (double) getSizeInPx() * 1.5);
-        background.fillProperty().bind(getColorProperty(3));
+    private Group customComponent() {
+        Rectangle background = new Rectangle(getSizeInPx() * (2 + 1) / 2,
+                getSizeInPx() * (2 + 1) / 2);
+        background.fillProperty().bind(getColorProperty(2 + 1));
         Group tl = quadrant1();
         tl.setRotate(QUARTER_CLOCKWISE_ROTATION);
         Group br = quadrant1();
@@ -81,8 +88,9 @@ public class Custom extends Block implements Rotatable {
     }
 
     /**
-     * ???
-     * @return
+     * 1st quadrant of the custom design.
+     *
+     * @return 1st quadrant of the custom design as a Group.
      */
     private Group quadrant1() {
         Polygon triangle = triangle();
@@ -95,9 +103,9 @@ public class Custom extends Block implements Rotatable {
     }
 
     /**
-     * ???
+     * 2nd quadrant of the custom design.
      *
-     * @return
+     * @return 2nd quadrant of the custom design as a Group.
      */
     private Group quadrant2() {
         Polygon triangle = triangle();
@@ -110,14 +118,48 @@ public class Custom extends Block implements Rotatable {
     }
 
     /**
-     * ???
+     * A triangle.
      *
-     * @return
+     * @return just a Triangle as a Polygon
      */
     private Polygon triangle() {
-        return new Polygon(0, (double) getSizeInPx() / 2,
-                (double) getSizeInPx() / 2,
-                (double) getSizeInPx() / 2,
+        return new Polygon(0, getSizeInPx() / 2,
+                getSizeInPx() / 2,
+                getSizeInPx() / 2,
                 0, 0);
+    }
+
+    @Override
+    public void setRotation(double newRotation) {
+        this.rotation = newRotation;
+    }
+
+    @Override
+    public double getRotation() {
+        return this.rotation;
+    }
+
+    @Override
+    public String toString() {
+        return "Custom{" + "block=" + block + ", rotation=" + rotation + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Custom custom = (Custom) o;
+        return Double.compare(custom.getRotation(), getRotation()) == 0
+                &&
+                Objects.equals(getBlock(), custom.getBlock());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getBlock(), getRotation());
     }
 }

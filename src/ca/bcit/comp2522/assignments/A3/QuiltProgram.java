@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
@@ -255,6 +256,7 @@ public class QuiltProgram extends Application {
         if (!hasSelection) {
             return;
         }
+
         Quilt.replaceDesign(new Group(currentDesign.getBlock()),
                 rowNumberOfSelected, colNumberOfSelected);
         transferGroupsToGridPane();
