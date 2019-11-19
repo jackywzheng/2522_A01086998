@@ -75,9 +75,9 @@ public class Pinwheel extends Block {
      */
     private Group tile() {
         Polygon triangle = new Polygon(0, 0,
-                                        0, (double) getSizeInPx() / 2,
-                                        (double) getSizeInPx() / 2,
-                                        (double) getSizeInPx() / 2);
+                                        0, getSizeInPx() / 2,
+                                        getSizeInPx() / 2,
+                                        getSizeInPx() / 2);
         Polygon triangle2 = new Polygon();
         triangle2.getPoints().addAll(triangle.getPoints());
         triangle2.setRotate(QUARTER_CLOCKWISE_ROTATION * 2);
