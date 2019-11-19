@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
  * @version 1.0
  */
 public class Pinwheel extends Block {
-
+    // Pinwheel contains a Group
     private Group block;
 
     /**
@@ -26,6 +26,8 @@ public class Pinwheel extends Block {
 
     /**
      * Returns the block as a Group.
+     *
+     * @return block as a Group
      */
     @Override
     public Group getBlock() {
@@ -35,7 +37,7 @@ public class Pinwheel extends Block {
     /**
      * Returns new block as a Group.
      *
-     * @return block, a Group
+     * @return block as a Group
      */
     @Override
     public Group getNewBlock() {
@@ -43,9 +45,9 @@ public class Pinwheel extends Block {
     }
 
     /**
-     * Pinwheel design.
+     * Returns the Pinwheel design.
      *
-     * @return the Pinwheel design.
+     * @return the Pinwheel design as a Group
      */
     private Group pinwheel() {
         Group theBlock = new Group();
@@ -58,9 +60,9 @@ public class Pinwheel extends Block {
     }
 
     /**
-     * 1/4 of a Pinwheel, but in a transparent Square.
+     * Returns 1/4 of a Pinwheel, but in a transparent Square.
      *
-     * @return 1/4 of a Pinwheel, but in a transparent Square, as a Group.
+     * @return 1/4 of a Pinwheel in a transparent Square as a Group.
      */
     private Group tileInBox() {
         Rectangle square = new Rectangle(0, 0, getSizeInPx(), getSizeInPx());
@@ -69,7 +71,7 @@ public class Pinwheel extends Block {
     }
 
     /**
-     * 1/4 of a Pinwheel.
+     * Returns 1/4 of a Pinwheel.
      *
      * @return 1/4 of a Pinwheel as a Group.
      */

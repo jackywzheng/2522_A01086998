@@ -25,6 +25,8 @@ public class Custom extends Block implements Rotatable {
 
     /**
      * Returns the block as a Group.
+     *
+     * @return block as a Group
      */
     @Override
     public Group getBlock() {
@@ -34,7 +36,7 @@ public class Custom extends Block implements Rotatable {
     /**
      * Returns new block as a Group.
      *
-     * @return block, a Group
+     * @return block as a Group
      */
     @Override
     public Group getNewBlock() {
