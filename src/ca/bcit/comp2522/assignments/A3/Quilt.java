@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public final class Quilt {
     /**
-     * There are 45 pixels in 1 centimetre, an int.
+     * There are 45 pixels in 1 centimetre.
      */
     public static final int PIXELS_IN_A_CM = 45;
 

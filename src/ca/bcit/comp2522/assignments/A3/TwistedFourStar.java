@@ -108,6 +108,11 @@ public class TwistedFourStar extends Block {
                 firstColorPolygon, secondColorPolygon);
     }
 
+    /**
+     * Returns a string representation of the block.
+     *
+     * @return a string representation of the block.
+     */
     @Override
     public String toString() {
         return "TwistedFourStar{"
@@ -115,6 +120,13 @@ public class TwistedFourStar extends Block {
                 + '}';
     }
 
+    /**
+     * Returns true if two objects are equal.
+     *
+     * @param o an object
+     *
+     * @return true if two objects are equal, else false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -127,6 +139,11 @@ public class TwistedFourStar extends Block {
         return Objects.equals(getBlock(), that.getBlock());
     }
 
+    /**
+     * Returns the hashcode of the object.
+     *
+     * @return hashcode as an int
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getBlock());

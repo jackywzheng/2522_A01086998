@@ -108,22 +108,44 @@ public class NbyN extends Block implements Rotatable {
         return getColorProperty((int) (Math.random() * (2 + 2)));
     }
 
+    /**
+     * Sets rotation of the block.
+     *
+     * @param newRotation a double representing the degree
+     */
     @Override
     public void setRotation(double newRotation) {
         this.rotation = newRotation;
     }
 
+    /**
+     * Returns rotation of the block.
+     *
+     * @return rotation a double
+     */
     @Override
     public double getRotation() {
         return rotation;
     }
 
+    /**
+     * Returns a string representation of the block.
+     *
+     * @return a string representation of the block.
+     */
     @Override
     public String toString() {
         return "NbyN{" + "block=" + block + ", rotation=" + rotation
                 + ", numberOfSquaresPerLine=" + numberOfSquaresPerLine + '}';
     }
 
+    /**
+     * Returns true if two objects are equal.
+     *
+     * @param o an object
+     *
+     * @return true if two objects are equal, else false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -140,6 +162,11 @@ public class NbyN extends Block implements Rotatable {
                 && Objects.equals(getBlock(), nbyN.getBlock());
     }
 
+    /**
+     * Returns the hashcode of the object.
+     *
+     * @return hashcode as an int
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getBlock(), getRotation(),
