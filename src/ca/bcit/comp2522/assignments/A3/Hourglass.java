@@ -10,7 +10,7 @@ import javafx.scene.shape.Polygon;
  * @author Trung Bui
  * @version 1.0
  */
-public class Hourglass extends Block {
+public class Hourglass extends Block implements Rotatable {
 
     private Group block;
 
@@ -116,5 +116,15 @@ public class Hourglass extends Block {
                 (double) getSizeInPx() / 2,
                 (double) getSizeInPx() / 2,
                 0, 0);
+    }
+
+    @Override
+    public void setRotation() {
+
+    }
+
+    @Override
+    public double getRotation() {
+        return 0;
     }
 }
