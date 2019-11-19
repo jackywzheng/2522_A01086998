@@ -61,6 +61,10 @@ public final class Quilt {
         Quilt.numberOfColumns = numberOfColumns;
     }
 
+    public static int getBlockSizeInCentimetres() {
+        return Quilt.blockSizeInPixels / PIXELS_IN_A_CM;
+    }
+
     public static void setBlockSizeInCentimetres(int blockSizeInCentimetres) {
         Quilt.blockSizeInPixels = blockSizeInCentimetres * PIXELS_IN_A_CM;
         Block.setSizeInPx(getBlockSizeInPixels());
