@@ -1,7 +1,6 @@
 package ca.bcit.comp2522.assignments.A3;
 
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
@@ -12,7 +11,7 @@ import javafx.scene.shape.Rectangle;
  * @author Trung Bui
  * @version 1.0
  */
-public class Custom extends Block {
+public class Custom extends Block implements Rotatable {
 
     private Group block;
 

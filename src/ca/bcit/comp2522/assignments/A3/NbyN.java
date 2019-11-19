@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle;
  * @author Trung Bui
  * @version 1.0
  */
-public class NbyN extends Block {
+public class NbyN extends Block implements Rotatable {
 
     /**
      * Square root of number of squares in a n by n block.

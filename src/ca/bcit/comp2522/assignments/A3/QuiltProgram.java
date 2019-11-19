@@ -1,6 +1,5 @@
 package ca.bcit.comp2522.assignments.A3;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -17,8 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
-
-
 
 /**
  * Quilt Program.
