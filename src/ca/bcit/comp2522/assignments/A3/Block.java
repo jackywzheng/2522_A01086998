@@ -5,6 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Block.
@@ -99,5 +100,48 @@ public class Block {
      */
     SimpleObjectProperty<Color> getColorProperty(int index) {
         return colors.get(index);
+    }
+
+    /**
+     * Returns true if two objects are equal.
+     *
+     * @param o an object
+     *
+     * @return true if two objects are equal, else false
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Block)) {
+            return false;
+        }
+        Block block1 = (Block) o;
+        return colors.equals(block1.colors)
+                && block.equals(block1.block);
+    }
+
+    /**
+     * Returns the hashcode of the object.
+     *
+     * @return hashcode as an int
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(colors, block);
+    }
+
+    /**
+     * Returns a string representation of the object.
+     *
+     * @return a string representation of the object
+     */
+    @Override
+    public String toString() {
+        return "Block{"
+                + "colors=" + colors
+                + ", block=" + block
+                + '}';
     }
 }
