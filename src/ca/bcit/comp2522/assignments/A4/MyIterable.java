@@ -1,4 +1,4 @@
-package ca.bcit.comp2522.labs.lab10;
+package ca.bcit.comp2522.assignments.A4;
 
 /**
  * Provides a means to access an iterator.

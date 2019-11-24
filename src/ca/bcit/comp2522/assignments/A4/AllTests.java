@@ -1,10 +1,9 @@
-package ca.bcit.comp2522.labs.lab10;
+package ca.bcit.comp2522.assignments.A4;
 
+import ca.bcit.comp2522.assignments.A4.ArraySet;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import static org.junit.Assert.*;
 
 public class AllTests {
 

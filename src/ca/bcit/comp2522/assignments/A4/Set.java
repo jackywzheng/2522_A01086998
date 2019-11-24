@@ -1,4 +1,4 @@
-package ca.bcit.comp2522.labs.lab10;
+package ca.bcit.comp2522.assignments.A4;
 
 /**
  * An unsorted, typed collection of objects with no duplicates

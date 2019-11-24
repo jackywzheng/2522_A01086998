@@ -1,6 +1,4 @@
-package ca.bcit.comp2522.labs.lab10;
-
-import java.util.Arrays;
+package ca.bcit.comp2522.assignments.A4;
 
 /**
  * <p>ArraySet is a resizeable-array implementation of the Set interface. It
