@@ -45,7 +45,6 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @post size() = 0.
      */
     public ArraySet() {
-        // Your code goes here
         capacity = INITIAL_CAPACITY;
         elementCount = 0;
         collection = (E[]) new Object[capacity];
@@ -62,8 +61,6 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      *         element, else false.
      */
     public boolean add(final E element) {
-        // Your code goes here
-
         if (element != null && !contains(element)) {
             if (elementCount == capacity - 1) {
                 resize();
@@ -85,13 +82,11 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @return true if element was removed from the ArraySet, else false.
      */
     public boolean remove(final E element) {
-        // Your code goes here
-
         for (int i = 0; i < elementCount; i++) {
-            if (collection[i] == element) {
+            if (collection[i].equals(element)) {
                 collection[i] = collection[--elementCount];
                 collection[elementCount] = null;
-
+                return true;
             }
         }
         return false;
@@ -105,8 +100,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @post size() = 0
      */
     public void clear() {
-        // Your code goes here
-        for (int i = 0; i < capacity; i++) {
+        for (int i = 0; i < elementCount; i++) {
             collection[i] = null;
         }
         elementCount = 0;
@@ -121,9 +115,8 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @return true if element is in the ArraySet, and false otherwise.
      */
     public boolean contains(final E element) {
-        // Your code goes here
-        for (int i = 0; i < capacity; i++) {
-            if (collection[i] == element) {
+        for (int i = 0; i < elementCount; i++) {
+            if (collection[i].equals(element)) {
                 return true;
             }
         }
@@ -138,7 +131,6 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @return The number of elements in the ArraySet.
      */
     public int size() {
-        // Your code goes here
         return elementCount;
     }
 
@@ -151,7 +143,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
     private void resize() {
         capacity *= 2;
         E[] temp = (E[]) new Object[capacity];
-        for (int i = 0; i < capacity; i++) {
+        for (int i = 0; i < elementCount; i++) {
             temp[i] = collection[i];
         }
         collection = temp;
@@ -185,7 +177,6 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      *         element in the ArraySet.
      */
     public SetIterator<E> iterator() {
-        // Your code goes here
         return new SetIterator<E>();
     }
 
@@ -194,7 +185,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * ArraySet.
      */
     private class SetIterator<E> implements MyIterator<E> {
-        private int currentIndex = 0;
+        private int currentIndex;
         /**
          * Returns true if the iteration has more elements.
          * 
