@@ -46,6 +46,9 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      */
     public ArraySet() {
         // Your code goes here
+        capacity = INITIAL_CAPACITY;
+        elementCount = 0;
+        collection = (E[]) new Object[capacity];
     }
 
     /**
@@ -60,6 +63,15 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      */
     public boolean add(final E element) {
         // Your code goes here
+
+        if (element != null && !contains(element)) {
+            if (elementCount == capacity - 1) {
+                resize();
+            }
+            collection[elementCount] = element;
+            elementCount++;
+            return true;
+        }
         return false;
     }
 
@@ -74,6 +86,14 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      */
     public boolean remove(final E element) {
         // Your code goes here
+
+        for (int i = 0; i < elementCount; i++) {
+            if (collection[i] == element) {
+                collection[i] = collection[--elementCount];
+                collection[elementCount] = null;
+
+            }
+        }
         return false;
     }
 
@@ -86,6 +106,10 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      */
     public void clear() {
         // Your code goes here
+        for (int i = 0; i < capacity; i++) {
+            collection[i] = null;
+        }
+        elementCount = 0;
     }
 
     /**
@@ -98,6 +122,11 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      */
     public boolean contains(final E element) {
         // Your code goes here
+        for (int i = 0; i < capacity; i++) {
+            if (collection[i] == element) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -110,7 +139,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      */
     public int size() {
         // Your code goes here
-        return -1;
+        return elementCount;
     }
 
     /**
@@ -120,7 +149,12 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @post the capacity of the ArraySet is doubled.
      */
     private void resize() {
-        // Your code goes here
+        capacity *= 2;
+        E[] temp = (E[]) new Object[capacity];
+        for (int i = 0; i < capacity; i++) {
+            temp[i] = collection[i];
+        }
+        collection = temp;
     }
 
     /**
@@ -131,8 +165,14 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @return an unordered array containing the elements of the ArraySet.
      */
     public E[] toArray() {
-        // Your code goes here
-        return null;
+        E[] containedElements = (E[]) new Object[elementCount];
+        int count = 0;
+        for (int i = 0; i < capacity; i++) {
+            if (collection[i] != null) {
+                containedElements[count++] = collection[i];
+            }
+        }
+        return containedElements;
     }
 
     /**
@@ -146,7 +186,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      */
     public SetIterator<E> iterator() {
         // Your code goes here
-        return null;
+        return new SetIterator<E>();
     }
 
     /**
@@ -154,7 +194,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * ArraySet.
      */
     private class SetIterator<E> implements MyIterator<E> {
-
+        private int currentIndex = 0;
         /**
          * Returns true if the iteration has more elements.
          * 
@@ -164,6 +204,9 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
          */
         public boolean hasNext() {
             // Your code goes here
+            if (currentIndex < capacity && collection[currentIndex] != null) {
+                return true;
+            }
             return false;
         }
 
@@ -178,7 +221,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
          */
         public E next() {
             // Your code goes here
-            return null;
+            return (E) collection[currentIndex++];
         }
     }
 }
