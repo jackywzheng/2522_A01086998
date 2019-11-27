@@ -58,7 +58,6 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
         capacity = INITIAL_CAPACITY;
         elementCount = 0;
         collection = (E[]) Array.newInstance(classE.getComponentType(), capacity);
-//        collection = new Object[capacity];
     }
 
     /**
