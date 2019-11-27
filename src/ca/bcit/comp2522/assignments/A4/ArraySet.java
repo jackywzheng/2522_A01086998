@@ -1,5 +1,7 @@
 package ca.bcit.comp2522.assignments.A4;
 
+import java.lang.reflect.Array;
+
 /**
  * <p>ArraySet is a resizeable-array implementation of the Set interface. It
  * contains a set of elements in no particular order that excludes duplicates or
@@ -24,6 +26,11 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
     public static final int INITIAL_CAPACITY = 10;
 
     /**
+     * The generic class element.
+     */
+    private Class<E[]> classE;
+
+    /**
      * The capacity of the ArraySet.
      */
     private int capacity;
@@ -44,10 +51,12 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @pre true
      * @post size() = 0.
      */
-    public ArraySet() {
+    public ArraySet(Class<E[]> classE) {
+        this.classE = classE;
         capacity = INITIAL_CAPACITY;
         elementCount = 0;
-        collection = (E[]) new Object[capacity];
+        collection = (E[]) Array.newInstance(classE.getComponentType(), capacity);
+//        collection = new Object[capacity];
     }
 
     /**
@@ -145,7 +154,8 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      */
     private void resize() {
         capacity *= 2;
-        E[] temp = (E[]) new Object[capacity];
+        E[] temp = (E[]) Array.newInstance(classE.getComponentType(), capacity);
+//        if (elementCount >= 0) System.arraycopy(collection, 0, temp, 0, elementCount);
         for (int i = 0; i < elementCount; i++) {
             temp[i] = collection[i];
         }
@@ -160,13 +170,15 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @return an unordered array containing the elements of the ArraySet.
      */
     public E[] toArray() {
-        E[] containedElements = (E[]) new Object[elementCount];
+        E[] containedElements = (E[]) Array.newInstance(classE.getComponentType(), elementCount);
         int count = 0;
         for (int i = 0; i < capacity; i++) {
             if (collection[i] != null) {
                 containedElements[count++] = collection[i];
+                System.out.println(collection[i].getClass().getSimpleName());  //Prints what ever type E
             }
         }
+        System.out.println(collection.getClass().getSimpleName());      //Will print type E[].
         return containedElements;
     }
 
