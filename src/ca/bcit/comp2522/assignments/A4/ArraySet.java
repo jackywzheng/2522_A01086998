@@ -1,7 +1,5 @@
 package ca.bcit.comp2522.assignments.A4;
 
-import java.lang.reflect.Array;
-
 /**
  * <p>ArraySet is a resizeable-array implementation of the Set interface. It
  * contains a set of elements in no particular order that excludes duplicates or
@@ -26,11 +24,6 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
     public static final int INITIAL_CAPACITY = 10;
 
     /**
-     * The generic class element.
-     */
-    private Class<E[]> classE;
-
-    /**
      * The capacity of the ArraySet.
      */
     private int capacity;
@@ -47,17 +40,15 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
 
     /**
      * Constructs a new empty ArraySet of default initial capacity 10.
-     * Creates an array of type E using the Array native method newInstance().
      *
-     * @param classE The Class of type E
      * @pre true
      * @post size() = 0.
      */
-    public ArraySet(Class<E[]> classE) {
-        this.classE = classE;
+    @SuppressWarnings("unchecked")
+    public ArraySet() {
         capacity = INITIAL_CAPACITY;
         elementCount = 0;
-        collection = (E[]) Array.newInstance(classE.getComponentType(), capacity);
+        collection = (E[]) new Object[INITIAL_CAPACITY];
     }
 
     /**
@@ -92,9 +83,9 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @return true if element was removed from the ArraySet, else false.
      */
     public boolean remove(final E element) {
-
-        if (element == null) return false;
-
+        if (element == null) {
+            return false;
+        }
         for (int i = 0; i < elementCount; i++) {
             if (collection[i].equals(element)) {
                 collection[i] = collection[--elementCount];  // take last element and replace with removed element
@@ -153,10 +144,10 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @pre true
      * @post the capacity of the ArraySet is doubled.
      */
+    @SuppressWarnings("unchecked")
     private void resize() {
         capacity *= 2;
-        E[] temp = (E[]) Array.newInstance(classE.getComponentType(), capacity);
-//        if (elementCount >= 0) System.arraycopy(collection, 0, temp, 0, elementCount);
+        E[] temp = (E[]) new Object[capacity];
         for (int i = 0; i < elementCount; i++) {
             temp[i] = collection[i];
         }
@@ -170,16 +161,14 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @post true
      * @return an unordered array containing the elements of the ArraySet.
      */
-    public E[] toArray() {
-        E[] containedElements = (E[]) Array.newInstance(classE.getComponentType(), elementCount);
+    public Object[] toArray() {
+        Object[] containedElements = new Object[elementCount];
         int count = 0;
         for (int i = 0; i < capacity; i++) {
             if (collection[i] != null) {
                 containedElements[count++] = collection[i];
-                System.out.println(collection[i].getClass().getSimpleName());  //Prints what ever type E
             }
         }
-        System.out.println(collection.getClass().getSimpleName());      //Will print type E[].
         return containedElements;
     }
 
@@ -226,6 +215,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
          * @return the element pointed to by the SetIterator when the method is
          *         called.
          */
+        @SuppressWarnings("unchecked")
         public E next() {
             // Your code goes here
             return (E) collection[currentIndex++];
