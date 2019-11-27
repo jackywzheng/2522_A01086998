@@ -5,31 +5,50 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+
 public class ArraySetTest {
+
+    private ArraySet<String> testArraySet;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @org.junit.Before
     public void setUp() throws Exception {
-        ArraySet testArraySet = new ArraySet<>();
+        testArraySet = new ArraySet<>(String[].class);
+        for (int i = 0; i < ArraySet.INITIAL_CAPACITY; i++) {
+            testArraySet.add(String.format("Index %d", i));
+        }
     }
 
     @Test
     public void containsConstantCalledINITIAL_CAPACITY() {
+        assertEquals(10, ArraySet.INITIAL_CAPACITY);
     }
-    @Test
-    public void capacityGreaterThanElementCount() {
-    }
-    @Test
-    public void capacityEqualToElementCount() {
-    }
+
+//    @Test (NOT POSSIBLE WITH PRIVATE FIELD VARIABLES)
+//    public void capacityGreaterThanElementCount() {
+//        assertTrue(testArraySet.size() < testArraySet.getCapacity());
+//    }
+
     @Test
     public void elementCountEqualToNumberOfElementsInArraySet() {
+
+        int count = 0;
+        for (Object o : testArraySet.toArray()) {
+            if (o != null) {
+                ++count;
+            }
+        }
+        assertEquals(count, testArraySet.size());
     }
 
     @Test
     public void addingExistingElementDoesNotAddToArraySet() {
+
     }
     @Test
     public void addingExistingElementReturnsFalse() {
@@ -55,6 +74,10 @@ public class ArraySetTest {
     @Test
     public void addingNewElementIncreasesElementCount() {
     }
+
+    //adding a different element type will not add.(boolean)
+    //adding a different element type will not add.(double)
+    //adding a different element type will not add.(int)
 
     @Test
     public void elementSuccessfullyRemoved() {
@@ -108,9 +131,23 @@ public class ArraySetTest {
     @Test
     public void toArrayReturnsArrayWithSizeZeroIfEmptyArraySet() {
     }
+
+    @Test
+    public void toArrayReturnsCorrectElementType() {
+
+    }
+
+    @Test
+    public void toArrayReturnsArrayOfIdenticalElementTypes() {
+
+    }
+
     @Test
     public void toArrayReturnsArrayWithSameElementsAsArraySet() {
+
     }
+
+
 
     @Test
     public void iteratorContainsSameElementsAsOriginalArraySet() {
@@ -130,4 +167,6 @@ public class ArraySetTest {
     public void nextReturnsNullIfNoNextElementExists() {
     }
 }
+
+
 
