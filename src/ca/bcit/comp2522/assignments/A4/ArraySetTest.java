@@ -5,7 +5,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class AllTests {
+public class ArraySetTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
