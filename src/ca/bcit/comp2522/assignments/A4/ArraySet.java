@@ -4,13 +4,13 @@ package ca.bcit.comp2522.assignments.A4;
  * <p>ArraySet is a resizeable-array implementation of the Set interface. It
  * contains a set of elements in no particular order that excludes duplicates or
  * nulls.</p>
- * 
+ *
  * <p>Elements may be added to, removed from, and searched for in the ArraySet. As
  * elements are added to the ArraySet its capacity is resized automatically.</p>
- * 
+ *
  * <p>ArraySet contains a SetIterator that permits access to the elements in the
  * ArraySet one at a time.</p>
- * 
+ *
  * @author Your name
  * @author Your name
  * @version Date
@@ -40,7 +40,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
 
     /**
      * Constructs a new empty ArraySet of default initial capacity 10.
-     * 
+     *
      * @pre true
      * @post size() = 0.
      */
@@ -52,7 +52,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
 
     /**
      * Adds the specified element to the ArraySet if it is not already present.
-     * 
+     *
      * @param element The element to be added to the set.
      * @pre true
      * @post IF ( element != null AND NOT @pre.contains(element) ) THEN
@@ -74,7 +74,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
 
     /**
      * Removes the specified element from the ArraySet if it exists.
-     * 
+     *
      * @param element The element to be removed, if present.
      * @pre true
      * @post IF @pre.contains(element) THEN NOT contains(element) ELSE the
@@ -95,7 +95,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
     /**
      * Removes all elements from the ArraySet. The ArraySet will be empty after
      * this call returns.
-     * 
+     *
      * @pre true
      * @post size() = 0
      */
@@ -108,7 +108,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
 
     /**
      * Returns true if this ArraySet contains the specified element.
-     * 
+     *
      * @param element The element to be checked for containment.
      * @pre true
      * @post true
@@ -125,7 +125,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
 
     /**
      * Returns the number of elements in the ArraySet (its cardinality).
-     * 
+     *
      * @pre true
      * @post true
      * @return The number of elements in the ArraySet.
@@ -136,7 +136,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
 
     /**
      * Doubles the size of the ArraySet.
-     * 
+     *
      * @pre true
      * @post the capacity of the ArraySet is doubled.
      */
@@ -151,7 +151,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
 
     /**
      * Creates and returns an array containing the elements of the ArraySet.
-     * 
+     *
      * @pre true
      * @post true
      * @return an unordered array containing the elements of the ArraySet.
@@ -170,7 +170,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
     /**
      * Returns an iterator over the elements in this ArraySet. The elements are
      * returned in no particular order.
-     * 
+     *
      * @pre true
      * @post true
      * @return an iterator for the ArraySet of elements that points to the first
@@ -184,11 +184,11 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * SetIterator provides a means for iterating over the elements of an
      * ArraySet.
      */
-    private class SetIterator<E> implements MyIterator<E> {
+    protected class SetIterator<E> implements MyIterator<E> {
         private int currentIndex;
         /**
          * Returns true if the iteration has more elements.
-         * 
+         *
          * @pre true
          * @post true
          * @return true if the iteration has more elements, false otherwise.
@@ -204,7 +204,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
         /**
          * Returns the next element in the iteration and advances to point to
          * the next.
-         * 
+         *
          * @pre @pre.hasNext()
          * @post SetIterator points to the next element in the ArraySet.
          * @return the element pointed to by the SetIterator when the method is
