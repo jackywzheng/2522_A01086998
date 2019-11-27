@@ -26,17 +26,17 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
     /**
      * The capacity of the ArraySet.
      */
-    protected int capacity;
+    private int capacity;
 
     /**
      * The number of elements contained in the ArraySet.
      */
-    protected int elementCount;
+    private int elementCount;
 
     /**
      * The array buffer that stores the elements of the ArraySet.
      */
-    protected E[] collection;
+    private E[] collection;
 
     /**
      * Constructs a new empty ArraySet of default initial capacity 10.
@@ -82,10 +82,13 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      * @return true if element was removed from the ArraySet, else false.
      */
     public boolean remove(final E element) {
+
+        if (element == null) return false;
+
         for (int i = 0; i < elementCount; i++) {
             if (collection[i].equals(element)) {
-                collection[i] = collection[--elementCount];
-                collection[elementCount] = null;
+                collection[i] = collection[--elementCount];  // take last element and replace with removed element
+                collection[elementCount] = null;            //remove last element
                 return true;
             }
         }
