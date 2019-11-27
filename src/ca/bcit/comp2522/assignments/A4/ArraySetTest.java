@@ -18,7 +18,7 @@ public class ArraySetTest {
 
     @org.junit.Before
     public void setUp() throws Exception {
-        testArraySet = new ArraySet<>(String[].class);
+        testArraySet = new ArraySet<>();
         for (int i = 0; i < ArraySet.INITIAL_CAPACITY; i++) {
             testArraySet.add(String.format("Index %d", i));
         }
