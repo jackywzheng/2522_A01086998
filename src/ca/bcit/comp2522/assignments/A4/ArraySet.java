@@ -47,7 +47,9 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
 
     /**
      * Constructs a new empty ArraySet of default initial capacity 10.
+     * Creates an array of type E using the Array native method newInstance().
      *
+     * @param classE The Class of type E
      * @pre true
      * @post size() = 0.
      */
