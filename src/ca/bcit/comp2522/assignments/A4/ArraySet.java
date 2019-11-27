@@ -11,9 +11,9 @@ package ca.bcit.comp2522.assignments.A4;
  * <p>ArraySet contains a SetIterator that permits access to the elements in the
  * ArraySet one at a time.</p>
  *
- * @author Your name
- * @author Your name
- * @version Date
+ * @author Jacky Zheng
+ * @author Frey Tolman
+ * @version 2019/11/26
  * @invariant The ArraySet never contains duplicate elements.
  * @invariant The ArraySet never contains nulls.
  */
