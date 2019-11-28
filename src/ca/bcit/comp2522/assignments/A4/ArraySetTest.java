@@ -5,7 +5,13 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 
-
+/**
+ * Unit tests for ArraySet.
+ *
+ * @author Jacky Zheng
+ * @author Frey Tolman
+ * @version 2019/11/26
+ */
 public class ArraySetTest {
 
     private ArraySet<String> testArraySet;
@@ -237,6 +243,20 @@ public class ArraySetTest {
         Object[] intArray = intArraySet.toArray();
         for (Object i : intArray) {
             assertTrue(intArraySet.contains((int) i));
+        }
+    }
+
+    @Test
+    public void toArrayContainsAllElementsOfArraySetInOrder() {
+        for (int i = 0; i < 10; i++) {
+            testIntArraySet.add(i);
+        }
+        ArraySet.SetIterator it = testIntArraySet.iterator();
+        int count = 0;
+        while (it.hasNext()) {
+            Object testInt = it.next();
+            assertEquals(testInt, count);
+            count++;
         }
     }
 
