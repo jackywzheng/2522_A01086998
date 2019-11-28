@@ -182,7 +182,7 @@ public class ArraySet<E> implements Set<E>, MyIterable<E> {
      *         element in the ArraySet.
      */
     public SetIterator<E> iterator() {
-        return new SetIterator<E>();
+        return new SetIterator<>();
     }
 
     /**

@@ -3,7 +3,6 @@ package ca.bcit.comp2522.assignments.A4;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import static org.junit.Assert.*;
 
 
@@ -11,6 +10,7 @@ public class ArraySetTest {
 
     private ArraySet<String> testArraySet;
     private ArraySet<String> testEmptySet;
+    private ArraySet<Integer> testIntArraySet;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -23,21 +23,19 @@ public class ArraySetTest {
             testArraySet.add(String.format("Index %d", i));
         }
         testEmptySet = new ArraySet<>();
+
+        testIntArraySet = new ArraySet<>();
     }
+
+
 
     @Test
     public void containsConstantCalledINITIAL_CAPACITY() {
         assertEquals(10, ArraySet.INITIAL_CAPACITY);
     }
 
-//    @Test (NOT POSSIBLE WITH PRIVATE FIELD VARIABLES)
-//    public void capacityGreaterThanElementCount() {
-//        assertTrue(testArraySet.size() < testArraySet.getCapacity());
-//    }
-
     @Test
     public void elementCountEqualToNumberOfElementsInArraySet() {
-
         int count = 0;
         for (Object o : testArraySet.toArray()) {
             if (o != null) {
@@ -46,6 +44,12 @@ public class ArraySetTest {
         }
         assertEquals(count, testArraySet.size());
     }
+
+    @Test
+    public void elementCountIsZeroWhenArraySetIsInitialized() {
+        assertEquals(testEmptySet.size(), 0);
+    }
+
 
     @Test
     public void addingExistingElementDoesNotAddToArraySet() {
@@ -85,7 +89,7 @@ public class ArraySetTest {
         String newElement = "Index 11";
         testArraySet.add(newElement);
         Object[] strings = testArraySet.toArray();
-        assertEquals(newElement, strings[strings.length-1]);
+        assertEquals(newElement, strings[strings.length - 1]);
     }
 
     @Test
@@ -93,27 +97,27 @@ public class ArraySetTest {
         assertTrue(testArraySet.add("newElement"));
     }
 
-//    @Test (NOT POSSIBLE WITH PRIVATE FIELD VARIABLES)
-//    public void addingNewElementExpandsArrayIfArrayIsFull() {
-//        int capacity = testArraySet.getCapacity();
-//        testArraySet.add("newElement");
-//        int capacityNew = testArraySet.getCapacity();
-//        assertTrue(capacity < capacityNew);
-//    }
-
-//    @Test (NOT POSSIBLE WITH PRIVATE FIELD VARIABLES)
-//    public void addingNewElementDoublesArraySizeIfArrayIsFull() {
-//        int capacity = testArraySet.getCapacity();
-//        testArraySet.add("newElement");
-//        int capacityNew = testArraySet.getCapacity();
-//        assertEquals(capacity*2, capacityNew);
-//    }
-
     @Test
-    public void addingNewElementIncreasesElementCount() {
+    public void addOneElementIncreasesElementCountByOne() {
         int size = testArraySet.size();
         testArraySet.add("newElement");
         assertEquals(++size, testArraySet.size());
+    }
+
+    @Test
+    public void addTenElementsIncreasesElementCountByTen() {
+        for (int i = 0; i < 10; i++) {
+            testIntArraySet.add(i);
+        }
+        assertEquals(testIntArraySet.size(), 10);
+    }
+
+    @Test
+    public void addDoublesCapacityIfFull() {
+        for (int i = 0; i < 20; i++) {
+            testIntArraySet.add(i);
+        }
+        assertEquals(testIntArraySet.size(), 20);
     }
 
     @Test
@@ -182,58 +186,102 @@ public class ArraySetTest {
     public void containsReturnFalseForNonExistentElement() {
         assertFalse(testArraySet.contains("Index 10"));
     }
+
+    @Test
+    public void containsReturnFalseForEmptyArraySet() {
+        assertFalse(testEmptySet.contains(null));
+    }
+
     @Test
     public void containsHandlesNullElement() {
         assertFalse(testArraySet.contains(null));
     }
 
     @Test
-    public void sizeEqualsZeroForEmptyArraySet() {
+    public void resizeContainsOldCollectionData() {
+        for (int i = 0; i < 100; i++) {
+            testIntArraySet.add(i);
+            assertTrue(testIntArraySet.contains(i));
+        }
     }
+
     @Test
     public void sizeEqualsNumberOfElementsInArraySet() {
+        for (int i = 0; i < 10; i++) {
+            testIntArraySet.add(i);
+        }
+        assertEquals(testIntArraySet.size(), 10);
     }
+
     @Test
     public void sizeReturnsInt() {
+        int size = testArraySet.size();
+        assertTrue(Integer.class.isInstance(size));
     }
 
     @Test
     public void toArrayReturnsArrayWithSameSizeAsArraySet() {
+        assertEquals(testArraySet.size(), testArraySet.toArray().length);
     }
+
     @Test
     public void toArrayReturnsArrayWithSizeZeroIfEmptyArraySet() {
-    }
-
-    @Test
-    public void toArrayReturnsCorrectElementType() {
-
+        ArraySet<Integer> emptyArraySet = new ArraySet<>();
+        assertEquals(emptyArraySet.toArray().length, 0);
     }
 
     @Test
     public void toArrayReturnsArrayOfIdenticalElementTypes() {
-
+        ArraySet<Integer> intArraySet = new ArraySet<>();
+        intArraySet.add(1);
+        Object[] intArray = intArraySet.toArray();
+        for (Object i : intArray) {
+            assertTrue(intArraySet.contains((int) i));
+        }
     }
 
     @Test
-    public void toArrayReturnsArrayWithSameElementsAsArraySet() {
-
+    public void hasNextReturnsTrueIfIterationHasMoreElements() {
+        for (int i = 0; i < 10; i++) {
+            testIntArraySet.add(i);
+        }
+        ArraySet.SetIterator it = testArraySet.iterator();
+        assertTrue(it.hasNext());
     }
 
     @Test
-    public void iteratorContainsSameElementsAsOriginalArraySet() {
+    public void hasNextReturnsTrueIfIterationHasOneElement() {
+        testIntArraySet.add(1);
+        ArraySet.SetIterator it = testIntArraySet.iterator();
+        assertTrue(it.hasNext());
     }
 
     @Test
-    public void hasNextReturnsTrueIfNextElementExists() {
+    public void hasNextReturnsFalseOnEmptyArraySet() {
+        ArraySet.SetIterator it = testIntArraySet.iterator();
+        assertFalse(it.hasNext());
     }
+
+
     @Test
-    public void hasNextReturnsFalseIfNoNextElementExists() {
+    public void nextReturnsNextElementInArraySet() {
+        ArraySet.SetIterator it = testIntArraySet.iterator();
+        for (int i = 0; i < 100; i++) {
+            testIntArraySet.add(i);
+            assertEquals(it.next(), i);
+        }
     }
 
     @Test
-    public void nextReturnsElementIfExists() {
+    public void nextReturnsNullInEmptyArraySet() {
+        ArraySet.SetIterator it = testEmptySet.iterator();
+        assertNull(it.next());
     }
+
     @Test
-    public void nextReturnsNullIfNoNextElementExists() {
+    public void nextDoesNotReturnNullIfNonEmptyArraySet() {
+        ArraySet.SetIterator it = testIntArraySet.iterator();
+        testIntArraySet.add(1);
+        assertEquals(it.next(), 1);
     }
 }
