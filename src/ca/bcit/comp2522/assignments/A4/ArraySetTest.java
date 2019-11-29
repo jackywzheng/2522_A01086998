@@ -221,8 +221,7 @@ public class ArraySetTest {
 
     @Test
     public void sizeReturnsInt() {
-        int size = testArraySet.size();
-        assertTrue(Integer.class.isInstance(size));
+        assertTrue(Integer.class.isInstance(testArraySet.size()));
     }
 
     @Test
