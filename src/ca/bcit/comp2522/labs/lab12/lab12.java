@@ -5,14 +5,11 @@ import java.util.Scanner;
 
 public class lab12 {
 
-    public static void readFile() {
+    public void readFile() {
         try {
-            System.out.print("Enter the file name with extension : ");
-
+            System.out.println("Enter the file name with extension: ");
             Scanner input = new Scanner(System.in);
-
-            File file = new File("./" + input.nextLine());
-
+            File file = new File("src/ca/bcit/comp2522/labs/lab12/" + input.nextLine());
             input = new Scanner(file);
 
             while (input.hasNextLine()) {
@@ -21,12 +18,12 @@ public class lab12 {
             }
             input.close();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Could not find file, double check filename and make sure file is in lab12 package");
         }
     }
 
     public static void main(String[] args) {
-        lab12.readFile();
+
     }
 }
