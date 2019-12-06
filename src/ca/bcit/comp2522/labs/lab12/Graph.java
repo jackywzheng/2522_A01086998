@@ -19,12 +19,17 @@ public class Graph {
     public void addEdge(int nodeNumber1, int nodeNumber2) {
         Node node1 = new Node(nodeNumber1);
         Node node2 = new Node(nodeNumber2);
+        // Check for dupes first
         if (!neighbours.get(node1).contains(node2)) {
             neighbours.get(node1).add(node2);
         }
         if (!neighbours.get(node2).contains(node1)) {
             neighbours.get(node2).add(node1);
         }
+    }
+
+    public ArrayList<Node> getNeighbours(int nodeNumber) {
+        return neighbours.get(new Node(nodeNumber));
     }
 
     public String readFile() {
@@ -56,15 +61,13 @@ public class Graph {
             addNode(row);
             row++;
         }
-        //Then, we process the edges using those the nodes
+        //Then, we process the edges using those nodes
         scanner.reset();
         row = 0;
-        System.out.println("Hi3");
         Scanner scanner2 = new Scanner(output);
         while (scanner2.hasNextLine()) {
             String line = scanner2.nextLine();
             for (int column = 0; column < line.length(); column++) {
-                System.out.println(line.charAt(column));
                 if (line.charAt(column) == '1') {
                     addEdge(row, column);
                 }
